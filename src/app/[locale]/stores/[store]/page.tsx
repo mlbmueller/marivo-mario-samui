@@ -64,7 +64,7 @@ export default async function StorePage({ params }: { params: Params }) {
             <Media id={s.interiorImage} dict={t} alt={fmt(t.stores.interiorAlt, { store: name })} ratio="4 / 3" sizes="(min-width: 900px) 66vw, 100vw" />
           </div>
           <aside className="sticky-aside card stack">
-            <StoreFacts store={id} t={t} />
+            <StoreFacts store={id} locale={locale} t={t} />
             {(directions || isPreview()) && (
               <div>
                 <h2 style={{ fontSize: '1.1rem' }}>{t.stores.directionsLabel}</h2>

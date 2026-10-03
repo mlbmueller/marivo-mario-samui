@@ -258,7 +258,7 @@ const it: Dictionary = {
     phoneLabel: 'Telefono',
     whatsappLabel: 'WhatsApp',
     directionsLabel: 'Come arrivare',
-    directionsText: 'Le indicazioni verranno aggiunte insieme all’indirizzo confermato.',
+    directionsText: 'Le indicazioni verranno aggiunte insieme al link alla mappa confermato.',
     storeTitle: 'Il nostro negozio a {store}',
     storeIntro: 'Il nostro negozio a {store}, Koh Samui. Passa per una consulenza o inviaci prima una richiesta.',
     requestHere: 'Richiedi una consulenza a {store}',

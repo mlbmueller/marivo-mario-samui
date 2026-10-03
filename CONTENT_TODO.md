@@ -12,13 +12,13 @@ dringend empfohlen, sonst ausgeblendet · ⏳ = später möglich (Bereich bleibt
 
 | # | Punkt | benötigte Angabe / Datei | warum erforderlich | Start |
 | --- | --- | --- | --- | --- |
-| 1 | Logo-Webfassung | Ihr OK zum zugeschnittenen Rahmen (`docs/review/logo-comparison.png`) | Logo ist zentral; nur transparenter Rand entfernt | ⛔ |
+| 1 | Logo-Webfassung | ✅ freigegeben (3.10.2026) | – | – |
 | 2 | Domain | ✅ erledigt: www.nickyfashionsamui.com (GoDaddy) – DNS-Verknüpfung siehe docs/DOMAIN_SETUP.md | Canonical, Sitemap, Teilen-Vorschau | – |
 | 3 | Betreiberangaben | rechtlicher Name, Adresse, Registrierung, Kontakt | Impressum | ⛔ |
 | 4 | Datenschutz | Freigabe des Textes passend zum gewählten Versanddienst und Speicherdauer | Pflicht bei Kontaktformular | ⛔ |
 | 5 | WhatsApp | mindestens eine Nummer (zentral oder je Geschäft), international | wichtigste Kontaktaktion; ohne Nummer kein Link | ⛔ |
-| 6 | Adresse Chaweng | vollständige Adresse wie auf der Seite | Standortseite, Google-Abgleich | ⛔ |
-| 7 | Adresse Fisherman’s Village | dito | dito | ⛔ |
+| 6 | Adresse Chaweng | ✅ 9/45 Moo 2, Bo Put, Ko Samui, Surat Thani 84320 (3.10.2026) | – | – |
+| 7 | Adresse Fisherman’s Village | ✅ 79 Moo 1, Bo Put, Ko Samui, Surat Thani 84320 (3.10.2026) | – | – |
 | 8 | Kartenlink Chaweng | Google- oder Apple-Maps-Link auf den genauen Eingang | Anfahrt; keine geschätzten Pins | ⛔ |
 | 9 | Kartenlink Fisherman’s Village | dito | dito | ⛔ |
 | 10 | Fassadenfoto Chaweng | ✅ erledigt (3.10.2026, vom Betreiber geliefert) | Wiedererkennung vor Ort | – |
@@ -29,8 +29,8 @@ dringend empfohlen, sonst ausgeblendet · ⏳ = später möglich (Bereich bleibt
 | 15 | Stilwelten-Fotos | je bestätigter Stilwelt ein Foto | ohne Bild leere Karte | ⛔ (je bestätigter Welt) |
 | 16 | Sechs Looks | 6 echte Arbeiten: Foto, Titel, Kategorie, Anlass, Stoff falls bekannt | Kern des neuen Auftritts | ⛔ |
 | 17 | Texte EN/DE | Ihre Freigabe der englischen und deutschen Texte (inkl. Hero-Aussage zum Sortiment) | keine unbestätigten Aussagen | ⛔ |
-| 18 | Öffnungszeiten | je Geschäft | Besuchsplanung | ⚠️ |
-| 19 | Telefon | je Geschäft | zweiter Kontaktweg | ⚠️ |
+| 18 | Öffnungszeiten | Chaweng ✅ Mo–Sa 10–22, So 10–21 (3.10.2026). Fisherman’s Village offen: «aktuell geschlossen» – vorübergehend oder dauerhaft? Ab wann wieder offen? | Besuchsplanung | ⚠️ |
+| 19 | Telefon | ✅ Chaweng +66 82 475 1633, Fisherman’s Village +66 82 403 8052 (3.10.2026) | – | – |
 | 20 | Anfahrtshinweise | kurzer Text EN/DE je Geschäft | Orientierung | ⚠️ |
 | 21 | Mario-Text | Freigabe des kurzen Einführungstexts | sonst nur Name + «Owner» | ⚠️ |
 | 22 | Ablauf (4 Schritte) | Bestätigung durch Mario | sonst Abschnitt ausgeblendet | ⚠️ |

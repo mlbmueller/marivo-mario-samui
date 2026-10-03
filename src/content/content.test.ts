@@ -99,7 +99,15 @@ describe('content rules from the briefing', () => {
 
   it('has no fake reviews and no structured data from unconfirmed facts', () => {
     expect(reviews.every((r) => r.approvedOn && r.attribution)).toBe(true);
-    for (const id of storeIds) expect(storeJsonLd(id, 'https://example.test')).toBeNull();
+    for (const id of storeIds) {
+      const data = storeJsonLd(id, 'https://example.test');
+      if (stores[id].address.status !== 'confirmed') expect(data).toBeNull();
+      else {
+        expect(data?.address).toBe(stores[id].address.value);
+        if (stores[id].hours.status !== 'confirmed') expect(data).not.toHaveProperty('openingHours');
+        if (stores[id].mapUrl.status !== 'confirmed') expect(data).not.toHaveProperty('hasMap');
+      }
+    }
   });
 
   it('documents every image with description and alt text in all languages', () => {
@@ -143,9 +151,8 @@ describe('preview vs production release', () => {
     expect(items).toMatch(/English/);
     expect(items).toMatch(/Deutsch/);
     expect(items).not.toMatch(/Italiano|Français|ไทย/);
-    expect(items).toMatch(/trimmed web logo/);
     expect(items).toMatch(/WhatsApp/);
-    expect(items).toMatch(/Exact address/);
+    expect(items).toMatch(/Map link/);
     expect(items).toMatch(/delivery service/);
     expect(items).toMatch(/rate-limit/);
   });

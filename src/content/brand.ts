@@ -29,7 +29,7 @@ export const brand = {
     alt: 'Nicky Fashion – Men’s & Women’s Wear – Tailoring by Mario K.',
   },
   logoAsset: confirmed(true, 'Approved outlined SVG delivered in the final package'),
-  logoWebCrop: draft(true, 'Trimmed viewBox (artwork unchanged) — confirm visually'),
+  logoWebCrop: confirmed(true, 'Trimmed viewBox (artwork unchanged) — approved by the owner, 3 Oct 2026'),
   /** Small format for browser tabs. Not invented from the word mark — open asset. */
   favicon: missing('No approved small logo format') as Fact<string>,
   /** Final domain, e.g. https://example.com — never derived from the name. */

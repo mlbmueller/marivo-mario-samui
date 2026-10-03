@@ -261,7 +261,7 @@ const th: Dictionary = {
     phoneLabel: 'โทรศัพท์',
     whatsappLabel: 'WhatsApp',
     directionsLabel: 'การเดินทาง',
-    directionsText: 'ข้อมูลการเดินทางจะเพิ่มพร้อมกับที่อยู่ที่ได้รับการยืนยัน',
+    directionsText: 'ข้อมูลการเดินทางจะเพิ่มพร้อมกับลิงก์แผนที่ที่ได้รับการยืนยัน',
     storeTitle: 'ร้านของเราที่{store}',
     storeIntro: 'ร้านของเราที่{store} เกาะสมุย แวะมารับคำปรึกษาได้ หรือส่งคำขอถึงเราก่อน',
     requestHere: 'ขอรับคำปรึกษาที่{store}',

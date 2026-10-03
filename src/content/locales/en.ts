@@ -265,7 +265,7 @@ const en = {
     phoneLabel: 'Phone',
     whatsappLabel: 'WhatsApp',
     directionsLabel: 'Directions',
-    directionsText: 'Directions will be added together with the confirmed address.',
+    directionsText: 'Directions will be added together with the confirmed map link.',
     storeTitle: 'Our store in {store}',
     storeIntro: 'Our store in {store}, Koh Samui. Come by for a consultation or send us a request first.',
     requestHere: 'Request a consultation in {store}',

@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { Dictionary, Locale } from '@/content/locales';
 import { categories, categoryIds, processSteps } from '@/content/services';
 import { exteriorImageFor, stores } from '@/content/stores';
+import { formatDays } from '@/lib/hours';
 import type { StoreId } from '@/content/types';
 import { fmt, localePath } from '@/lib/i18n';
 import { isPageAvailable, isPreview, isPublishable, shown } from '@/lib/site';
@@ -135,7 +136,7 @@ export function DirectionsButton({ store, t }: { store: StoreId; t: Dictionary }
   );
 }
 
-export function StoreFacts({ store, t }: { store: StoreId; t: Dictionary }) {
+export function StoreFacts({ store, locale, t }: { store: StoreId; locale: Locale; t: Dictionary }) {
   const s = stores[store];
   const hours = shown(s.hours);
   const phone = shown(s.phone);
@@ -149,7 +150,7 @@ export function StoreFacts({ store, t }: { store: StoreId; t: Dictionary }) {
             <ul className="list-plain">
               {hours.map((h) => (
                 <li key={h.days}>
-                  {h.days}: {h.open}–{h.close}
+                  {formatDays(h.days, locale)}: {h.open}–{h.close}
                 </li>
               ))}
             </ul>
@@ -174,7 +175,7 @@ export function StoreCard({ store, locale, t, headingLevel = 3 }: { store: Store
         </p>
         <Heading>{t.storeNames[store]}</Heading>
       </div>
-      <StoreFacts store={store} t={t} />
+      <StoreFacts store={store} locale={locale} t={t} />
       <div className="btn-row">
         <Link href={localePath(locale, `/stores/${store}`)} className="btn">
           {t.common.viewStore}
