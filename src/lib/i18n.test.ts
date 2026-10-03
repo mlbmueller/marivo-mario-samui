@@ -2,6 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { alternates, fmt, localePath, stripLocale, switchLocalePath } from './i18n';
 import { dictionaries, locales } from '@/content/locales';
 import { buildWhatsAppLink, normaliseWhatsAppNumber, whatsappNumberFor } from './whatsapp';
+import { brand } from '@/content/brand';
+import { stores } from '@/content/stores';
 
 describe('language switch keeps the current page', () => {
   it('replaces only the locale prefix', () => {
@@ -35,7 +37,9 @@ describe('language switch keeps the current page', () => {
 
 describe('WhatsApp links', () => {
   it('are not generated without a confirmed number', () => {
-    expect(whatsappNumberFor('chaweng')).toBeNull();
+    // Only confirmed facts count: a store number is used only when its status is confirmed
+    const chaweng = stores.chaweng.whatsapp;
+    expect(whatsappNumberFor('chaweng')).toBe(chaweng.status === 'confirmed' ? chaweng.value : brand.whatsapp.status === 'confirmed' ? brand.whatsapp.value : null);
     expect(buildWhatsAppLink({ number: null, dict: dictionaries.en })).toBeNull();
   });
 

@@ -224,6 +224,10 @@ p {
   margin-bottom: 1.5rem;
 }
 
+.notice-closed {
+  margin-bottom: 0;
+}
+
 .pending {
   color: var(--muted);
   font-style: italic;
@@ -1847,6 +1851,17 @@ select {
 .holding-stores .icon {
   color: var(--burgundy);
   margin-top: 0.2rem;
+}
+
+.holding-closed {
+  display: block;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--burgundy);
+}
+
+.holding-closed > span {
+  display: block;
 }
 
 .holding-address,

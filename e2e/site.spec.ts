@@ -312,10 +312,18 @@ test('Our Work: filter by style and an accessible look dialog with focus return'
   await expect(opener).toBeFocused();
 });
 
-test('WhatsApp is visibly disabled while no number is confirmed', async ({ page }) => {
+test('WhatsApp uses the confirmed store number with a prefilled message', async ({ page }) => {
   await page.goto('/en/stores/chaweng');
-  await expect(page.locator('a[href^="https://wa.me/"]')).toHaveCount(0);
-  await expect(page.getByText('WhatsApp number not yet confirmed').first()).toBeVisible();
+  const href = await page.locator('.sticky-aside a[href^="https://wa.me/"]').first().getAttribute('href');
+  expect(href).toMatch(/^https:\/\/wa\.me\/66824751633\?text=/);
+  expect(decodeURIComponent(href!.split('text=')[1]!)).toContain('Chaweng');
+});
+
+test('a temporarily closed store shows the reopening and routes requests to the open store', async ({ page }) => {
+  await page.goto('/en/stores/fishermans-village');
+  await expect(page.getByText('Temporarily closed.').first()).toBeVisible();
+  await expect(page.getByText('Reopening planned for December 2026.').first()).toBeVisible();
+  await expect(page.locator('.sticky-aside a[href$="/contact?store=chaweng"]')).toHaveCount(1);
 });
 
 test.describe('widths 360–1440: no horizontal overflow', () => {

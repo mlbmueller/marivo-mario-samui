@@ -22,6 +22,8 @@ export type Store = {
   mapUrl: Fact<string>;
   /** Short directions per language code (e.g. { en: '…', de: '…' }). English is the fallback. */
   directions: Fact<Partial<Record<string, string>>>;
+  /** Temporary closure with the planned reopening month (YYYY-MM). Shown on the site while set. */
+  closure?: Fact<{ reopening: string }>;
   /** Image ids from media.ts */
   exteriorImage: MediaId;
   /** Facade after the rename; replaces exteriorImage once brand.transition.active is true. */
@@ -47,6 +49,8 @@ export const stores: Record<StoreId, Store> = {
     ...unknownStoreFields(),
     address: confirmed('9/45 Moo 2, Bo Put, Ko Samui, Surat Thani 84320, Thailand', 'Owner, 3 Oct 2026 (Google listing)'),
     phone: confirmed('+66 82 475 1633', 'Owner, 3 Oct 2026 (Google listing)'),
+    whatsapp: confirmed('+66824751633', 'Owner, 3 Oct 2026: same number as the phone'),
+    mapUrl: confirmed('https://maps.app.goo.gl/3dDBAGcJVR94zLGS8', 'Owner, 3 Oct 2026 (Google Maps share link)'),
     hours: confirmed<OpeningHours>(
       [
         { days: 'Mo-Sa', open: '10:00', close: '22:00' },
@@ -64,6 +68,10 @@ export const stores: Record<StoreId, Store> = {
     ...unknownStoreFields(),
     address: confirmed('79 Moo 1, Bo Put, Ko Samui, Surat Thani 84320, Thailand', 'Owner, 3 Oct 2026 (Google listing)'),
     phone: confirmed('+66 82 403 8052', 'Owner, 3 Oct 2026 (Google listing)'),
+    whatsapp: confirmed('+66824038052', 'Owner, 3 Oct 2026: same number as the phone'),
+    mapUrl: confirmed('https://maps.app.goo.gl/D5SbsQmRPxoUXbdb6', 'Owner, 3 Oct 2026 (Google Maps share link)'),
+    /** Closed after a fire in the building (not mentioned on the site). Remove once reopened. */
+    closure: confirmed({ reopening: '2026-12' }, 'Owner, 3 Oct 2026: reopening planned for December'),
     previousName: confirmed('Samui Armani By Mario', 'Owner, 3 Oct 2026: current facade signage until the rename in 2027'),
     exteriorImage: 'store-fishermans-village-exterior',
     exteriorImageAfterRename: 'store-fishermans-village-exterior-renamed',
@@ -76,6 +84,13 @@ export const exteriorImageFor = (s: Store): MediaId =>
   brand.transition.active && s.exteriorImageAfterRename ? s.exteriorImageAfterRename : s.exteriorImage;
 
 export const storeIds = Object.keys(stores) as StoreId[];
+
+/** The planned reopening month while a store is temporarily closed, else null. */
+export const closureOf = (s: Store): string | null => (s.closure?.status === 'confirmed' ? s.closure.value.reopening : null);
+
+/** Store to send visitors to while `s` is closed (the first open one). */
+export const openAlternativeTo = (s: Store): StoreId | null =>
+  closureOf(s) ? (storeIds.find((id) => id !== s.id && !closureOf(stores[id])) ?? null) : null;
 
 export const isStoreId = (value: unknown): value is StoreId =>
   typeof value === 'string' && (storeIds as string[]).includes(value);

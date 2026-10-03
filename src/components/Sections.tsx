@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import type { Dictionary, Locale } from '@/content/locales';
 import { categories, categoryIds, processSteps } from '@/content/services';
-import { exteriorImageFor, stores } from '@/content/stores';
-import { formatDays } from '@/lib/hours';
+import { closureOf, exteriorImageFor, openAlternativeTo, stores } from '@/content/stores';
+import { formatDays, formatMonth } from '@/lib/hours';
 import type { StoreId } from '@/content/types';
 import { fmt, localePath } from '@/lib/i18n';
 import { isPageAvailable, isPreview, isPublishable, shown } from '@/lib/site';
@@ -163,6 +163,27 @@ export function StoreFacts({ store, locale, t }: { store: StoreId; locale: Local
   );
 }
 
+/** Store names for the form's store choice, marking temporarily closed stores. */
+export function storeNamesWithStatus(t: Dictionary): Dictionary['storeNames'] {
+  const out = { ...t.storeNames };
+  for (const id of Object.keys(out) as StoreId[]) if (closureOf(stores[id])) out[id] = `${out[id]} (${t.stores.temporarilyClosed})`;
+  return out;
+}
+
+/** Visible notice while a store is temporarily closed, with the planned reopening. */
+export function ClosureNotice({ store, locale, t }: { store: StoreId; locale: Locale; t: Dictionary }) {
+  const s = stores[store];
+  const month = closureOf(s);
+  if (!month) return null;
+  const other = openAlternativeTo(s);
+  return (
+    <p className="notice notice-closed">
+      <strong>{t.stores.temporarilyClosed}.</strong> {fmt(t.stores.reopening, { month: formatMonth(month, locale) })}
+      {other && <> {fmt(t.stores.visitOther, { store: t.storeNames[other] })}</>}
+    </p>
+  );
+}
+
 export function StoreCard({ store, locale, t, headingLevel = 3 }: { store: StoreId; locale: Locale; t: Dictionary; headingLevel?: 2 | 3 }) {
   const s = stores[store];
   const Heading = `h${headingLevel}` as 'h2' | 'h3';
@@ -175,6 +196,7 @@ export function StoreCard({ store, locale, t, headingLevel = 3 }: { store: Store
         </p>
         <Heading>{t.storeNames[store]}</Heading>
       </div>
+      <ClosureNotice store={store} locale={locale} t={t} />
       <StoreFacts store={store} locale={locale} t={t} />
       <div className="btn-row">
         <Link href={localePath(locale, `/stores/${store}`)} className="btn">

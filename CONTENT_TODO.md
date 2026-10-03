@@ -16,11 +16,11 @@ dringend empfohlen, sonst ausgeblendet · ⏳ = später möglich (Bereich bleibt
 | 2 | Domain | ✅ erledigt: www.nickyfashionsamui.com (GoDaddy) – DNS-Verknüpfung siehe docs/DOMAIN_SETUP.md | Canonical, Sitemap, Teilen-Vorschau | – |
 | 3 | Betreiberangaben | rechtlicher Name, Adresse, Registrierung, Kontakt | Impressum | ⛔ |
 | 4 | Datenschutz | Freigabe des Textes passend zum gewählten Versanddienst und Speicherdauer | Pflicht bei Kontaktformular | ⛔ |
-| 5 | WhatsApp | mindestens eine Nummer (zentral oder je Geschäft), international | wichtigste Kontaktaktion; ohne Nummer kein Link | ⛔ |
+| 5 | WhatsApp | ✅ Chaweng +66 82 475 1633 (auch zentral), Fisherman’s Village +66 82 403 8052 (3.10.2026) | – | – |
 | 6 | Adresse Chaweng | ✅ 9/45 Moo 2, Bo Put, Ko Samui, Surat Thani 84320 (3.10.2026) | – | – |
 | 7 | Adresse Fisherman’s Village | ✅ 79 Moo 1, Bo Put, Ko Samui, Surat Thani 84320 (3.10.2026) | – | – |
-| 8 | Kartenlink Chaweng | Google- oder Apple-Maps-Link auf den genauen Eingang | Anfahrt; keine geschätzten Pins | ⛔ |
-| 9 | Kartenlink Fisherman’s Village | dito | dito | ⛔ |
+| 8 | Kartenlink Chaweng | ✅ https://maps.app.goo.gl/3dDBAGcJVR94zLGS8 (3.10.2026) | – | – |
+| 9 | Kartenlink Fisherman’s Village | ✅ https://maps.app.goo.gl/D5SbsQmRPxoUXbdb6 (3.10.2026) | – | – |
 | 10 | Fassadenfoto Chaweng | ✅ erledigt (3.10.2026, vom Betreiber geliefert) | Wiedererkennung vor Ort | – |
 | 11 | Fassadenfoto Fisherman’s Village | ✅ erledigt (3.10.2026): aktuelles Foto «Samui Armani» bis zur Umbenennung, Ansicht «NICKY FASHION» ab Umbenennung 2027 (Wechsel automatisch mit `brand.transition.active`). Betreiberentscheid: Armani-Schriftzug zeigen, da aktuelle Beschilderung – rechtliche Prüfung vor Veröffentlichung empfohlen | Wiedererkennung vor Ort | – |
 | 12 | Titelbild | fertiges Outfit, siehe Bildbedarf | zentrales Motiv der Startseite | ⛔ |
@@ -29,7 +29,7 @@ dringend empfohlen, sonst ausgeblendet · ⏳ = später möglich (Bereich bleibt
 | 15 | Stilwelten-Fotos | je bestätigter Stilwelt ein Foto | ohne Bild leere Karte | ⛔ (je bestätigter Welt) |
 | 16 | Sechs Looks | 6 echte Arbeiten: Foto, Titel, Kategorie, Anlass, Stoff falls bekannt | Kern des neuen Auftritts | ⛔ |
 | 17 | Texte EN/DE | Ihre Freigabe der englischen und deutschen Texte (inkl. Hero-Aussage zum Sortiment) | keine unbestätigten Aussagen | ⛔ |
-| 18 | Öffnungszeiten | Chaweng ✅ Mo–Sa 10–22, So 10–21 (3.10.2026). Fisherman’s Village offen: «aktuell geschlossen» – vorübergehend oder dauerhaft? Ab wann wieder offen? | Besuchsplanung | ⚠️ |
+| 18 | Öffnungszeiten | Chaweng ✅ Mo–Sa 10–22, So 10–21 (Google, 3.10.2026). Fisherman’s Village: vorübergehend geschlossen, Wiedereröffnung geplant Dezember 2026 – Öffnungszeiten und genaues Datum zur Wiedereröffnung nachliefern, dann `closure` in `src/content/stores.ts` entfernen | Besuchsplanung | ⚠️ |
 | 19 | Telefon | ✅ Chaweng +66 82 475 1633, Fisherman’s Village +66 82 403 8052 (3.10.2026) | – | – |
 | 20 | Anfahrtshinweise | kurzer Text EN/DE je Geschäft | Orientierung | ⚠️ |
 | 21 | Mario-Text | Freigabe des kurzen Einführungstexts | sonst nur Name + «Owner» | ⚠️ |

@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { exteriorImageFor, isStoreId, storeIds, stores } from '@/content/stores';
+import { exteriorImageFor, isStoreId, openAlternativeTo, storeIds, stores } from '@/content/stores';
 import type { StoreId } from '@/content/types';
 import { Icon } from '@/components/Icon';
 import { Media } from '@/components/Media';
-import { ClosingCta, DirectionsButton, PageHead, StoreFacts } from '@/components/Sections';
+import { ClosingCta, ClosureNotice, DirectionsButton, PageHead, StoreFacts } from '@/components/Sections';
 import { TrackedLink } from '@/components/TrackedLink';
 import { WhatsAppButton } from '@/components/WhatsAppButton';
 import { fmt, localePath } from '@/lib/i18n';
@@ -38,6 +38,8 @@ export default async function StorePage({ params }: { params: Params }) {
   const { locale, t, id } = await resolve(params);
   const name = t.storeNames[id];
   const s = stores[id];
+  /** While this store is closed, consultation requests go to the open store. */
+  const requestStore = openAlternativeTo(s) ?? id;
   const other = storeIds.find((x) => x !== id)!;
   const siteUrl = getSiteUrl();
   const directionsFact = shown(s.directions);
@@ -64,6 +66,7 @@ export default async function StorePage({ params }: { params: Params }) {
             <Media id={s.interiorImage} dict={t} alt={fmt(t.stores.interiorAlt, { store: name })} ratio="4 / 3" sizes="(min-width: 900px) 66vw, 100vw" />
           </div>
           <aside className="sticky-aside card stack">
+            <ClosureNotice store={id} locale={locale} t={t} />
             <StoreFacts store={id} locale={locale} t={t} />
             {(directions || isPreview()) && (
               <div>
@@ -72,11 +75,11 @@ export default async function StorePage({ params }: { params: Params }) {
               </div>
             )}
             <div className="btn-row" style={{ flexDirection: 'column', alignItems: 'stretch' }}>
-              <TrackedLink href={`${localePath(locale, '/contact')}?store=${id}`} className="btn" event="contact_cta_click" params={{ store: id }}>
+              <TrackedLink href={`${localePath(locale, '/contact')}?store=${requestStore}`} className="btn" event="contact_cta_click" params={{ store: requestStore }}>
                 <Icon name="calendar" />
-                {fmt(t.stores.requestHere, { store: name })}
+                {fmt(t.stores.requestHere, { store: t.storeNames[requestStore] })}
               </TrackedLink>
-              <WhatsAppButton dict={t} store={id} />
+              <WhatsAppButton dict={t} store={requestStore} />
               <DirectionsButton store={id} t={t} />
             </div>
           </aside>

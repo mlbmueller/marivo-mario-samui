@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { storeNamesWithStatus } from '@/components/Sections';
 import { InquiryForm } from '@/components/InquiryForm';
 import { lookInfoFor } from '@/components/Looks';
 import { PageHead } from '@/components/Sections';
@@ -21,7 +22,7 @@ export default async function ReturningCustomersPage({ params }: { params: Local
       <section className="section" style={{ paddingTop: 0 }}>
         <div className="container" style={{ maxWidth: 'calc(820px + 2 * var(--gutter))' }}>
           <p className="muted">{t.returning.hint}</p>
-          <InquiryForm locale={locale} t={t.form} storeNames={t.storeNames} privacyHref={localePath(locale, '/privacy')} lookInfo={lookInfoFor(t)} type="reorder" />
+          <InquiryForm locale={locale} t={t.form} storeNames={storeNamesWithStatus(t)} privacyHref={localePath(locale, '/privacy')} lookInfo={lookInfoFor(t)} type="reorder" />
         </div>
       </section>
     </>

@@ -151,8 +151,7 @@ describe('preview vs production release', () => {
     expect(items).toMatch(/English/);
     expect(items).toMatch(/Deutsch/);
     expect(items).not.toMatch(/Italiano|Français|ไทย/);
-    expect(items).toMatch(/WhatsApp/);
-    expect(items).toMatch(/Map link/);
+    expect(items).toMatch(/delivery service/);
     expect(items).toMatch(/delivery service/);
     expect(items).toMatch(/rate-limit/);
   });
@@ -165,5 +164,18 @@ describe('store facades', () => {
     const fv = stores['fishermans-village'];
     expect(exteriorImageFor(fv)).toBe(brand.transition.active ? fv.exteriorImageAfterRename : fv.exteriorImage);
     expect(exteriorImageFor({ ...fv, exteriorImageAfterRename: undefined })).toBe(fv.exteriorImage);
+  });
+});
+
+describe('temporary store closure', () => {
+  it('sends requests for a closed store to an open one', async () => {
+    const { stores, storeIds, closureOf, openAlternativeTo } = await import('./stores');
+    for (const id of storeIds) {
+      const alt = openAlternativeTo(stores[id]);
+      if (closureOf(stores[id])) {
+        expect(closureOf(stores[id])).toMatch(/^\d{4}-\d{2}$/);
+        if (alt) expect(closureOf(stores[alt])).toBeNull();
+      } else expect(alt).toBeNull();
+    }
   });
 });

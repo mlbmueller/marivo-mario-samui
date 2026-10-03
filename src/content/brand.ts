@@ -35,7 +35,8 @@ export const brand = {
   /** Final domain, e.g. https://example.com — never derived from the name. */
   domain: confirmed('https://www.nickyfashionsamui.com', 'Confirmed by the owner, 3 Oct 2026 (registered at GoDaddy)') as Fact<string>,
   /** Central WhatsApp number in international format without spaces, e.g. "+66..." */
-  whatsapp: missing('No confirmed number') as Fact<string>,
+  /** Central number: Chaweng (open store; Fisherman’s Village closed until Dec 2026). */
+  whatsapp: confirmed('+66824751633', 'Owner, 3 Oct 2026: Chaweng WhatsApp used as central contact') as Fact<string>,
   email: missing('No confirmed e-mail address') as Fact<string>,
   /** Previous public names, shown only on the transition page once it is active. */
   previousNames: ['Nicky Fashion by Mario', 'Samui Armani By Mario'],

@@ -15,3 +15,8 @@ export function formatDays(days: string, locale: string): string {
     .map((code) => dayName(code.trim(), locale))
     .join(' – ');
 }
+
+/** "2026-12" → "December 2026" in the given language. */
+export function formatMonth(month: string, locale: string): string {
+  return new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${month}-01T00:00:00Z`));
+}
