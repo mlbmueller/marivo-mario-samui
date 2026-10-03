@@ -1772,3 +1772,92 @@ select {
   width: 100%;
   height: 100%;
 }
+
+/* ---------- Coming-soon holding page (public domain until launch) ---------- */
+.holding {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(2.5rem, 8vh, 6rem) var(--gutter) 1.5rem;
+  background: var(--ivory);
+}
+
+.holding-inner {
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.75rem;
+}
+
+.holding-logo {
+  width: min(420px, 86vw);
+  height: auto;
+}
+
+.holding-eyebrow {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--burgundy);
+}
+
+.holding-langs {
+  display: grid;
+  gap: 1.25rem;
+  width: 100%;
+  padding-block: 1.5rem;
+  border-block: 1px solid var(--line);
+}
+
+.holding-langs h2 {
+  font-size: clamp(1.35rem, 3.6vw, 1.75rem);
+  color: var(--burgundy);
+  margin: 0 0 0.35rem;
+}
+
+.holding-langs p {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+.holding-stores {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem 2rem;
+}
+
+.holding-stores li {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.holding-stores .icon {
+  color: var(--burgundy);
+  margin-top: 0.2rem;
+}
+
+.holding-address,
+.holding-map {
+  display: block;
+  font-size: 0.92rem;
+}
+
+.holding-footer {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 3rem;
+}

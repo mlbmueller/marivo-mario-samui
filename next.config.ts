@@ -14,7 +14,13 @@ const nextConfig: NextConfig = {
       .map((r) => ({ source: r.from, destination: r.to, permanent: r.permanent }));
     return [
       // Root always goes to the English home page. No geolocation, no Accept-Language sniffing.
-      { source: '/', destination: '/en', permanent: false },
+      // Not on the public domain while it shows the coming-soon page (src/lib/holding.ts).
+      {
+        source: '/',
+        destination: '/en',
+        permanent: false,
+        missing: [{ type: 'host', value: '(www\\.)?nickyfashionsamui\\.com' }],
+      },
       ...confirmed,
     ];
   },

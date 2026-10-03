@@ -9,6 +9,16 @@ für den Anfang). Die Kette: **GitHub (Code) → Vercel (Hosting) → GoDaddy (D
 > Die Domain erst auf die Seite zeigen lassen, wenn sie veröffentlicht werden darf. Bis dahin
 > nur die geschützte Vercel-Testadresse verwenden.
 
+## Stand: Coming-soon-Modus (aktiv)
+
+Unter `www.nickyfashionsamui.com` und `nickyfashionsamui.com` erscheint nur die Coming-soon-Seite
+(`src/app/coming-soon/`): Logo, «Custom tailoring · Koh Samui», Hinweis EN/DE, beide Standorte,
+WhatsApp-Knopf erst mit bestätigter Nummer. Alle anderen Adressen auf der Domain führen dorthin,
+`/api/*` ist dort gesperrt. Die volle Vorschau bleibt unter den Vercel-Adressen.
+Steuerung: `src/lib/holding.ts` (`active`). Zum Start der vollen Seite: `active: false`, im
+`next.config.ts` die `missing`-Bedingung der Root-Weiterleitung entfernen, Produktionsvariablen
+setzen und deployen.
+
 ## 1. Code auf den Hauptzweig bringen
 
 Der Code liegt auf dem Zweig `claude/new-session-3cwc2d`, `main` ist noch leer.
