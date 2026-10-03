@@ -8,12 +8,12 @@
 - **Produktion** (`SITE_MODE=production`): Der Build bricht ab, solange zentrale Angaben
   fehlen. Optionale Inhalte werden stattdessen automatisch und nachvollziehbar deaktiviert.
 
-## Aktuelle Abbruchgründe (19) – alle zentral
+## Aktuelle Abbruchgründe (18) – alle zentral
 
 | # | Bereich | Grund | Lösung |
 | --- | --- | --- | --- |
 | 1 | Marke | Logo-Webfassung noch nicht visuell freigegeben | OK → `brand.logoWebCrop: confirmed(true)` |
-| 2 | Marke | Domain fehlt | `SITE_URL` setzen |
+| 2 | ~~Marke~~ | ~~Domain fehlt~~ – erledigt: www.nickyfashionsamui.com | – |
 | 3 | Recht | Betreiberangaben fehlen | `operator` in `brand.ts` |
 | 4 | Recht | Datenschutztext nicht geprüft | Text anpassen, `privacyNotice: confirmed` |
 | 5 | Kontakt | keine bestätigte WhatsApp-Nummer | `brand.whatsapp` oder `stores.*.whatsapp` |

@@ -33,7 +33,7 @@ export const brand = {
   /** Small format for browser tabs. Not invented from the word mark — open asset. */
   favicon: missing('No approved small logo format') as Fact<string>,
   /** Final domain, e.g. https://example.com — never derived from the name. */
-  domain: missing('Domain not decided') as Fact<string>,
+  domain: confirmed('https://www.nickyfashionsamui.com', 'Confirmed by the owner, 3 Oct 2026 (registered at GoDaddy)') as Fact<string>,
   /** Central WhatsApp number in international format without spaces, e.g. "+66..." */
   whatsapp: missing('No confirmed number') as Fact<string>,
   email: missing('No confirmed e-mail address') as Fact<string>,

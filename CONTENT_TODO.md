@@ -13,7 +13,7 @@ dringend empfohlen, sonst ausgeblendet · ⏳ = später möglich (Bereich bleibt
 | # | Punkt | benötigte Angabe / Datei | warum erforderlich | Start |
 | --- | --- | --- | --- | --- |
 | 1 | Logo-Webfassung | Ihr OK zum zugeschnittenen Rahmen (`docs/review/logo-comparison.png`) | Logo ist zentral; nur transparenter Rand entfernt | ⛔ |
-| 2 | Domain | endgültige Adresse, z. B. `https://www.…` | Canonical, Sitemap, Teilen-Vorschau, Formular-Herkunftsprüfung | ⛔ |
+| 2 | Domain | ✅ erledigt: www.nickyfashionsamui.com (GoDaddy) – DNS-Verknüpfung siehe docs/DOMAIN_SETUP.md | Canonical, Sitemap, Teilen-Vorschau | – |
 | 3 | Betreiberangaben | rechtlicher Name, Adresse, Registrierung, Kontakt | Impressum | ⛔ |
 | 4 | Datenschutz | Freigabe des Textes passend zum gewählten Versanddienst und Speicherdauer | Pflicht bei Kontaktformular | ⛔ |
 | 5 | WhatsApp | mindestens eine Nummer (zentral oder je Geschäft), international | wichtigste Kontaktaktion; ohne Nummer kein Link | ⛔ |
