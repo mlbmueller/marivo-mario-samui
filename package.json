@@ -1,0 +1,39 @@
+{
+  "name": "marivo-mario-samui",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Website for a custom tailoring business with two stores on Koh Samui (Nicky Fashion Samui by Mario, working name).",
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "prebuild": "npm run check:release",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "check:release": "vitest run --config vitest.release.config.mts --silent=false",
+    "screenshots": "node scripts/screenshots.mjs"
+  },
+  "dependencies": {
+    "@fontsource-variable/manrope": "5.3.0",
+    "@fontsource-variable/noto-sans-thai": "5.3.0",
+    "next": "16.3.8",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "@types/node": "22.20.5",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "eslint": "9.39.5",
+    "eslint-config-next": "16.3.8",
+    "typescript": "5.9.3",
+    "vitest": "5.0.3"
+  }
+}
