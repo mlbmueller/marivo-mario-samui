@@ -1,5 +1,5 @@
 import type { MediaId } from './media';
-import { draft, missing, type CategoryId, type Fact } from './types';
+import { confirmed, draft, missing, type CategoryId, type Fact } from './types';
 
 export type PriceInfo = {
   /** Price in THB, e.g. "from 12000" — only once approved. */
@@ -33,28 +33,28 @@ export type Interest = (typeof interests)[number];
 export const categories: Record<CategoryId, Category> = {
   men: {
     id: 'men',
-    offered: draft(true, 'Assortment not confirmed'),
+    offered: confirmed(true, 'Confirmed by the owner, 3 Oct 2026'),
     price: missing('No approved prices') as Fact<PriceInfo>,
     image: 'category-men',
     interest: 'suits',
   },
   'linen-holiday': {
     id: 'linen-holiday',
-    offered: draft(true, 'Linen & holiday assortment not confirmed'),
+    offered: confirmed(true, 'Confirmed by the owner, 3 Oct 2026'),
     price: missing('No approved prices') as Fact<PriceInfo>,
     image: 'category-linen-holiday',
     interest: 'linen-holiday',
   },
   women: {
     id: 'women',
-    offered: draft(true, 'Assortment not confirmed'),
+    offered: confirmed(true, 'Confirmed by the owner, 3 Oct 2026'),
     price: missing('No approved prices') as Fact<PriceInfo>,
     image: 'category-women',
     interest: 'women',
   },
   weddings: {
     id: 'weddings',
-    offered: draft(true, 'Assortment and group handling not confirmed'),
+    offered: confirmed(true, 'Confirmed by the owner, 3 Oct 2026'),
     price: missing('No approved prices') as Fact<PriceInfo>,
     image: 'category-weddings',
     interest: 'weddings',

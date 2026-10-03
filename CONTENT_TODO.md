@@ -25,7 +25,7 @@ dringend empfohlen, sonst ausgeblendet · ⏳ = später möglich (Bereich bleibt
 | 11 | Fassadenfoto Fisherman’s Village | ✅ erledigt (3.10.2026): aktuelles Foto «Samui Armani» bis zur Umbenennung, Ansicht «NICKY FASHION» ab Umbenennung 2027 (Wechsel automatisch mit `brand.transition.active`). Betreiberentscheid: Armani-Schriftzug zeigen, da aktuelle Beschilderung – rechtliche Prüfung vor Veröffentlichung empfohlen | Wiedererkennung vor Ort | – |
 | 12 | Titelbild | fertiges Outfit, siehe Bildbedarf | zentrales Motiv der Startseite | ⛔ |
 | 13 | Mario | Porträt oder Beratungsszene | Vertrauen, Teamabschnitt | ⛔ |
-| 14 | Sortiment | Bestätigung der Stilwelten Suits / Linen & Holiday / Women / Weddings und der Kleidungslisten | nur Bestätigtes wird gezeigt; mindestens eine nötig | ⛔ |
+| 14 | Sortiment | ✅ alle vier Stilwelten mit Kleidungslisten wie vorgeschlagen bestätigt (3.10.2026) | – | – |
 | 15 | Stilwelten-Fotos | je bestätigter Stilwelt ein Foto | ohne Bild leere Karte | ⛔ (je bestätigter Welt) |
 | 16 | Sechs Looks | 6 echte Arbeiten: Foto, Titel, Kategorie, Anlass, Stoff falls bekannt | Kern des neuen Auftritts | ⛔ |
 | 17 | Texte EN/DE | Ihre Freigabe der englischen und deutschen Texte (inkl. Hero-Aussage zum Sortiment) | keine unbestätigten Aussagen | ⛔ |

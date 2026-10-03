@@ -7,6 +7,7 @@ import { dictionaries, locales } from './locales';
 import { media } from './media';
 import { reviews } from './reviews';
 import { stores, storeIds } from './stores';
+import { categories } from './services';
 import { team } from './team';
 import { getReleaseReport } from '@/lib/release';
 import { isPageAvailable, isPublishable, routedLocales } from '@/lib/site';
@@ -133,7 +134,7 @@ describe('preview vs production release', () => {
 
   it('hides unconfirmed categories, empty work page and inactive rename page in production', () => {
     expect(isPageAvailable('/tailoring/men', 'preview')).toBe(true);
-    expect(isPageAvailable('/tailoring/men', 'production')).toBe(false);
+    expect(isPageAvailable('/tailoring/men', 'production')).toBe(categories.men.offered.status === 'confirmed');
     expect(isPageAvailable('/tailoring/linen-holiday', 'preview')).toBe(true);
     expect(isPageAvailable('/our-work', 'preview')).toBe(true);
     expect(isPageAvailable('/our-work', 'production')).toBe(false);
