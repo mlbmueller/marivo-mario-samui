@@ -2,44 +2,47 @@
 
 All images are registered in `src/content/media.ts` with description, size, source and
 rights status. Alt texts are in every locale file under `media.*`.
-While `src` is `null`, preview shows a labelled placeholder with the target aspect ratio;
-production renders nothing in its place. No stock photos of strangers presented as Mario,
-James or customers, no AI-generated faces, nothing copied from other websites.
+While `src` is `null`, preview shows a labelled placeholder with the target aspect ratio.
+No stock photos of strangers presented as Mario, James or customers, no AI-generated faces,
+nothing copied from other websites. Central motifs (hero, looks, store facades) must be real
+before launch — they are release blockers, not hidden.
 
-## Required photos
+## Brand assets (final package, 3 Oct 2026) — checked
 
-| Id | What it must show | Format / min. size | Used on | Status | Required for launch |
+| File | Status | Checked |
+| --- | --- | --- |
+| `public/brand/NICKY_FASHION_WEB.svg` | ✅ delivered, approved | viewBox `0 0 4000 1000`; text as outlined `<path>` (no `<text>`, no font dependency); fills `#5A1530` (line 1) and `#222222` (lines 2–3); transparent; 11 KB |
+| `public/brand/NICKY_FASHION_WEB_TRIM.svg` | ⚠️ derived, **visual OK needed** | same paths byte-for-byte (content test), viewBox `381 156 3238 789` = artwork + clear space of ½ line-2 height |
+| `public/brand/NICKY_FASHION_WEB.png` | ✅ delivered | 2400 × 600, RGBA, transparent; raster fallback, not used currently |
+| Favicon / small format | ❌ missing | not invented; open asset |
+| Social preview image (Open Graph) | ❌ missing | create once logo and hero photo are final |
+| Print files (TIFF 6.6 MB, JPG 5.6 MB, GIF 0.7 MB, PDF/SVG 4 m) | not in web project | sign production only |
+
+## Photos
+
+| Id | What it must show | Format | Used on | Status | Launch |
 | --- | --- | --- | --- | --- | --- |
-| `hero-fitting` | authentic consultation or fitting in one of the stores | landscape 3:2, ≥ 2400 × 1600 | home hero | placeholder | **yes** |
-| `portrait-mario` | Mario, upper body, natural light | portrait 4:5, ≥ 1200 × 1500 | home, team | placeholder | **yes** |
-| `portrait-james` | James, same style as Mario | portrait 4:5 | team | placeholder | no |
-| `team-group` | the team together | landscape 3:2 | team | placeholder | no |
-| `store-chaweng-exterior` | Chaweng facade with current signage | 4:3 | home, stores, store page | placeholder | recommended |
-| `store-chaweng-interior` | Chaweng interior with fabrics | 4:3 | store page | placeholder | no |
-| `store-fishermans-village-exterior` | Fisherman’s Village facade with current signage | 4:3 | home, stores, store page | placeholder | recommended |
-| `store-fishermans-village-interior` | Fisherman’s Village interior | 4:3 | store page | placeholder | no |
-| `category-men` | finished men’s garment worn by a customer (consent) | 4:5 | home, tailoring, men | placeholder | if category is published |
-| `category-women` | finished women’s garment worn by a customer (consent) | 4:5 | home, tailoring, women | placeholder | if category is published |
-| `category-weddings` | wedding outfit or groomsmen group (consent) | 4:5 | home, tailoring, weddings | placeholder | if category is published |
-| `detail-fabrics` | close-up of fabric swatches | 4:3 | craftsmanship | placeholder | no |
-| `detail-measuring` | measuring (hands, tape) | 4:3 | craftsmanship | placeholder | no |
-| `detail-finish` | finished detail: lapel, buttonhole, lining | 4:3 | craftsmanship, work | placeholder | no |
-| work examples | real finished garments, full body and details | 3:4 | our work, home | none | page hidden while empty |
+| `hero-outfit` | finished outfit on a real customer/model (consent), full body, bright setting | 4:5, ≥ 1600 × 2000 | home hero | placeholder | **required** |
+| `hero-consultation` | consultation or fitting in the store | 4:3 | home hero (desktop) | placeholder | recommended |
+| `portrait-mario` | Mario, portrait or advising a customer | 4:5 | home, team | placeholder | **required** |
+| `portrait-james` | James, same style | 4:5 | team | placeholder | optional |
+| `team-group` | team together | 3:2 | team | placeholder | optional |
+| `store-chaweng-exterior` | facade with current signage | 4:3 | home, stores | placeholder | **required** |
+| `store-fishermans-village-exterior` | facade with current signage | 4:3 | home, stores | placeholder | **required** |
+| `store-*-interior` | interiors with fabrics | 4:3 | store pages | placeholder | optional |
+| `category-men` (Suits) | finished suit, full body (consent) | 4:5 | style worlds, page | placeholder | required if published |
+| `category-linen-holiday` | linen look, light island setting (consent) | 4:5 | style worlds, page | placeholder | required if published |
+| `category-women` | finished women’s outfit (consent) | 4:5 | style worlds, page | placeholder | required if published |
+| `category-weddings` | wedding outfit or groomsmen (consent) | 4:5 | style worlds, page | placeholder | required if published |
+| `look-01` … `look-06` | six real finished works, complete outfit, + optional details | 3:4 | home, our work, category pages | empty slots | **required (6)** |
+| `detail-fabrics`, `detail-measuring`, `detail-finish` | fabric close-up, measuring, finished detail | 4:3 | craftsmanship | placeholder | optional |
+| atelier film (`atelierFilm`) | 20–30 s, manual playback, poster, captions, no autoplay sound | 16:9 | home (Mario) | missing | optional |
 
 ## For every delivered photo
 
-- [ ] File optimised (JPEG/WebP, long edge ≤ 2400 px, < 600 KB), stored in `public/images/`
-- [ ] `src`, `width`, `height` set to the real file dimensions
-- [ ] `source` filled in (photographer / owner, year)
-- [ ] usage rights documented (who may use it where, for how long)
-- [ ] consent of every recognisable person, in writing
-- [ ] `rights: 'approved'`
-- [ ] alt text checked in all languages (`media.<id>` in the locale files)
-
-## Logo
-
-| Asset | Status |
-| --- | --- |
-| Horizontal logo (mark left, name, «by Mario») | **temporary** SVG: diamond with stitch line, `src/components/Logo.tsx` |
-| Favicon | temporary, `src/app/icon.svg` |
-| Social preview image (Open Graph) | not created — add once logo and hero photo are final |
+- [ ] optimised (JPEG/WebP, long edge ≤ 2400 px, < 600 KB) in `public/images/`
+- [ ] `src`, `width`, `height` = real file dimensions
+- [ ] `source` (photographer/owner, year) and usage rights documented
+- [ ] written consent of every recognisable person
+- [ ] `rights: 'approved'`; for looks also `status: 'confirmed'` in `looks.ts`
+- [ ] alt text checked in all languages

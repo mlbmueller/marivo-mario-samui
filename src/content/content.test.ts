@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { brand } from './brand';
 import en from './locales/en';
@@ -57,8 +59,23 @@ describe('content rules from the briefing', () => {
     expect(site).not.toMatch(/\b(bespoke|handmade|hand-made|handgemacht|24[- ]?h(ours?)?|guarantee|garantie)\b/i);
   });
 
-  it('shows only the working brand name, never the discussed alternative', () => {
-    expect(allText({ brand, site })).not.toMatch(/marivo/i);
+  it('uses only the final brand NICKY FASHION — no alternative or earlier working names', () => {
+    expect(brand.name).toMatchObject({ status: 'confirmed', value: 'NICKY FASHION' });
+    expect(brand.signature.value).toBe('Tailoring by Mario K.');
+    expect(allText({ brand: brand.name, site })).not.toMatch(/marivo|nicky fashion samui/i);
+    // "Samui" is a location, not part of the brand name
+    expect(brand.name.value).not.toMatch(/samui/i);
+  });
+
+  it('logo: approved outlined SVG, web variant changes only the viewBox, ratio from the file', () => {
+    const original = readFileSync(join(process.cwd(), 'public', brand.logo.original), 'utf8');
+    const web = readFileSync(join(process.cwd(), 'public', brand.logo.web), 'utf8');
+    const body = (svg: string) => svg.replace(/<svg[^>]*>/, '');
+    expect(body(web)).toBe(body(original));
+    expect(original).not.toMatch(/<text|font-family/); // outlines, no font dependency
+    const vb = web.match(/viewBox="([\d.\s-]+)"/)![1]!.split(/\s+/).map(Number);
+    expect(vb[2]! / vb[3]!).toBeCloseTo(brand.logo.webWidth / brand.logo.webHeight, 3);
+    expect(original).toContain('fill="#5A1530"');
   });
 
   it('mentions previous names only in the transition data, not in visible texts', () => {
@@ -104,6 +121,8 @@ describe('preview vs production release', () => {
   it('hides unconfirmed categories, empty work page and inactive rename page in production', () => {
     expect(isPageAvailable('/tailoring/men', 'preview')).toBe(true);
     expect(isPageAvailable('/tailoring/men', 'production')).toBe(false);
+    expect(isPageAvailable('/tailoring/linen-holiday', 'preview')).toBe(true);
+    expect(isPageAvailable('/our-work', 'preview')).toBe(true);
     expect(isPageAvailable('/our-work', 'production')).toBe(false);
     expect(isPageAvailable('/our-new-name', 'production')).toBe(brand.transition.active);
     expect(isPageAvailable('/stores/chaweng', 'production')).toBe(true);
@@ -112,7 +131,9 @@ describe('preview vs production release', () => {
   it('lists blocking items while production data is missing', () => {
     const report = getReleaseReport({});
     const items = report.blockers.map((b) => b.item).join('\n');
-    expect(items).toMatch(/Brand name approved/);
+    expect(items).toMatch(/approved looks/);
+    expect(items).toMatch(/Favicon/);
+    expect(items).toMatch(/trimmed web logo/);
     expect(items).toMatch(/WhatsApp/);
     expect(items).toMatch(/Exact address/);
     expect(items).toMatch(/delivery service/);

@@ -16,5 +16,5 @@ export const draft = <T>(value: T, note?: string): Fact<T> => ({ status: 'draft'
 export const confirmed = <T>(value: T, note?: string): Fact<T> => ({ status: 'confirmed', value, note });
 
 export type StoreId = 'chaweng' | 'fishermans-village';
-export type CategoryId = 'men' | 'women' | 'weddings';
+export type CategoryId = 'men' | 'linen-holiday' | 'women' | 'weddings';
 export type TeamMemberId = 'mario' | 'james';

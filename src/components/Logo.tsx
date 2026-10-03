@@ -2,27 +2,21 @@ import Link from 'next/link';
 import { brand } from '@/content/brand';
 
 /**
- * TEMPORARY wordmark (draft): simple geometric mark left of the name.
- * Mark = a diamond with a vertical stitch line. Replace once a final logo is approved
- * (brand.logo in src/content/brand.ts). No third-party marks, no imitation of other logotypes.
+ * The approved three-line word mark as delivered (outlined SVG). Never rebuilt from text,
+ * never stretched: width is set by CSS, height follows the viewBox ratio (height: auto).
  */
-export function LogoMark({ className = 'logo-mark' }: { className?: string }) {
+export function LogoImage({ className = 'logo-img', priority = false }: { className?: string; priority?: boolean }) {
+  const { web, webWidth, webHeight, alt } = brand.logo;
   return (
-    <svg className={className} viewBox="0 0 40 40" aria-hidden="true" focusable="false">
-      <rect x="8.5" y="8.5" width="23" height="23" transform="rotate(45 20 20)" fill="none" stroke="currentColor" strokeWidth="2" />
-      <path d="M20 9v22" stroke="var(--accent)" strokeWidth="2" strokeDasharray="2.5 2.5" />
-    </svg>
+    // eslint-disable-next-line @next/next/no-img-element -- static vector file, no optimisation needed
+    <img src={web} width={webWidth} height={webHeight} alt={alt} className={className} decoding="async" fetchPriority={priority ? 'high' : undefined} />
   );
 }
 
-export function Logo({ href }: { href: string }) {
+export function Logo({ href, priority }: { href: string; priority?: boolean }) {
   return (
-    <Link href={href} className="logo" aria-label={`${brand.name.value} ${brand.suffix.value}`}>
-      <LogoMark />
-      <span className="logo-text" aria-hidden="true">
-        <span className="logo-name">{brand.name.value}</span>
-        <span className="logo-suffix">{brand.suffix.value}</span>
-      </span>
+    <Link href={href} className="logo">
+      <LogoImage priority={priority} />
     </Link>
   );
 }

@@ -1,6 +1,7 @@
 import { brand } from '@/content/brand';
 import { categories, categoryIds } from '@/content/services';
-import { workExamples } from '@/content/media';
+import { looks } from '@/content/looks';
+import { media } from '@/content/media';
 import type { ContentStatus, Fact } from '@/content/types';
 
 /**
@@ -39,7 +40,7 @@ export function getSiteUrl(): string | null {
  */
 export function isPageAvailable(path: string, mode: SiteMode = getSiteMode()): boolean {
   if (path === '/our-new-name') return brand.transition.active || mode === 'preview';
-  if (path === '/our-work') return workExamples.length > 0 || mode === 'preview';
+  if (path === '/our-work') return visibleLooks(mode).length > 0;
   if (path.startsWith('/tailoring/')) {
     const id = path.split('/')[2];
     const category = categoryIds.find((c) => c === id);
@@ -47,6 +48,14 @@ export function isPageAvailable(path: string, mode: SiteMode = getSiteMode()): b
   }
   if (path === '/tailoring') return categoryIds.some((id) => isPublishable(categories[id].offered.status, mode));
   return true;
+}
+
+/**
+ * Looks that may be shown: in preview all non-missing entries (slots with placeholders),
+ * in production only confirmed looks with an approved image.
+ */
+export function visibleLooks(mode: SiteMode = getSiteMode()) {
+  return looks.filter((l) => isPublishable(l.status, mode) && (mode === 'preview' || (media[l.image].rights === 'approved' && !!media[l.image].src)));
 }
 
 /** All locale-independent paths of the site. */

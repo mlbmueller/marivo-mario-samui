@@ -5,18 +5,20 @@ import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import type { Dictionary } from '@/content/locales';
 import { track } from '@/lib/analytics';
 import {
-  concerns,
   contactMethods,
   emptyInquiry,
   hasErrors,
+  interests,
+  isValidDate,
   LIMITS,
-  productOptions,
+  stripHidden,
   storeOptions,
   todayInBangkok,
   validateInquiry,
   type FieldErrors,
   type InquiryInput,
   type InquiryResponse,
+  type RequestType,
 } from '@/lib/inquiry';
 
 type FormDict = Dictionary['form'];
@@ -26,8 +28,9 @@ type Props = {
   t: FormDict;
   storeNames: Dictionary['storeNames'];
   privacyHref: string;
-  initial?: Partial<Pick<InquiryInput, 'product' | 'store' | 'concern'>>;
-  variant?: 'contact' | 'reorder';
+  /** Look id → { title, interest } for the visible, removable look reference. */
+  lookInfo: Record<string, { title: string; interest: string }>;
+  type?: RequestType;
 };
 
 type Status =
@@ -36,30 +39,41 @@ type Status =
   | { kind: 'done'; outcome: 'accepted' | 'demo' }
   | { kind: 'failed'; reason: 'failed' | 'rate-limited' | 'unavailable' };
 
-const FIELD_ORDER: (keyof InquiryInput)[] = ['name', 'contactMethod', 'contactValue', 'concern', 'product', 'store', 'arrival', 'departure', 'preferredDate', 'message'];
+const FIELD_ORDER: (keyof InquiryInput)[] = ['interest', 'look', 'arrival', 'departure', 'store', 'preferredDate', 'name', 'contactValue', 'message'];
 
 const fieldId = (name: keyof InquiryInput) => `inq-${name}`;
 
 const noopSubscribe = () => () => {};
 
-function prefillFromQuery(search: string): Partial<InquiryInput> {
+/**
+ * Context taken over from links and the home page "plan your stay" module:
+ * ?interest=…&look=…&store=…&arrival=…&departure=…&datesOpen=1
+ * Only known values are accepted. Contact data is never read from the URL.
+ */
+export function prefillFromQuery(search: string, lookInfo: Props['lookInfo']): Partial<InquiryInput> {
   const q = new URLSearchParams(search);
-  const pick = <T extends string>(key: string, allowed: readonly T[]) => {
-    const v = q.get(key);
-    return v && (allowed as readonly string[]).includes(v) ? (v as T) : undefined;
-  };
   const out: Partial<InquiryInput> = {};
-  const product = pick('product', productOptions);
-  const store = pick('store', storeOptions);
-  const concern = pick('concern', concerns);
-  if (product) out.product = product;
-  if (store) out.store = store;
-  if (concern) out.concern = concern;
+  const look = q.get('look');
+  if (look && lookInfo[look]) {
+    out.look = look;
+    out.interest = lookInfo[look].interest as InquiryInput['interest'];
+  }
+  const interest = q.get('interest');
+  if (interest && (interests as readonly string[]).includes(interest)) out.interest = interest as InquiryInput['interest'];
+  const store = q.get('store');
+  if (store && (storeOptions as readonly string[]).includes(store)) out.store = store;
+  if (q.get('datesOpen') === '1') out.datesOpen = true;
+  else {
+    const arrival = q.get('arrival');
+    const departure = q.get('departure');
+    if (arrival && isValidDate(arrival)) out.arrival = arrival;
+    if (departure && isValidDate(departure)) out.departure = departure;
+  }
   return out;
 }
 
-export function InquiryForm({ locale, t, storeNames, privacyHref, initial, variant = 'contact' }: Props) {
-  const [values, setValues] = useState<InquiryInput>(() => ({ ...emptyInquiry(locale), ...initial }));
+export function InquiryForm({ locale, t, storeNames, privacyHref, lookInfo, type = 'inquiry' }: Props) {
+  const [values, setValues] = useState<InquiryInput>(() => emptyInquiry(locale, type));
   const [errors, setErrors] = useState<FieldErrors>({});
   const [attempted, setAttempted] = useState(false);
   const [status, setStatus] = useState<Status>({ kind: 'idle' });
@@ -72,12 +86,12 @@ export function InquiryForm({ locale, t, storeNames, privacyHref, initial, varia
   const today = useSyncExternalStore(noopSubscribe, todayInBangkok, () => '');
   const search = useSyncExternalStore(noopSubscribe, () => window.location.search, () => '');
 
-  // Preselection from links such as /contact?product=men&store=chaweng (only known values),
-  // merged once when the query string becomes known.
+  // Context from the URL is merged once when the query string becomes known.
+  // Taking over context never sends anything — the customer submits deliberately.
   const [appliedSearch, setAppliedSearch] = useState('');
   if (search !== appliedSearch) {
     setAppliedSearch(search);
-    const prefill = prefillFromQuery(search);
+    const prefill = prefillFromQuery(search, lookInfo);
     if (Object.keys(prefill).length > 0) setValues((prev) => ({ ...prev, ...prefill }));
   }
 
@@ -100,6 +114,13 @@ export function InquiryForm({ locale, t, storeNames, privacyHref, initial, varia
   const describedBy = (key: keyof InquiryInput, hint?: boolean) =>
     [hint ? `${fieldId(key)}-hint` : null, errors[key] ? `${fieldId(key)}-error` : null].filter(Boolean).join(' ') || undefined;
 
+  const fieldError = (key: keyof InquiryInput) =>
+    errors[key] ? (
+      <span id={`${fieldId(key)}-error`} className="field-error">
+        {errorText(key)}
+      </span>
+    ) : null;
+
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (inFlight.current) return; // no double submission while a request is running
@@ -118,13 +139,14 @@ export function InquiryForm({ locale, t, storeNames, privacyHref, initial, varia
       const res = await fetch('/api/inquiry', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values),
+        // Hidden values (dates when "still open", date when not suggested) are not sent.
+        body: JSON.stringify(stripHidden(values)),
       });
       const data = (await res.json().catch(() => null)) as InquiryResponse | null;
       if (data?.ok) {
         setStatus({ kind: 'done', outcome: data.outcome });
         if (data.outcome === 'accepted') {
-          track('inquiry_submit_success', { store: values.store, category: values.product, locale });
+          track('inquiry_submit_success', { store: values.store, category: values.interest, locale });
         }
       } else if (data && data.error === 'validation') {
         setErrors(data.fields);
@@ -145,7 +167,7 @@ export function InquiryForm({ locale, t, storeNames, privacyHref, initial, varia
   }
 
   const reset = () => {
-    setValues({ ...emptyInquiry(locale), ...initial, ...prefillFromQuery(search) });
+    setValues({ ...emptyInquiry(locale, type), ...prefillFromQuery(search, lookInfo) });
     setErrors({});
     setAttempted(false);
     setStatus({ kind: 'idle' });
@@ -168,6 +190,7 @@ export function InquiryForm({ locale, t, storeNames, privacyHref, initial, varia
   const errorKeys = FIELD_ORDER.filter((k) => errors[k]);
   const contactLabel = values.contactMethod === 'email' ? t.email : values.contactMethod === 'whatsapp' ? t.whatsapp : t.phone;
   const [privacyBefore, privacyAfter] = t.privacyNote.split('{link}');
+  const look = values.look ? lookInfo[values.look] : undefined;
 
   return (
     <form className="form-card" onSubmit={onSubmit} noValidate aria-busy={submitting} data-testid="inquiry-form">
@@ -191,12 +214,140 @@ export function InquiryForm({ locale, t, storeNames, privacyHref, initial, varia
         </div>
       )}
 
-      <fieldset disabled={submitting}>
-        <legend>{t.legend}</legend>
-        <p className="hint" style={{ marginTop: '-0.5rem', marginBottom: '1.25rem' }}>
-          {t.requiredHint}
-        </p>
+      <p className="hint" style={{ marginTop: 0, marginBottom: '1.25rem' }}>
+        {t.requiredHint}
+      </p>
 
+      {/* 1 — Your request */}
+      <fieldset className="form-group" disabled={submitting}>
+        <legend>
+          <span className="step-no" aria-hidden="true">
+            1
+          </span>
+          {t.groupRequest}
+        </legend>
+        <div className="form-grid">
+          {type === 'reorder' && <p className="notice" style={{ margin: 0 }}>{t.reorderNote}</p>}
+          <div className="field">
+            <label htmlFor={fieldId('interest')}>
+              {t.interest}
+              <span className="req" aria-hidden="true">*</span>
+            </label>
+            <select
+              id={fieldId('interest')}
+              required
+              value={values.interest}
+              onChange={(e) => set('interest', e.target.value as InquiryInput['interest'])}
+              aria-invalid={errors.interest ? true : undefined}
+              aria-describedby={describedBy('interest')}
+            >
+              <option value="">—</option>
+              {interests.map((i) => (
+                <option key={i} value={i}>
+                  {t.interests[i]}
+                </option>
+              ))}
+            </select>
+            {fieldError('interest')}
+          </div>
+          {look && (
+            <div className="look-chip" id={fieldId('look')} data-testid="look-reference">
+              <span>
+                <strong>{t.lookLabel}:</strong> {look.title} <span className="muted small">({values.look})</span>
+              </span>
+              <button type="button" className="link-button" onClick={() => set('look', '')}>
+                {t.lookRemove}
+              </button>
+            </div>
+          )}
+        </div>
+      </fieldset>
+
+      {/* 2 — Your stay */}
+      <fieldset className="form-group" disabled={submitting}>
+        <legend>
+          <span className="step-no" aria-hidden="true">
+            2
+          </span>
+          {t.groupStay}
+        </legend>
+        <div className="form-grid">
+          <label className="checkbox">
+            <input type="checkbox" checked={values.datesOpen} onChange={(e) => set('datesOpen', e.target.checked)} data-testid="dates-open" />
+            {t.datesOpen}
+          </label>
+          {!values.datesOpen && (
+            <div className="form-grid form-grid-2">
+              <div className="field">
+                <label htmlFor={fieldId('arrival')}>{t.arrival}</label>
+                <input
+                  id={fieldId('arrival')}
+                  type="date"
+                  value={values.arrival}
+                  onChange={(e) => set('arrival', e.target.value)}
+                  aria-invalid={errors.arrival ? true : undefined}
+                  aria-describedby={describedBy('arrival')}
+                />
+                {fieldError('arrival')}
+              </div>
+              <div className="field">
+                <label htmlFor={fieldId('departure')}>{t.departure}</label>
+                <input
+                  id={fieldId('departure')}
+                  type="date"
+                  value={values.departure}
+                  min={values.arrival > today ? values.arrival : today || undefined}
+                  onChange={(e) => set('departure', e.target.value)}
+                  aria-invalid={errors.departure ? true : undefined}
+                  aria-describedby={describedBy('departure')}
+                />
+                {fieldError('departure')}
+              </div>
+            </div>
+          )}
+          <div className="field">
+            <label htmlFor={fieldId('store')}>{t.store}</label>
+            <select id={fieldId('store')} value={values.store} onChange={(e) => set('store', e.target.value)} aria-invalid={errors.store ? true : undefined}>
+              {storeOptions.map((s) => (
+                <option key={s} value={s}>
+                  {s === 'no-preference' ? t.noPreference : storeNames[s]}
+                </option>
+              ))}
+            </select>
+          </div>
+          {!values.suggestDate ? (
+            <button type="button" className="link-button" style={{ justifySelf: 'start' }} aria-expanded="false" aria-controls={fieldId('preferredDate')} onClick={() => set('suggestDate', true)}>
+              + {t.suggestDate}
+            </button>
+          ) : (
+            <div className="field">
+              <label htmlFor={fieldId('preferredDate')}>{t.preferredDate}</label>
+              <input
+                id={fieldId('preferredDate')}
+                type="date"
+                value={values.preferredDate}
+                min={today || undefined}
+                onChange={(e) => set('preferredDate', e.target.value)}
+                aria-invalid={errors.preferredDate ? true : undefined}
+                aria-describedby={describedBy('preferredDate', true)}
+              />
+              <span id={`${fieldId('preferredDate')}-hint`} className="hint">
+                {t.preferredDateHint}
+              </span>
+              {fieldError('preferredDate')}
+            </div>
+          )}
+        </div>
+      </fieldset>
+
+      {/* 3 — Contact */}
+      <fieldset className="form-group" disabled={submitting}>
+        <legend>
+          <span className="step-no" aria-hidden="true">
+            3
+          </span>
+          {t.groupContact}
+        </legend>
         <div className="form-grid">
           <div className="field">
             <label htmlFor={fieldId('name')}>
@@ -214,7 +365,7 @@ export function InquiryForm({ locale, t, storeNames, privacyHref, initial, varia
               aria-invalid={errors.name ? true : undefined}
               aria-describedby={describedBy('name')}
             />
-            {errors.name && <span id={`${fieldId('name')}-error`} className="field-error">{errorText('name')}</span>}
+            {fieldError('name')}
           </div>
 
           <div className="field" role="radiogroup" aria-labelledby={`${fieldId('contactMethod')}-label`}>
@@ -249,110 +400,9 @@ export function InquiryForm({ locale, t, storeNames, privacyHref, initial, varia
               aria-invalid={errors.contactValue ? true : undefined}
               aria-describedby={describedBy('contactValue')}
             />
-            {errors.contactValue && <span id={`${fieldId('contactValue')}-error`} className="field-error">{errorText('contactValue')}</span>}
+            {fieldError('contactValue')}
           </div>
 
-          <div className="form-grid form-grid-2">
-            <div className="field">
-              <label htmlFor={fieldId('concern')}>
-                {t.concern}
-                <span className="req" aria-hidden="true">*</span>
-              </label>
-              <select
-                id={fieldId('concern')}
-                required
-                value={values.concern}
-                onChange={(e) => set('concern', e.target.value as InquiryInput['concern'])}
-                aria-invalid={errors.concern ? true : undefined}
-                aria-describedby={describedBy('concern')}
-              >
-                <option value="">—</option>
-                {concerns.map((c) => (
-                  <option key={c} value={c}>
-                    {t.concerns[c]}
-                  </option>
-                ))}
-              </select>
-              {errors.concern && <span id={`${fieldId('concern')}-error`} className="field-error">{errorText('concern')}</span>}
-            </div>
-
-            <div className="field">
-              <label htmlFor={fieldId('product')}>{t.product}</label>
-              <select id={fieldId('product')} value={values.product} onChange={(e) => set('product', e.target.value)} aria-invalid={errors.product ? true : undefined}>
-                {productOptions.map((p) => (
-                  <option key={p} value={p}>
-                    {t.products[p]}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          <div className="field">
-            <label htmlFor={fieldId('store')}>{t.store}</label>
-            <select id={fieldId('store')} value={values.store} onChange={(e) => set('store', e.target.value)} aria-invalid={errors.store ? true : undefined}>
-              {storeOptions.map((s) => (
-                <option key={s} value={s}>
-                  {s === 'no-preference' ? t.noPreference : storeNames[s]}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-      </fieldset>
-
-      <fieldset disabled={submitting} style={{ marginTop: '2rem' }}>
-        <legend>{t.travelHeading}</legend>
-        <div className="form-grid">
-          <label className="checkbox">
-            <input type="checkbox" checked={values.datesOpen} onChange={(e) => set('datesOpen', e.target.checked)} />
-            {t.datesOpen}
-          </label>
-          <div className="form-grid form-grid-2">
-            <div className="field">
-              <label htmlFor={fieldId('arrival')}>{t.arrival}</label>
-              <input
-                id={fieldId('arrival')}
-                type="date"
-                value={values.arrival}
-                disabled={values.datesOpen}
-                onChange={(e) => set('arrival', e.target.value)}
-                aria-invalid={errors.arrival ? true : undefined}
-                aria-describedby={describedBy('arrival')}
-              />
-              {errors.arrival && <span id={`${fieldId('arrival')}-error`} className="field-error">{errorText('arrival')}</span>}
-            </div>
-            <div className="field">
-              <label htmlFor={fieldId('departure')}>{t.departure}</label>
-              <input
-                id={fieldId('departure')}
-                type="date"
-                value={values.departure}
-                min={values.arrival || today || undefined}
-                disabled={values.datesOpen}
-                onChange={(e) => set('departure', e.target.value)}
-                aria-invalid={errors.departure ? true : undefined}
-                aria-describedby={describedBy('departure')}
-              />
-              {errors.departure && <span id={`${fieldId('departure')}-error`} className="field-error">{errorText('departure')}</span>}
-            </div>
-          </div>
-          <div className="field">
-            <label htmlFor={fieldId('preferredDate')}>{t.preferredDate}</label>
-            <input
-              id={fieldId('preferredDate')}
-              type="date"
-              value={values.preferredDate}
-              min={today || undefined}
-              onChange={(e) => set('preferredDate', e.target.value)}
-              aria-invalid={errors.preferredDate ? true : undefined}
-              aria-describedby={describedBy('preferredDate', true)}
-            />
-            <span id={`${fieldId('preferredDate')}-hint`} className="hint">
-              {t.preferredDateHint}
-            </span>
-            {errors.preferredDate && <span id={`${fieldId('preferredDate')}-error`} className="field-error">{errorText('preferredDate')}</span>}
-          </div>
           <div className="field">
             <label htmlFor={fieldId('message')}>{t.message}</label>
             <textarea
@@ -364,9 +414,9 @@ export function InquiryForm({ locale, t, storeNames, privacyHref, initial, varia
               aria-describedby={describedBy('message', true)}
             />
             <span id={`${fieldId('message')}-hint`} className="hint">
-              {variant === 'reorder' ? t.reorderMessageHint : t.messageHint}
+              {type === 'reorder' ? t.reorderMessageHint : t.messageHint}
             </span>
-            {errors.message && <span id={`${fieldId('message')}-error`} className="field-error">{errorText('message')}</span>}
+            {fieldError('message')}
           </div>
         </div>
       </fieldset>

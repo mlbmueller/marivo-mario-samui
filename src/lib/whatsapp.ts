@@ -32,15 +32,20 @@ export function buildWhatsAppLink(opts: {
   dict: Dictionary;
   category?: CategoryId | null;
   store?: StoreId | null;
+  /** Look id from src/content/looks.ts — title and reference go into the message. */
+  look?: string | null;
 }): string | null {
   if (!opts.number) return null;
   const digits = normaliseWhatsAppNumber(opts.number);
   if (!digits) return null;
   const { dict } = opts;
+  const lookTitle = opts.look ? dict.looks.items[opts.look as keyof Dictionary['looks']['items']]?.title : undefined;
   const parts = [
-    opts.category
-      ? fmt(dict.whatsapp.withCategory, { category: dict.categories[opts.category].name })
-      : dict.whatsapp.greeting,
+    lookTitle
+      ? fmt(dict.whatsapp.withLook, { look: lookTitle, ref: opts.look! })
+      : opts.category
+        ? fmt(dict.whatsapp.withCategory, { category: dict.categories[opts.category].name })
+        : dict.whatsapp.greeting,
   ];
   if (opts.store) parts.push(fmt(dict.whatsapp.atStore, { store: dict.storeNames[opts.store] }));
   return `https://wa.me/${digits}?text=${encodeURIComponent(parts.join(' '))}`;

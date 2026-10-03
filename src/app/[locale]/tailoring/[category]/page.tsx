@@ -12,7 +12,8 @@ import { TrackedLink } from '@/components/TrackedLink';
 import { WhatsAppButton } from '@/components/WhatsAppButton';
 import { fmt, localePath } from '@/lib/i18n';
 import { pageMetadata, requireAvailable, resolveLocale } from '@/lib/page';
-import { shown } from '@/lib/site';
+import { shown, visibleLooks } from '@/lib/site';
+import { LookGrid } from '@/components/Looks';
 
 type Params = Promise<{ locale: string; category: string }>;
 
@@ -40,7 +41,8 @@ export default async function CategoryPage({ params }: { params: Params }) {
   const c = t.categories[id];
   const s = t.categories.shared;
   const price = shown(categories[id].price);
-  const contactHref = `${localePath(locale, '/contact')}?product=${id}${id === 'weddings' ? '&concern=wedding' : ''}`;
+  const contactHref = `${localePath(locale, '/contact')}?interest=${categories[id].interest}`;
+  const categoryLooks = visibleLooks().filter((l) => l.category === id);
 
   return (
     <>
@@ -121,6 +123,14 @@ export default async function CategoryPage({ params }: { params: Params }) {
           </aside>
         </div>
       </section>
+      {categoryLooks.length > 0 && (
+        <section className="section section-white" aria-labelledby="category-looks">
+          <div className="container">
+            <h2 id="category-looks">{s.looksHeading}</h2>
+            <LookGrid looks={categoryLooks} locale={locale} t={t} />
+          </div>
+        </section>
+      )}
       <ClosingCta locale={locale} t={t} />
     </>
   );

@@ -5,9 +5,10 @@
  */
 import { brand, operator, privacyNotice } from '@/content/brand';
 import { localeMeta, locales } from '@/content/locales';
+import { looks, REQUIRED_LOOKS } from '@/content/looks';
 import { media } from '@/content/media';
 import { reviews } from '@/content/reviews';
-import { categories, categoryIds, processSteps, policies } from '@/content/services';
+import { categories, categoryIds, extraServices, processSteps, policies } from '@/content/services';
 import { stores, storeIds } from '@/content/stores';
 import { team } from '@/content/team';
 
@@ -24,8 +25,9 @@ export function getReleaseReport(env: Env = process.env): ReleaseReport {
 
   // Brand
   if (brand.name.status !== 'confirmed') block('Brand', 'Brand name approved');
-  if (brand.suffix.status !== 'confirmed') block('Brand', 'Name suffix "by Mario" approved');
-  if (brand.logo.status !== 'confirmed') block('Brand', 'Final logo approved (temporary SVG mark in use)');
+  if (brand.logoAsset.status !== 'confirmed') block('Brand', 'Approved logo SVG in public/brand/');
+  if (brand.logoWebCrop.status !== 'confirmed') block('Brand', 'Visual approval of the trimmed web logo (viewBox only, artwork unchanged)');
+  if (brand.favicon.status !== 'confirmed') block('Brand', 'Favicon / small logo format (not invented — open asset)');
   if (brand.domain.status !== 'confirmed' && !env.SITE_URL) block('Brand', 'Final domain confirmed (SITE_URL)');
 
   // Legal and privacy
@@ -61,17 +63,29 @@ export function getReleaseReport(env: Env = process.env): ReleaseReport {
     block('Assortment', 'At least one confirmed tailoring category');
   }
   if (processSteps.status !== 'confirmed') hide('Process', 'Fitting process (hidden until Mario confirms it)');
+  for (const s of extraServices) {
+    if (s.active.status !== 'confirmed') hide('Services', `${s.id} (no public service promise)`);
+  }
   for (const [key, fact] of Object.entries(policies)) {
     if (fact.status !== 'confirmed') hide('Policies', `${key} (not mentioned on the site)`);
   }
 
+  // Looks — a convincing real selection is required, not hidden away
+  const approvedLooks = looks.filter((l) => l.status === 'confirmed' && media[l.image].rights === 'approved' && media[l.image].src);
+  if (approvedLooks.length < REQUIRED_LOOKS) block('Looks', `${REQUIRED_LOOKS} real, approved looks (currently ${approvedLooks.length})`);
+
   // Media
-  const requiredImages = ['hero-fitting', 'portrait-mario'] as const;
+  const requiredImages = [
+    'hero-outfit',
+    'portrait-mario',
+    ...storeIds.map((id) => stores[id].exteriorImage),
+    ...categoryIds.filter((id) => categories[id].offered.status === 'confirmed').map((id) => categories[id].image),
+  ] as const;
   for (const id of requiredImages) {
     if (media[id].rights !== 'approved' || !media[id].src) block('Media', `Approved photo: ${id}`);
   }
   for (const asset of Object.values(media)) {
-    if ((requiredImages as readonly string[]).includes(asset.id)) continue;
+    if ((requiredImages as readonly string[]).includes(asset.id) || asset.id.startsWith('look-')) continue;
     if (asset.rights !== 'approved' || !asset.src) hide('Media', `Photo ${asset.id} (section without image or hidden)`);
   }
   if (reviews.length === 0) hide('Reviews', 'No approved customer quotes (section not shown)');

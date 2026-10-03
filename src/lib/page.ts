@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { brand } from '@/content/brand';
+import { brand, brandLine } from '@/content/brand';
 import { getDictionary, isLocale, localeMeta, type Dictionary, type Locale } from '@/content/locales';
 import { alternates, localePath } from './i18n';
 import { getSiteUrl, isPageAvailable, isPreview } from './site';
@@ -25,7 +25,7 @@ export function requireAvailable(path: string) {
  */
 export function pageMetadata(locale: Locale, path: string, title: string, description: string): Metadata {
   const siteUrl = getSiteUrl();
-  const fullTitle = path === '/' ? `${title} | ${brand.name.value} ${brand.suffix.value}` : `${title} | ${brand.name.value}`;
+  const fullTitle = path === '/' ? `${title} | ${brandLine}` : `${title} | ${brand.displayName.value}`;
   return {
     title: fullTitle,
     description,
@@ -40,7 +40,7 @@ export function pageMetadata(locale: Locale, path: string, title: string, descri
           title: fullTitle,
           description,
           locale: localeMeta[locale].intl.replace('-', '_'),
-          siteName: `${brand.name.value} ${brand.suffix.value}`,
+          siteName: brandLine,
           url: localePath(locale, path),
           type: 'website',
         }

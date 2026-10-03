@@ -54,22 +54,23 @@ export function PageHead({
 /** Categories that may be shown in the current mode. */
 export const visibleCategories = () => categoryIds.filter((id) => isPageAvailable(`/tailoring/${id}`));
 
+/** The four style worlds (Suits · Linen & Holiday · Women · Weddings), each with its own page. */
 export function CategoryCards({ locale, t }: { locale: Locale; t: Dictionary }) {
   const ids = visibleCategories();
   if (ids.length === 0) return null;
   return (
-    <div className="grid grid-3">
+    <div className="worlds">
       {ids.map((id) => (
-        <Link key={id} href={localePath(locale, `/tailoring/${id}`)} className="category-card">
-          <Media id={categories[id].image} dict={t} ratio="4 / 5" sizes="(min-width: 720px) 33vw, 100vw" />
+        <Link key={id} href={localePath(locale, `/tailoring/${id}`)} className="world">
+          <Media id={categories[id].image} dict={t} ratio="4 / 5" sizes="(min-width: 960px) 25vw, (min-width: 480px) 50vw, 100vw" />
           <h3>
             <span>
-              {t.categories[id].name}
+              {t.categories[id].worldName}
               <DraftBadge status={categories[id].offered.status} label={t.common.draft} />
             </span>
             <Icon name="arrow" className="icon arrow" />
           </h3>
-          <p>{t.categories[id].teaser}</p>
+          <p>{t.categories[id].worldText}</p>
         </Link>
       ))}
     </div>

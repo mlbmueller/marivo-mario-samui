@@ -9,8 +9,7 @@ const body = {
   name: 'Alex Example',
   contactMethod: 'email',
   contactValue: 'alex@example.com',
-  concern: 'consultation',
-  product: 'men',
+  interest: 'suits',
   store: 'chaweng',
   message: 'Secret message text',
 };
@@ -73,7 +72,7 @@ describe('POST /api/inquiry', () => {
   });
 
   it('returns field errors for invalid input (server-side validation)', async () => {
-    const res = await handleInquiry(request({ ...body, name: '', preferredDate: '2026-10-01' }), deps());
+    const res = await handleInquiry(request({ ...body, name: '', suggestDate: true, preferredDate: '2026-10-01' }), deps());
     expect(res.status).toBe(422);
     expect(await res.json()).toEqual({ ok: false, error: 'validation', fields: { name: 'required', preferredDate: 'dateInPast' } });
   });

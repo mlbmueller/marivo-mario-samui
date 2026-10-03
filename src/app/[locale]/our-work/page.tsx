@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import { workExamples, workPlaceholders } from '@/content/media';
+import { looks } from '@/content/looks';
 import { reviews } from '@/content/reviews';
 import { PreviewNotice } from '@/components/Draft';
-import { Media } from '@/components/Media';
+import { LookGalleryServer } from '@/components/Looks';
 import { ClosingCta, PageHead } from '@/components/Sections';
 import { localePath } from '@/lib/i18n';
 import { pageMetadata, requireAvailable, resolveLocale, type LocaleParams } from '@/lib/page';
@@ -17,20 +17,15 @@ export async function generateMetadata({ params }: { params: LocaleParams }): Pr
 export default async function OurWorkPage({ params }: { params: LocaleParams }) {
   const { locale, t } = await resolveLocale(params);
   requireAvailable(PATH);
-  const hasWork = workExamples.length > 0;
-  const images = hasWork ? workExamples.map((w) => w.image) : [...workPlaceholders, 'detail-fabrics' as const, 'detail-measuring' as const];
+  const hasApprovedWork = looks.some((l) => l.status === 'confirmed');
 
   return (
     <>
       <PageHead title={t.ourWork.title} lead={t.ourWork.intro} crumbLabel={t.common.breadcrumb} crumbs={[{ href: localePath(locale, '/'), label: t.common.home }]} />
       <section className="section" style={{ paddingTop: 0 }}>
         <div className="container">
-          {!hasWork && <PreviewNotice>{t.ourWork.emptyPreview}</PreviewNotice>}
-          <div className="grid grid-3">
-            {images.map((id) => (
-              <Media key={id} id={id} dict={t} ratio="3 / 4" sizes="(min-width: 720px) 33vw, 100vw" />
-            ))}
-          </div>
+          {!hasApprovedWork && <PreviewNotice>{t.ourWork.emptyPreview}</PreviewNotice>}
+          <LookGalleryServer locale={locale} t={t} />
         </div>
       </section>
       {reviews.length > 0 && (

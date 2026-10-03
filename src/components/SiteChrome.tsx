@@ -9,11 +9,12 @@ import { FooterLanguages } from './FooterLanguages';
 import { Header, type NavItem } from './Header';
 import { Icon } from './Icon';
 import { Logo } from './Logo';
+import { MobileBarGate } from './MobileBarGate';
 
 export function mainNav(locale: Locale, t: Dictionary): NavItem[] {
   const items: { path: string; label: string }[] = [
     { path: '/tailoring', label: t.nav.tailoring },
-    { path: '/how-it-works', label: t.nav.howItWorks },
+    { path: '/our-work', label: t.nav.ourWork },
     { path: '/about', label: t.nav.team },
     { path: '/stores', label: t.nav.stores },
     { path: '/contact', label: t.nav.contact },
@@ -24,7 +25,7 @@ export function mainNav(locale: Locale, t: Dictionary): NavItem[] {
 export function SiteHeader({ locale, t }: { locale: Locale; t: Dictionary }) {
   return (
     <Header
-      logo={<Logo href={localePath(locale, '/')} />}
+      logo={<Logo href={localePath(locale, '/')} priority />}
       nav={mainNav(locale, t)}
       cta={{ href: localePath(locale, '/contact'), label: t.common.planFitting }}
       current={locale}
@@ -43,8 +44,8 @@ export function SiteHeader({ locale, t }: { locale: Locale; t: Dictionary }) {
 export function SiteFooter({ locale, t }: { locale: Locale; t: Dictionary }) {
   const lp = (path: string) => localePath(locale, path);
   const more = [
+    { path: '/how-it-works', label: t.nav.howItWorks },
     { path: '/craftsmanship', label: t.nav.craftsmanship },
-    { path: '/our-work', label: t.nav.ourWork },
     { path: '/faq', label: t.nav.faq },
     { path: '/our-new-name', label: t.nav.newName },
   ].filter((i) => isPageAvailable(i.path) && (i.path !== '/our-new-name' || brand.transition.active));
@@ -60,10 +61,12 @@ export function SiteFooter({ locale, t }: { locale: Locale; t: Dictionary }) {
       <div className="container">
         <div className="footer-grid">
           <div>
-            <Logo href={lp('/')} />
-            <p className="muted" style={{ marginTop: '1.25rem', maxWidth: '32ch', color: '#c9d0d8' }}>
-              {t.footer.tagline}
-            </p>
+            {/* Unchanged logo on an ivory panel — no inverted variant on burgundy. */}
+            <div className="footer-logo-panel">
+              <Logo href={lp('/')} />
+            </div>
+            <p style={{ marginTop: '1.25rem', maxWidth: '32ch', color: 'var(--on-burgundy-muted)' }}>{t.footer.tagline}</p>
+            <p style={{ color: 'var(--on-burgundy-muted)' }}>{t.common.locationsLine}</p>
           </div>
           <div>
             <h2>{t.footer.storesHeading}</h2>
@@ -121,7 +124,7 @@ export function SiteFooter({ locale, t }: { locale: Locale; t: Dictionary }) {
         </div>
         <div className="footer-meta">
           <span>
-            © {year} {brand.name.value} {brand.suffix.value}
+            © {year} {brand.name.value}
           </span>
           <FooterLanguages label={t.common.language} current={locale} languages={locales.map((code) => ({ code, label: localeMeta[code].label, hreflang: localeMeta[code].hreflang }))} />
         </div>
@@ -130,10 +133,14 @@ export function SiteFooter({ locale, t }: { locale: Locale; t: Dictionary }) {
   );
 }
 
-/** Quick-contact bar on phones. Body gets bottom padding (.has-mobile-bar) so it never hides content. */
+/**
+ * Quick-contact bar on phones. Hidden on /contact and /returning-customers (MobileBarGate).
+ * While present, the body gets bottom padding (body:has(.mobile-bar)) so it never hides content.
+ */
 export function MobileBar({ locale, t }: { locale: Locale; t: Dictionary }) {
   const wa = buildWhatsAppLink({ number: whatsappNumberFor(null), dict: t });
   return (
+    <MobileBarGate>
     <div className="mobile-bar" role="region" aria-label={t.mobileBar.label}>
       {wa ? (
         <a href={wa} className="btn btn-secondary" target="_blank" rel="noopener noreferrer">
@@ -151,5 +158,6 @@ export function MobileBar({ locale, t }: { locale: Locale; t: Dictionary }) {
         {t.mobileBar.plan}
       </Link>
     </div>
+    </MobileBarGate>
   );
 }

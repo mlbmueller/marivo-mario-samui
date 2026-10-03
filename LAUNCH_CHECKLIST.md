@@ -11,6 +11,7 @@ customer messages require a separate order.
 - [x] Request form with client + server validation, demo mode, delivery adapters
 - [x] Release gate: production build fails while blockers remain
 - [x] Preview not indexable (meta, header, robots.txt)
+- [x] Final branding (logo, burgundy/ivory, serif headings), v2 home page, looks, 3-group form
 - [x] Unit tests and browser tests green (see `docs/TEST_RESULTS.md`)
 
 ## 2. Content approval (owner)
@@ -18,13 +19,15 @@ customer messages require a separate order.
 Work through [CONTENT_TODO.md](CONTENT_TODO.md) and [ASSET_CHECKLIST.md](ASSET_CHECKLIST.md).
 Minimum to pass the release gate:
 
-- [ ] brand name, suffix and final logo approved
+- [x] brand NICKY FASHION and approved logo SVG (delivered 3 Oct 2026)
+- [ ] visual OK for the trimmed web logo; favicon / small format
 - [ ] domain decided
 - [ ] operator details and reviewed privacy notice
-- [ ] exact address and map link for both stores
+- [ ] exact address, map link and facade photo for both stores
 - [ ] at least one confirmed WhatsApp number
-- [ ] at least one confirmed tailoring category
-- [ ] approved hero photo and Mario portrait
+- [ ] at least one confirmed style world (Suits, Linen & Holiday, Women, Weddings) with its photo
+- [ ] six real, approved looks
+- [ ] approved hero outfit photo and Mario portrait
 - [ ] texts approved in every active language (native review for TH/FR/IT)
 
 ## 3. Production configuration
@@ -47,7 +50,7 @@ Minimum to pass the release gate:
 - [ ] Page source: no `noindex`, canonical and hreflang point to the final domain
 - [ ] Store data identical on page, JSON-LD and Google profile
 - [ ] WhatsApp buttons open the right chat with the prefilled message
-- [ ] Mobile check at 375 px: navigation, quick-contact bar, form
+- [ ] Mobile check at 360–430 px on real devices (iOS Safari + Android Chrome): navigation, quick-contact bar, keyboard, zoom, rotation, form
 - [ ] Lighthouse / accessibility check measured and documented (no values claimed without measurement)
 
 ## 5. After launch

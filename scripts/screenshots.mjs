@@ -1,4 +1,4 @@
-// Full-page screenshots of key pages at 375 / 768 / 1440 px.
+// Full-page screenshots of key pages at 360 / 375 / 390 / 430 / 768 / 1440 px.
 // Usage: npm run build && npx next start -p 3100 &  then  npm run screenshots
 // Output: docs/screenshots/<page>-<width>.png
 import { chromium } from '@playwright/test';
@@ -6,8 +6,8 @@ import { existsSync, mkdirSync } from 'node:fs';
 
 const base = process.env.BASE_URL ?? 'http://localhost:3100';
 const executablePath = process.env.PLAYWRIGHT_CHROMIUM_PATH ?? (existsSync('/opt/pw-browsers/chromium') ? '/opt/pw-browsers/chromium' : undefined);
-const pages = (process.env.PAGES ?? 'en:home,en/stores/chaweng:store,en/contact:contact,de:home-de,th:home-th').split(',');
-const widths = (process.env.WIDTHS ?? '375,768,1440').split(',').map(Number);
+const pages = (process.env.PAGES ?? 'en:home,de:home-de,en/contact:contact,en/stores/chaweng:store,en/our-work:our-work').split(',');
+const widths = (process.env.WIDTHS ?? '360,375,390,430,768,1440').split(',').map(Number);
 
 mkdirSync('docs/screenshots', { recursive: true });
 const browser = await chromium.launch(executablePath ? { executablePath } : {});

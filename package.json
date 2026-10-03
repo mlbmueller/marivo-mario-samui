@@ -2,7 +2,7 @@
   "name": "marivo-mario-samui",
   "version": "0.1.0",
   "private": true,
-  "description": "Website for a custom tailoring business with two stores on Koh Samui (Nicky Fashion Samui by Mario, working name).",
+  "description": "Website of NICKY FASHION – Men’s & Women’s Wear – Tailoring by Mario K. (two stores on Koh Samui). Development preview.",
   "engines": {
     "node": ">=20.9.0"
   },
@@ -22,6 +22,8 @@
   "dependencies": {
     "@fontsource-variable/manrope": "5.3.0",
     "@fontsource-variable/noto-sans-thai": "5.3.0",
+    "@fontsource-variable/noto-serif-thai": "5.3.0",
+    "@fontsource-variable/source-serif-4": "5.3.0",
     "next": "16.3.8",
     "react": "19.3.0",
     "react-dom": "19.3.0"

@@ -1,20 +1,37 @@
-import { draft, missing, type Fact } from './types';
+import { confirmed, draft, missing, type Fact } from './types';
 
 /**
- * Central brand record. Change the name here and it changes everywhere:
- * header, footer, metadata, form e-mails and structured data.
- *
- * Working name: "Nicky Fashion Samui by Mario" (not yet approved).
- * Discussed alternative: "Atelier Marivo by Mario" — deliberately NOT used anywhere
- * on the site. To switch, replace name/shortName below and the logo mark.
+ * Central brand record (final brand, 3 October 2026).
+ * The logo is a fixed, outlined SVG — never rebuilt from HTML text and never translated.
+ * "Samui" is a location, not part of the brand name.
  */
 export const brand = {
-  name: draft('Nicky Fashion Samui', 'Working name, brand approval pending'),
-  /** Used where space is tight (mobile header, browser tab). */
-  shortName: draft('Nicky Fashion'),
-  suffix: draft('by Mario'),
-  /** Temporary geometric mark in src/components/Logo.tsx. Replace once a final logo is approved. */
-  logo: draft('temporary-svg-mark', 'Temporary mark, final logo pending'),
+  name: confirmed('NICKY FASHION'),
+  /** Mixed-case form for running text and page titles. */
+  displayName: confirmed('Nicky Fashion'),
+  /** Logo line 2 (part of the logo artwork). */
+  category: confirmed('MEN’S & WOMEN’S WEAR'),
+  /** Logo line 3 (part of the logo artwork). */
+  signature: confirmed('Tailoring by Mario K.'),
+  logo: {
+    /** Approved web logo exactly as delivered (viewBox 0 0 4000 1000, outlined text). */
+    original: '/brand/NICKY_FASHION_WEB.svg',
+    /**
+     * Same file with only the viewBox trimmed to the artwork plus a clear space of half the
+     * height of line 2 (69 units on each side). Paths are byte-identical. Used on the site so
+     * the sub-lines stay legible at header size. Needs a short visual approval.
+     */
+    web: '/brand/NICKY_FASHION_WEB_TRIM.svg',
+    webWidth: 3238,
+    webHeight: 789,
+    /** Transparent raster fallback, 2400 × 600. */
+    png: '/brand/NICKY_FASHION_WEB.png',
+    alt: 'Nicky Fashion – Men’s & Women’s Wear – Tailoring by Mario K.',
+  },
+  logoAsset: confirmed(true, 'Approved outlined SVG delivered in the final package'),
+  logoWebCrop: draft(true, 'Trimmed viewBox (artwork unchanged) — confirm visually'),
+  /** Small format for browser tabs. Not invented from the word mark — open asset. */
+  favicon: missing('No approved small logo format') as Fact<string>,
   /** Final domain, e.g. https://example.com — never derived from the name. */
   domain: missing('Domain not decided') as Fact<string>,
   /** Central WhatsApp number in international format without spaces, e.g. "+66..." */
@@ -29,6 +46,9 @@ export const brand = {
    */
   transition: { active: false },
 } as const;
+
+/** Full brand line for metadata and footers. */
+export const brandLine = `${brand.displayName.value} – ${brand.signature.value}`;
 
 export type Operator = {
   legalName: string;

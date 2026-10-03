@@ -9,6 +9,7 @@ type Props = {
   dict: Dictionary;
   store?: StoreId | null;
   category?: CategoryId | null;
+  look?: string | null;
   label?: string;
   className?: string;
 };
@@ -17,8 +18,8 @@ type Props = {
  * WhatsApp contact. Only a confirmed number produces a working link. Without one, the
  * preview shows a visibly disabled button with an explanation; production hides it.
  */
-export function WhatsAppButton({ dict, store = null, category = null, label, className = 'btn btn-secondary' }: Props) {
-  const href = buildWhatsAppLink({ number: whatsappNumberFor(store), dict, category, store });
+export function WhatsAppButton({ dict, store = null, category = null, look = null, label, className = 'btn btn-secondary' }: Props) {
+  const href = buildWhatsAppLink({ number: whatsappNumberFor(store), dict, category, store, look });
   const text = label ?? dict.common.chatWhatsApp;
 
   if (href) {

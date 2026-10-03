@@ -1,24 +1,26 @@
-# Nicky Fashion Samui by Mario — Website (development preview)
+# NICKY FASHION — Website (development preview)
 
-Website for a custom tailoring business with two stores on Koh Samui
-(**Chaweng** and **Fisherman’s Village**), led by Mario.
-Working brand name: **Nicky Fashion Samui by Mario** — not yet approved, centrally replaceable.
+**NICKY FASHION · MEN’S & WOMEN’S WEAR · Tailoring by Mario K.**
+Custom tailoring with two stores on Koh Samui — **Chaweng** and **Fisherman’s Village** —
+one team led by Mario. Final brand and logo as of 3 October 2026 (briefing v2.0).
 
-> Status: technically complete **development preview**. Not approved for publication —
-> see [LAUNCH_CHECKLIST.md](LAUNCH_CHECKLIST.md) and [CONTENT_TODO.md](CONTENT_TODO.md).
+> Status: technically complete **development preview**, not approved for publication.
+> See [LAUNCH_CHECKLIST.md](LAUNCH_CHECKLIST.md), [CONTENT_TODO.md](CONTENT_TODO.md),
+> [ASSET_CHECKLIST.md](ASSET_CHECKLIST.md). Changes for v2: [docs/CHANGES_V2.md](docs/CHANGES_V2.md).
 
 ## Stack
 
 | Part | Version | Note |
 | --- | --- | --- |
-| Next.js (App Router, Turbopack) | 16.3.8 | static pre-rendering of all pages, one API route |
+| Next.js (App Router, Turbopack) | 16.3.8 | all pages statically pre-rendered, one API route |
 | React | 19.3.0 | |
 | TypeScript | 5.9.3 | strict |
-| Fonts | Manrope (Latin/Cyrillic) + Noto Sans Thai, OFL | self-hosted via `@fontsource-variable`, no Google requests |
+| Headings | Source Serif 4 (+ Noto Serif Thai), OFL | upright serif, self-hosted via `@fontsource-variable` |
+| Body, navigation, forms | Manrope (+ Noto Sans Thai), OFL | clear sans-serif, self-hosted |
 | Tests | Vitest 5, Playwright 1.63 | |
 
-No CSS framework, no UI library, no tracking, no CMS. Plain CSS design system in
-`src/app/globals.css` (tokens in `:root`). Node ≥ 20.9 (developed on 22).
+No CSS framework, no UI library, no tracking, no CMS. Design tokens in `src/app/globals.css`.
+Node ≥ 20.9 (developed on 22).
 
 ## Quick start
 
@@ -31,7 +33,7 @@ Production-like preview:
 
 ```bash
 npm run build          # runs the release check first, then next build
-npm start              # http://localhost:3000
+npm start
 ```
 
 ## Commands
@@ -40,114 +42,117 @@ npm start              # http://localhost:3000
 | --- | --- |
 | `npm run dev` | development server |
 | `npm run build` | release check + production build (preview mode unless `SITE_MODE=production`) |
-| `npm run typecheck` | TypeScript |
-| `npm run lint` | ESLint (next/core-web-vitals + TypeScript) |
-| `npm test` | unit tests: validation, delivery success/failure/demo, language switch, content rules |
-| `npm run test:e2e` | browser tests (desktop 1440 px + mobile 375 px) against `next start`; build first |
+| `npm run typecheck` / `npm run lint` | TypeScript / ESLint |
+| `npm test` | unit tests: validation, look/date context take-over, delivery success/failure/demo, language switch, content and brand rules |
+| `npm run test:e2e` | browser tests (desktop 1440 px + mobile 375 px, overflow at 360–1440 px) against `next start`; build first |
 | `npm run check:release` | lists blocking and auto-hidden content items; fails in production mode while blockers remain |
-| `npm run screenshots` | full-page screenshots at 375/768/1440 px into `docs/screenshots/` (server must run on :3100) |
+| `npm run screenshots` | full-page screenshots at 360/375/390/430/768/1440 px into `docs/screenshots/` (server on :3100) |
 
 Playwright uses a preinstalled Chromium at `/opt/pw-browsers/chromium` when present,
 otherwise set `PLAYWRIGHT_CHROMIUM_PATH` or run `npx playwright install chromium`.
+
+## Brand and logo
+
+| Item | Value |
+| --- | --- |
+| Brand | NICKY FASHION («Samui» is a location, not part of the name) |
+| Logo | three upright lines, centred, no symbol: NICKY FASHION / MEN’S & WOMEN’S WEAR / Tailoring by Mario K. |
+| Colours | Burgundy `#5A1530`, Ivory `#F7F0E4`, Ink `#222222`, White `#FFFFFF`, Muted `#62605C` |
+| Locations line | Chaweng · Fisherman’s Village · Koh Samui (separate text, translated) |
+
+Logo files in `public/brand/` (from the final package, verified):
+
+- `NICKY_FASHION_WEB.svg` — approved file as delivered: viewBox `0 0 4000 1000`, all text as outlined paths, fills `#5A1530`/`#222222`, transparent.
+- `NICKY_FASHION_WEB_TRIM.svg` — **used on the site**. Byte-identical paths; only the
+  `viewBox` is trimmed to the artwork plus a clear space of half the height of line 2
+  (`381 156 3238 789`, ratio ≈ 4.10:1). Reason: in the original 4:1 box the artwork fills
+  only ~78 % of the width and ~65 % of the height, so «Tailoring by Mario K.» would be ≈ 6 px
+  tall in a 300 px header. A content test proves the paths are unchanged. **Needs a short
+  visual approval** (release blocker).
+- `NICKY_FASHION_WEB.png` — transparent 2400 × 600 raster alternative (not used currently).
+
+The logo is an `<img>` with `height: auto`, never rebuilt from text, never translated.
+Header width: 185–260 px on phones (whatever the two header buttons leave), 320 px from
+1280 px. Footer: unchanged logo on an ivory panel (no inverted variant). Print files
+(TIFF/JPG/GIF/PDF) are deliberately not part of the web project. No favicon was invented.
 
 ## Languages
 
 Active: **English (default), Deutsch, ไทย, Français, Italiano**. Planned: Русский.
 All pages exist in all languages under `/{locale}/…` with identical slugs; the language
 switcher (header and footer) keeps the current page including its query string.
-`/` redirects deterministically to `/en` — no geolocation, no browser-language sniffing.
+`/` redirects deterministically to `/en` — no geolocation.
 
 Texts live in `src/content/locales/{en,de,th,fr,it}.ts`. `en.ts` defines the structure;
 TypeScript and `src/content/content.test.ts` reject missing keys, empty texts and
-mismatched placeholders in any other language.
-
-**Adding Russian:** create `src/content/locales/ru.ts` typed as `Dictionary`, add `'ru'`
-to `locales` and `localeMeta` in `config.ts` and to `dictionaries` in `index.ts`.
-Manrope already covers Cyrillic.
+mismatched placeholders. To add Russian: create `ru.ts` typed as `Dictionary`, add `'ru'`
+to `config.ts` and `index.ts` (Manrope and Source Serif 4 cover Cyrillic).
 
 ## Content maintenance
 
-All content is file-based and typed. Components never contain contact data.
-
 | File | Content |
 | --- | --- |
-| `src/content/brand.ts` | name, suffix, logo status, domain, central WhatsApp/e-mail, operator, rename switch |
+| `src/content/brand.ts` | brand, logo files, domain, central WhatsApp/e-mail, operator, rename switch |
 | `src/content/stores.ts` | both stores: address, hours, phone, WhatsApp, map link, directions, photos |
 | `src/content/team.ts` | Mario (owner), James (role open), further members |
-| `src/content/services.ts` | categories (men/women/weddings), prices, process, policies |
-| `src/content/media.ts` | image register: description, size, source, rights; work examples |
+| `src/content/services.ts` | four style worlds/categories, interests, prices, process, policies, prepared extra services (inactive) |
+| `src/content/looks.ts` | selected looks with stable ids (six empty slots for now) |
+| `src/content/media.ts` | image register incl. atelier film slot |
 | `src/content/reviews.ts` | approved customer quotes only |
-| `src/content/locales/*.ts` | all visible texts, alt texts |
+| `src/content/locales/*.ts` | all visible texts and alt texts |
 | `src/content/redirects.json` | legacy URL redirects (see `docs/REDIRECTS.md`) |
 
-Every fact has a status: `confirmed`, `draft` or `missing` (value `null`).
-Use the helpers `confirmed(value)`, `draft(value)`, `missing()`.
+Every fact has a status `confirmed`, `draft` or `missing` (value `null`).
+**preview** shows confirmed + draft (with «Draft» marker) and labelled placeholders;
+**production** shows only confirmed content — optional gaps disappear automatically, central
+gaps (hero, logo approval, looks, store data, …) block the build instead of being hidden.
 
-- **preview**: confirmed + draft are shown, drafts carry a «Draft» badge; missing values show «To be confirmed»; photos show labelled placeholders.
-- **production**: only confirmed content. Unconfirmed categories, the empty work page,
-  the inactive rename page, unconfirmed process/bio texts and placeholder images disappear
-  automatically (and from navigation and sitemap). Essential gaps block the build.
-
-Examples:
+Adding a real look:
 
 ```ts
-// stores.ts — confirm an address and a WhatsApp number
-address: confirmed('123 Example Road, Chaweng, Koh Samui 84320'),
-whatsapp: confirmed('+66XXXXXXXXX'),
-
-// team.ts — confirm James' title
-role: confirmed('tailor'),
-
-// media.ts — add an approved photo (file in public/images/)
-'hero-fitting': { ...,  src: '/images/hero-fitting.jpg', width: 2400, height: 1600,
-                  source: 'Photographer name, 2026', rights: 'approved' },
+// looks.ts
+{ id: 'look-01', category: 'linen-holiday', image: 'look-01', details: ['detail-finish'],
+  occasion: { en: 'Beach wedding', de: 'Strandhochzeit' }, fabric: { en: 'Linen' }, status: 'confirmed' },
+// media.ts: set src/width/height/source and rights: 'approved' for 'look-01'
+// locales/*.ts: looks.items['look-01'].title in every language
 ```
 
-After a change: `npm run check:release` shows what is still open.
+## Request form and integrations
 
-## Brand switch
+Appointment **request**, not a booking. Three groups:
 
-Name, short name, suffix and logo are only defined in `src/content/brand.ts` and
-`src/components/Logo.tsx` (temporary geometric SVG mark + favicon `src/app/icon.svg`).
-The discussed alternative «Atelier Marivo by Mario» is intentionally **not** used anywhere;
-a content test fails if it appears.
+1. **Your request** — one interest field (Suits, Linen & Holiday, Women, Weddings, Other, Not sure yet); a look reference from «Ask about this look» is shown and removable.
+2. **Your stay** — arrival/departure or «My dates are still open»; preferred store (default «No preference»); «Suggest a consultation date» reveals the optional date.
+3. **Contact** — name, contact method, the matching contact field, optional message.
 
-## Contact form and integrations
+Rules (`src/lib/inquiry.ts`, client and server): interest, name and matching contact value
+required; fixed dates need both dates, departure not before arrival or in the past, ongoing
+stays allowed; hidden values (dates when open, date when not suggested) are not sent;
+suggested date not in the past (Asia/Bangkok calendar) and within the stay.
+Context comes in via `/contact?look=…`, `?interest=…`, `?store=…`, `?arrival=…&departure=…`,
+`?datesOpen=1` — never contact data; taking over context sends nothing.
 
-The form is an **appointment request**, not a booking. `POST /api/inquiry`:
+`POST /api/inquiry`: 16 KB limit, JSON only, origin check, honeypot, rate limit;
+adapters `demo` / `webhook` (HMAC) / `resend` in `src/lib/server/delivery.ts`. Success only
+after the service answered 2xx («Your request has been sent. Our team will contact you to
+arrange a suitable time.»); demo shows «Test request — not sent»; production without a
+service answers «unavailable». Logs contain no personal data. See [.env.example](.env.example).
 
-- same validation on client and server (`src/lib/inquiry.ts`): name, matching contact
-  value and concern required; departure not before arrival; no past or out-of-stay
-  preferred dates; dates are calendar dates in **Asia/Bangkok**
-- body limit 16 KB, JSON only, origin check, honeypot, rate limit (5 per 10 min per client)
-- delivery adapters in `src/lib/server/delivery.ts`: `demo`, `webhook` (HMAC-signed), `resend`
-- success only after the service answered 2xx; demo mode says «Test request — not sent»;
-  production without a configured service answers «unavailable» — never a fake success
-- logs contain only request id, adapter and outcome — no names, contacts, messages or IPs
-
-Configuration: see [.env.example](.env.example). For production a shared rate-limit store
-(Upstash Redis REST) is required; the in-memory limiter is preview-only.
-
-WhatsApp links are built only from **confirmed** numbers (`wa.me`, message with product
-and store, URL-encoded, no form data). Without a number the button is visibly disabled
-in preview and absent in production.
+WhatsApp links only from **confirmed** numbers, message with look/category and store,
+URL-encoded. Mobile quick-contact bar at the bottom edge (safe area), hidden on `/contact`
+and `/returning-customers`.
 
 ## SEO, indexing, privacy
 
-- preview: `noindex` meta, `X-Robots-Tag: noindex` header, `robots.txt` disallows all, empty sitemap
-- production: per-page titles/descriptions, one H1 per page, hreflang alternates for all
-  languages + `x-default`; canonical URLs, Open Graph and sitemap only once `SITE_URL` is set
-- JSON-LD (`ClothingStore`) only from confirmed and visible store data — no ratings
-- no third-party requests: fonts self-hosted, maps only as external links, analytics off
-  (prepared events: `contact_cta_click`, `whatsapp_click`, `directions_click`,
-  `inquiry_submit_success`, parameters limited to store/category/locale)
+- preview: `noindex` meta + `X-Robots-Tag`, robots.txt disallows all, empty sitemap
+- production: titles/descriptions per page, one H1, hreflang for all languages + `x-default`;
+  canonical, Open Graph and sitemap only once `SITE_URL` is confirmed
+- JSON-LD only from confirmed, visible store data — no ratings
+- no third-party requests: fonts self-hosted, maps as external links, analytics off
 
 ## Project documents
 
-- [LAUNCH_CHECKLIST.md](LAUNCH_CHECKLIST.md) — release path from preview to production
-- [CONTENT_TODO.md](CONTENT_TODO.md) — open business facts and texts
-- [ASSET_CHECKLIST.md](ASSET_CHECKLIST.md) — required photos, placeholders, approvals
-- [docs/REDIRECTS.md](docs/REDIRECTS.md) — fill-in table for legacy URLs
-- [docs/GOOGLE_BUSINESS_CHECKLIST.md](docs/GOOGLE_BUSINESS_CHECKLIST.md) — operator checklist for Google profiles
-- [docs/TEST_RESULTS.md](docs/TEST_RESULTS.md) — what was actually tested, with limits
-- `docs/screenshots/` — home, store and contact at 375 / 768 / 1440 px
+[LAUNCH_CHECKLIST.md](LAUNCH_CHECKLIST.md) · [CONTENT_TODO.md](CONTENT_TODO.md) ·
+[ASSET_CHECKLIST.md](ASSET_CHECKLIST.md) · [docs/CHANGES_V2.md](docs/CHANGES_V2.md) ·
+[docs/REDIRECTS.md](docs/REDIRECTS.md) · [docs/GOOGLE_BUSINESS_CHECKLIST.md](docs/GOOGLE_BUSINESS_CHECKLIST.md) ·
+[docs/TEST_RESULTS.md](docs/TEST_RESULTS.md) · `docs/screenshots/`
