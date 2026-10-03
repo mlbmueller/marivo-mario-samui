@@ -1,0 +1,72 @@
+# Independent verification on GitHub-hosted runners: every push and pull request runs
+# lint, types, unit tests, release gate, preview build and browser tests, and uploads
+# the review screenshots. No secrets are used; the form runs in demo mode.
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Release gate (preview) — lists open items, must pass
+        run: npm run check:release
+
+      - name: Release gate (production) — must FAIL while required content is missing
+        run: |
+          if SITE_MODE=production npm run check:release > gate.log 2>&1; then
+            echo "Expected the production gate to block, but it passed"; cat gate.log; exit 1
+          fi
+          grep -E "✗" gate.log || true
+
+      - name: Build (preview)
+        run: npm run build
+
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Browser tests (desktop + mobile)
+        run: npm run test:e2e
+
+      - name: Review screenshots
+        run: |
+          npx next start -p 3100 &
+          for i in $(seq 1 60); do curl -sf http://localhost:3100/en > /dev/null && break; sleep 1; done
+          node scripts/review-pack.mjs
+          node scripts/logo-comparison.mjs
+
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: review-screenshots
+          path: |
+            docs/review/originals
+            docs/review/logo-comparison.png
+          if-no-files-found: ignore
