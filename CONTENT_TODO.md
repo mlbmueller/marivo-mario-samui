@@ -21,8 +21,8 @@ dringend empfohlen, sonst ausgeblendet · ⏳ = später möglich (Bereich bleibt
 | 7 | Adresse Fisherman’s Village | dito | dito | ⛔ |
 | 8 | Kartenlink Chaweng | Google- oder Apple-Maps-Link auf den genauen Eingang | Anfahrt; keine geschätzten Pins | ⛔ |
 | 9 | Kartenlink Fisherman’s Village | dito | dito | ⛔ |
-| 10 | Fassadenfoto Chaweng | Foto mit aktueller Beschilderung | Wiedererkennung vor Ort | ⛔ |
-| 11 | Fassadenfoto Fisherman’s Village | dito | dito | ⛔ |
+| 10 | Fassadenfoto Chaweng | ✅ erledigt (3.10.2026, vom Betreiber geliefert) | Wiedererkennung vor Ort | – |
+| 11 | Fassadenfoto Fisherman’s Village | Foto erhalten, aber zurückgestellt: zeigt die fremde Marke «ARMANI» mit Adler-Logo. Benötigt: Foto ohne fremde Marke (z. B. nach Umbeschriftung) oder schriftliche Freigabe nach rechtlicher Prüfung | Wiedererkennung vor Ort; Markenrecht | ⛔ |
 | 12 | Titelbild | fertiges Outfit, siehe Bildbedarf | zentrales Motiv der Startseite | ⛔ |
 | 13 | Mario | Porträt oder Beratungsszene | Vertrauen, Teamabschnitt | ⛔ |
 | 14 | Sortiment | Bestätigung der Stilwelten Suits / Linen & Holiday / Women / Weddings und der Kleidungslisten | nur Bestätigtes wird gezeigt; mindestens eine nötig | ⛔ |
