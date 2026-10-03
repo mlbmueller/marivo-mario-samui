@@ -66,19 +66,24 @@ Logo files in `public/brand/` (from the final package, verified):
 - `NICKY_FASHION_WEB_TRIM.svg` — **used on the site**. Byte-identical paths; only the
   `viewBox` is trimmed to the artwork plus a clear space of half the height of line 2
   (`381 156 3238 789`, ratio ≈ 4.10:1). Reason: in the original 4:1 box the artwork fills
-  only ~78 % of the width and ~65 % of the height, so «Tailoring by Mario K.» would be ≈ 6 px
-  tall in a 300 px header. A content test proves the paths are unchanged. **Needs a short
+  only ~78 % of the width and ~65 % of the height — measured: cap height of line 3 at a 260 px logo is
+  6.6 px in the original box vs 8.1 px in the web variant. A content test proves the paths are unchanged. **Needs a short
   visual approval** (release blocker).
 - `NICKY_FASHION_WEB.png` — transparent 2400 × 600 raster alternative (not used currently).
+- Favicon: two proposals in `docs/proposals/` (letter «N» taken unchanged from the logo); not used until approved.
 
 The logo is an `<img>` with `height: auto`, never rebuilt from text, never translated.
-Header width: 185–260 px on phones (whatever the two header buttons leave), 320 px from
-1280 px. Footer: unchanged logo on an ivory panel (no inverted variant). Print files
+Header width: 234–260 px on phones and tablets (the language choice sits in the menu there),
+320 px from 1280 px. Comparison sheet with pixel proof: `docs/review/logo-comparison.png`
+(`node scripts/logo-comparison.mjs`). Footer: unchanged logo on an ivory panel (no inverted variant). Print files
 (TIFF/JPG/GIF/PDF) are deliberately not part of the web project. No favicon was invented.
 
 ## Languages
 
-Active: **English (default), Deutsch, ไทย, Français, Italiano**. Planned: Русский.
+Launch languages: **English (default) and Deutsch**. Thai, Français and Italiano are complete
+(same structure, enforced by tests) but not yet reviewed: they are selectable in the preview
+(marked «Draft») and switched off in production (no route, not in switcher, hreflang or sitemap)
+until `launch: true` in `src/content/locales/config.ts`. Planned: Русский.
 All pages exist in all languages under `/{locale}/…` with identical slugs; the language
 switcher (header and footer) keeps the current page including its query string.
 `/` redirects deterministically to `/en` — no geolocation.
@@ -155,4 +160,6 @@ and `/returning-customers`.
 [LAUNCH_CHECKLIST.md](LAUNCH_CHECKLIST.md) · [CONTENT_TODO.md](CONTENT_TODO.md) ·
 [ASSET_CHECKLIST.md](ASSET_CHECKLIST.md) · [docs/CHANGES_V2.md](docs/CHANGES_V2.md) ·
 [docs/REDIRECTS.md](docs/REDIRECTS.md) · [docs/GOOGLE_BUSINESS_CHECKLIST.md](docs/GOOGLE_BUSINESS_CHECKLIST.md) ·
-[docs/TEST_RESULTS.md](docs/TEST_RESULTS.md) · `docs/screenshots/`
+[docs/TEST_RESULTS.md](docs/TEST_RESULTS.md) · [docs/IMAGE_BRIEF.md](docs/IMAGE_BRIEF.md) ·
+[docs/RELEASE_GATE.md](docs/RELEASE_GATE.md) · [docs/FORM_DELIVERY.md](docs/FORM_DELIVERY.md) ·
+[docs/DEVICE_CHECKLIST.md](docs/DEVICE_CHECKLIST.md) · `docs/review/` (visual review pack: `node scripts/review-pack.mjs`) · `docs/screenshots/`

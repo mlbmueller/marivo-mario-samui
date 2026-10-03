@@ -8,7 +8,7 @@ import { switchLocalePath } from '@/lib/i18n';
 import type { Locale } from '@/content/locales/config';
 
 export type NavItem = { href: string; label: string; path: string };
-export type LanguageOption = { code: Locale; label: string; short: string; hreflang: string };
+export type LanguageOption = { code: Locale; label: string; short: string; hreflang: string; draft?: boolean };
 
 type Props = {
   logo: React.ReactNode;
@@ -16,7 +16,7 @@ type Props = {
   cta: { href: string; label: string };
   languages: LanguageOption[];
   current: string;
-  labels: { openMenu: string; closeMenu: string; mainNav: string; changeLanguage: string; language: string };
+  labels: { openMenu: string; closeMenu: string; mainNav: string; changeLanguage: string; language: string; draftLanguage: string };
 };
 
 function isActive(pathname: string, href: string, home: string) {
@@ -127,7 +127,11 @@ export function Header({ logo, nav, cta, languages, current, labels }: Props) {
                         onClick={(e) => onLanguageClick(e, href)}
                       >
                         <span>{lang.label}</span>
-                        <span className="muted small">{lang.short}</span>
+                        <span className="muted small">
+                          {/* Preview only: additional languages awaiting review, not part of the launch */}
+                          {lang.draft ? `${labels.draftLanguage} · ` : ''}
+                          {lang.short}
+                        </span>
                       </a>
                     </li>
                   );
@@ -165,6 +169,32 @@ export function Header({ logo, nav, cta, languages, current, labels }: Props) {
           <Link href={cta.href} className="btn" onClick={() => setMenuOpen(false)}>
             {cta.label}
           </Link>
+          {/* On phones and tablets the language choice lives here, so the logo keeps its width. */}
+          <div className="menu-languages" aria-label={labels.language} role="group">
+            <span className="label">
+              <Icon name="globe" className="icon" />
+              {labels.language}
+            </span>
+            <ul>
+              {languages.map((lang) => {
+                const href = switchLocalePath(pathname, lang.code);
+                return (
+                  <li key={lang.code}>
+                    <a
+                      href={href}
+                      hrefLang={lang.hreflang}
+                      lang={lang.hreflang}
+                      aria-current={lang.code === current ? 'true' : undefined}
+                      onClick={(e) => onLanguageClick(e, href)}
+                    >
+                      {lang.label}
+                      {lang.draft && <span className="muted small">{`\u00a0· ${labels.draftLanguage}`}</span>}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </nav>
       </div>
     </header>

@@ -30,9 +30,9 @@ export function switchLocalePath(pathname: string, target: Locale, search = ''):
 }
 
 /** Alternate URLs (hreflang) for metadata, relative to metadataBase. */
-export function alternates(path: string): Record<string, string> {
+export function alternates(path: string, available: readonly Locale[] = locales): Record<string, string> {
   const languages: Record<string, string> = {};
-  for (const locale of locales) languages[locale] = localePath(locale, path);
+  for (const locale of available) languages[locale] = localePath(locale, path);
   languages['x-default'] = localePath('en', path);
   return languages;
 }

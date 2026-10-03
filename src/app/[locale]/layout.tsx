@@ -5,15 +5,15 @@ import '@fontsource-variable/noto-serif-thai';
 import '../globals.css';
 import type { Metadata, Viewport } from 'next';
 import { brand, brandLine } from '@/content/brand';
-import { localeMeta, locales } from '@/content/locales';
+import { localeMeta } from '@/content/locales';
 import { MobileBar, SiteFooter, SiteHeader } from '@/components/SiteChrome';
 import { resolveLocale, type LocaleParams } from '@/lib/page';
-import { isPreview } from '@/lib/site';
+import { isPreview, routedLocales } from '@/lib/site';
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
+  return routedLocales().map((locale) => ({ locale }));
 }
 
 export async function generateMetadata({ params }: { params: LocaleParams }): Promise<Metadata> {

@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { categories, categoryIds, isCategoryId } from '@/content/services';
-import { locales } from '@/content/locales';
 import type { CategoryId } from '@/content/types';
 import { DraftBadge } from '@/components/Draft';
 import { Icon } from '@/components/Icon';
@@ -12,7 +11,7 @@ import { TrackedLink } from '@/components/TrackedLink';
 import { WhatsAppButton } from '@/components/WhatsAppButton';
 import { fmt, localePath } from '@/lib/i18n';
 import { pageMetadata, requireAvailable, resolveLocale } from '@/lib/page';
-import { shown, visibleLooks } from '@/lib/site';
+import { shown, visibleLooks, routedLocales } from '@/lib/site';
 import { LookGrid } from '@/components/Looks';
 
 type Params = Promise<{ locale: string; category: string }>;
@@ -20,7 +19,7 @@ type Params = Promise<{ locale: string; category: string }>;
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return locales.flatMap((locale) => categoryIds.map((category) => ({ locale, category })));
+  return routedLocales().flatMap((locale) => categoryIds.map((category) => ({ locale, category })));
 }
 
 async function resolve(params: Params) {

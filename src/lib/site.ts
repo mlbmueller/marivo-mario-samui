@@ -3,6 +3,7 @@ import { categories, categoryIds } from '@/content/services';
 import { looks } from '@/content/looks';
 import { media } from '@/content/media';
 import type { ContentStatus, Fact } from '@/content/types';
+import { localeMeta, locales, type Locale } from '@/content/locales/config';
 
 /**
  * Operating mode, set via SITE_MODE at build time.
@@ -20,6 +21,15 @@ export const isPreview = () => getSiteMode() === 'preview';
 /** Whether content with this status may be shown in the current mode. */
 export function isPublishable(status: ContentStatus, mode: SiteMode = getSiteMode()): boolean {
   return mode === 'production' ? status === 'confirmed' : status !== 'missing';
+}
+
+/**
+ * Languages that are routed and selectable. Preview: all (for review). Production: only
+ * languages marked `launch` (EN, DE) — the others return 404 and are not in the switcher,
+ * hreflang or sitemap, so they never block or confuse the EN/DE start.
+ */
+export function routedLocales(mode: SiteMode = getSiteMode()): Locale[] {
+  return mode === 'production' ? locales.filter((l) => localeMeta[l].launch) : [...locales];
 }
 
 /** Value of a fact if it may be shown, otherwise null. */

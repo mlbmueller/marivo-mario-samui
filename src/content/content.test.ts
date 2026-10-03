@@ -9,7 +9,7 @@ import { reviews } from './reviews';
 import { stores, storeIds } from './stores';
 import { team } from './team';
 import { getReleaseReport } from '@/lib/release';
-import { isPageAvailable, isPublishable } from '@/lib/site';
+import { isPageAvailable, isPublishable, routedLocales } from '@/lib/site';
 import { storeJsonLd } from '@/lib/structured-data';
 
 /** Walk two dictionaries in parallel and report keys/arrays that differ in shape. */
@@ -118,6 +118,11 @@ describe('preview vs production release', () => {
     expect(isPublishable('missing', 'preview')).toBe(false);
   });
 
+  it('production routes only the launch languages EN and DE; preview keeps all for review', () => {
+    expect(routedLocales('production')).toEqual(['en', 'de']);
+    expect(routedLocales('preview')).toEqual(['en', 'de', 'th', 'fr', 'it']);
+  });
+
   it('hides unconfirmed categories, empty work page and inactive rename page in production', () => {
     expect(isPageAvailable('/tailoring/men', 'preview')).toBe(true);
     expect(isPageAvailable('/tailoring/men', 'production')).toBe(false);
@@ -132,7 +137,12 @@ describe('preview vs production release', () => {
     const report = getReleaseReport({});
     const items = report.blockers.map((b) => b.item).join('\n');
     expect(items).toMatch(/approved looks/);
-    expect(items).toMatch(/Favicon/);
+    expect(items).not.toMatch(/Favicon/); // optional: browser default until approved
+    expect(report.hidden.map((h) => h.item).join('\n')).toMatch(/Favicon/);
+    // Only the launch languages EN/DE block; TH/FR/IT are switched off instead
+    expect(items).toMatch(/English/);
+    expect(items).toMatch(/Deutsch/);
+    expect(items).not.toMatch(/Italiano|Français|ไทย/);
     expect(items).toMatch(/trimmed web logo/);
     expect(items).toMatch(/WhatsApp/);
     expect(items).toMatch(/Exact address/);

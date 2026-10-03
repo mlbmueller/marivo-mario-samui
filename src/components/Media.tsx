@@ -26,9 +26,17 @@ export function Media({ id, dict, alt, sizes = '(min-width: 1000px) 50vw, 100vw'
   const aspectRatio = ratio ?? `${asset.width} / ${asset.height}`;
 
   if (asset.src && asset.rights === 'approved') {
+    const style = asset.focus ? { objectPosition: asset.focus } : undefined;
     return (
       <figure className="media" style={{ aspectRatio }}>
-        <Image src={asset.src} alt={altText} width={asset.width} height={asset.height} sizes={sizes} priority={priority} />
+        {asset.mobileSrc ? (
+          <picture>
+            <source media="(max-width: 959px)" srcSet={asset.mobileSrc} />
+            <Image src={asset.src} alt={altText} width={asset.width} height={asset.height} sizes={sizes} priority={priority} style={style} />
+          </picture>
+        ) : (
+          <Image src={asset.src} alt={altText} width={asset.width} height={asset.height} sizes={sizes} priority={priority} style={style} />
+        )}
       </figure>
     );
   }

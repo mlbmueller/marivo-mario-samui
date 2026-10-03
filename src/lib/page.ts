@@ -3,14 +3,14 @@ import { notFound } from 'next/navigation';
 import { brand, brandLine } from '@/content/brand';
 import { getDictionary, isLocale, localeMeta, type Dictionary, type Locale } from '@/content/locales';
 import { alternates, localePath } from './i18n';
-import { getSiteUrl, isPageAvailable, isPreview } from './site';
+import { getSiteUrl, isPageAvailable, isPreview, routedLocales } from './site';
 
 export type LocaleParams = Promise<{ locale: string }>;
 
 /** Resolve and validate the locale route param. Unknown locales → 404. */
 export async function resolveLocale(params: LocaleParams): Promise<{ locale: Locale; t: Dictionary }> {
   const { locale } = await params;
-  if (!isLocale(locale)) notFound();
+  if (!isLocale(locale) || !routedLocales().includes(locale)) notFound();
   return { locale, t: getDictionary(locale) };
 }
 
@@ -32,7 +32,7 @@ export function pageMetadata(locale: Locale, path: string, title: string, descri
     ...(siteUrl ? { metadataBase: new URL(siteUrl) } : {}),
     alternates: {
       ...(siteUrl ? { canonical: localePath(locale, path) } : {}),
-      languages: alternates(path),
+      languages: alternates(path, routedLocales()),
     },
     robots: isPreview() ? { index: false, follow: false } : { index: true, follow: true },
     openGraph: siteUrl

@@ -16,11 +16,11 @@ customer messages require a separate order.
 
 ## 2. Content approval (owner)
 
-Work through [CONTENT_TODO.md](CONTENT_TODO.md) and [ASSET_CHECKLIST.md](ASSET_CHECKLIST.md).
+Work through [CONTENT_TODO.md](CONTENT_TODO.md), [docs/IMAGE_BRIEF.md](docs/IMAGE_BRIEF.md) and [docs/RELEASE_GATE.md](docs/RELEASE_GATE.md).
 Minimum to pass the release gate:
 
 - [x] brand NICKY FASHION and approved logo SVG (delivered 3 Oct 2026)
-- [ ] visual OK for the trimmed web logo; favicon / small format
+- [ ] visual OK for the trimmed web logo (favicon optional)
 - [ ] domain decided
 - [ ] operator details and reviewed privacy notice
 - [ ] exact address, map link and facade photo for both stores
@@ -28,7 +28,7 @@ Minimum to pass the release gate:
 - [ ] at least one confirmed style world (Suits, Linen & Holiday, Women, Weddings) with its photo
 - [ ] six real, approved looks
 - [ ] approved hero outfit photo and Mario portrait
-- [ ] texts approved in every active language (native review for TH/FR/IT)
+- [ ] English and German texts approved (TH/FR/IT stay off until reviewed)
 
 ## 3. Production configuration
 

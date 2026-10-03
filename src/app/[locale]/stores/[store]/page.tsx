@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { locales } from '@/content/locales';
 import { isStoreId, storeIds, stores } from '@/content/stores';
 import type { StoreId } from '@/content/types';
 import { Icon } from '@/components/Icon';
@@ -11,7 +10,7 @@ import { TrackedLink } from '@/components/TrackedLink';
 import { WhatsAppButton } from '@/components/WhatsAppButton';
 import { fmt, localePath } from '@/lib/i18n';
 import { pageMetadata, resolveLocale } from '@/lib/page';
-import { getSiteUrl, isPreview, shown } from '@/lib/site';
+import { getSiteUrl, isPreview, shown, routedLocales } from '@/lib/site';
 import { storeJsonLd } from '@/lib/structured-data';
 
 type Params = Promise<{ locale: string; store: string }>;
@@ -19,7 +18,7 @@ type Params = Promise<{ locale: string; store: string }>;
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return locales.flatMap((locale) => storeIds.map((store) => ({ locale, store })));
+  return routedLocales().flatMap((locale) => storeIds.map((store) => ({ locale, store })));
 }
 
 async function resolve(params: Params) {

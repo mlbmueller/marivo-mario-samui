@@ -27,7 +27,8 @@ export function getReleaseReport(env: Env = process.env): ReleaseReport {
   if (brand.name.status !== 'confirmed') block('Brand', 'Brand name approved');
   if (brand.logoAsset.status !== 'confirmed') block('Brand', 'Approved logo SVG in public/brand/');
   if (brand.logoWebCrop.status !== 'confirmed') block('Brand', 'Visual approval of the trimmed web logo (viewBox only, artwork unchanged)');
-  if (brand.favicon.status !== 'confirmed') block('Brand', 'Favicon / small logo format (not invented — open asset)');
+  // Optional: without an approved small format the browser shows its default icon.
+  if (brand.favicon.status !== 'confirmed') hide('Brand', 'Favicon (browser default until a proposal is approved — see docs/proposals/)');
   if (brand.domain.status !== 'confirmed' && !env.SITE_URL) block('Brand', 'Final domain confirmed (SITE_URL)');
 
   // Legal and privacy
@@ -92,7 +93,9 @@ export function getReleaseReport(env: Env = process.env): ReleaseReport {
 
   // Languages
   for (const locale of locales) {
-    if (!localeMeta[locale].reviewed) block('Languages', `Texts in ${localeMeta[locale].label} reviewed and approved`);
+    const label = localeMeta[locale].label;
+    if (localeMeta[locale].launch && !localeMeta[locale].reviewed) block('Languages', `Texts in ${label} reviewed and approved`);
+    if (!localeMeta[locale].launch) hide('Languages', `${label}: not part of the launch (no route, not selectable) until reviewed and set to launch`);
   }
 
   // Integrations

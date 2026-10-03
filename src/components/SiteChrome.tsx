@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { brand, operator, privacyNotice } from '@/content/brand';
-import { localeMeta, locales, type Dictionary, type Locale } from '@/content/locales';
+import { localeMeta, type Dictionary, type Locale } from '@/content/locales';
 import { storeIds } from '@/content/stores';
 import { localePath } from '@/lib/i18n';
-import { isPageAvailable, isPreview, isPublishable } from '@/lib/site';
+import { isPageAvailable, isPreview, isPublishable, routedLocales } from '@/lib/site';
 import { buildWhatsAppLink, whatsappNumberFor } from '@/lib/whatsapp';
 import { FooterLanguages } from './FooterLanguages';
 import { Header, type NavItem } from './Header';
@@ -29,13 +29,14 @@ export function SiteHeader({ locale, t }: { locale: Locale; t: Dictionary }) {
       nav={mainNav(locale, t)}
       cta={{ href: localePath(locale, '/contact'), label: t.common.planFitting }}
       current={locale}
-      languages={locales.map((code) => ({ code, ...localeMeta[code] }))}
+      languages={routedLocales().map((code) => ({ code, ...localeMeta[code], draft: !localeMeta[code].launch }))}
       labels={{
         openMenu: t.common.openMenu,
         closeMenu: t.common.closeMenu,
         mainNav: t.common.mainNav,
         changeLanguage: t.common.changeLanguage,
         language: t.common.language,
+        draftLanguage: t.common.draft,
       }}
     />
   );
@@ -126,7 +127,7 @@ export function SiteFooter({ locale, t }: { locale: Locale; t: Dictionary }) {
           <span>
             © {year} {brand.name.value}
           </span>
-          <FooterLanguages label={t.common.language} current={locale} languages={locales.map((code) => ({ code, label: localeMeta[code].label, hreflang: localeMeta[code].hreflang }))} />
+          <FooterLanguages label={t.common.language} current={locale} languages={routedLocales().map((code) => ({ code, label: localeMeta[code].label, hreflang: localeMeta[code].hreflang }))} />
         </div>
       </div>
     </footer>

@@ -1,5 +1,16 @@
 import { expect, test, type Page } from '@playwright/test';
 
+/** Desktop: globe button in the header. Phones/tablets: language list inside the menu. */
+async function chooseLanguage(page: Page, isMobile: boolean, name: RegExp | string) {
+  if (isMobile) {
+    await page.getByRole('button', { name: 'Open menu' }).click();
+    await page.locator('#mobile-menu .menu-languages').getByRole('link', { name }).click();
+  } else {
+    await page.getByRole('button', { name: /Change language/ }).click();
+    await page.locator('#language-menu').getByRole('link', { name }).click();
+  }
+}
+
 async function noHorizontalOverflow(page: Page) {
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   expect(overflow).toBeLessThanOrEqual(0);
@@ -15,14 +26,14 @@ test('root redirects to the English home page; preview is not indexable', async 
   await expect(page).toHaveTitle(/Custom Tailoring in Koh Samui/);
 });
 
-test('header shows the approved SVG word mark undistorted, with alt text', async ({ page }) => {
+test('header shows the approved SVG word mark undistorted, with alt text', async ({ page, isMobile }) => {
   await page.goto('/en');
   const logo = page.locator('header .logo-img');
   await expect(logo).toHaveAttribute('src', '/brand/NICKY_FASHION_WEB_TRIM.svg');
   await expect(logo).toHaveAttribute('alt', 'Nicky Fashion – Men’s & Women’s Wear – Tailoring by Mario K.');
   const box = (await logo.boundingBox())!;
   expect(box.width / box.height).toBeCloseTo(3238 / 789, 1);
-  expect(box.width).toBeGreaterThanOrEqual(185);
+  expect(box.width).toBeGreaterThanOrEqual(isMobile ? 255 : 315);
   // Logo lines are artwork: identical in every language
   await page.goto('/th');
   await expect(page.locator('header .logo-img')).toHaveAttribute('src', '/brand/NICKY_FASHION_WEB_TRIM.svg');
@@ -45,24 +56,22 @@ test('home page v2: hero actions, four style worlds, six looks, both stores', as
 test('main navigation: Tailoring · Our Work · Mario & Team · Our Stores · Contact', async ({ page, isMobile }) => {
   await page.goto('/en');
   if (isMobile) await page.getByRole('button', { name: 'Open menu' }).click();
-  const nav = isMobile ? page.locator('#mobile-menu nav ul') : page.locator('header .main-nav');
+  const nav = isMobile ? page.locator('#mobile-menu nav > ul') : page.locator('header .main-nav');
   await expect(nav.getByRole('link')).toHaveText(['Tailoring', 'Our Work', 'Mario & Team', 'Our Stores', 'Contact']);
 });
 
 test('language switch keeps the current page', async ({ page, isMobile }) => {
   await page.goto('/en/stores/chaweng');
-  await page.getByRole('button', { name: /Change language/ }).click();
-  await page.locator('#language-menu').getByRole('link', { name: /Deutsch/ }).click();
+  await chooseLanguage(page, !!isMobile, /Deutsch/);
   await expect(page).toHaveURL(/\/de\/stores\/chaweng$/);
   await expect(page.locator('html')).toHaveAttribute('lang', 'de');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Unser Geschäft in Chaweng');
   if (!isMobile) await noHorizontalOverflow(page);
 });
 
-test('language switch keeps the request context on the contact page', async ({ page }) => {
+test('language switch keeps the request context on the contact page', async ({ page, isMobile }) => {
   await page.goto('/en/contact?interest=weddings&store=fishermans-village');
-  await page.getByRole('button', { name: /Change language/ }).click();
-  await page.locator('#language-menu').getByRole('link', { name: /Italiano/ }).click();
+  await chooseLanguage(page, !!isMobile, /Italiano/);
   await expect(page).toHaveURL(/\/it\/contact\?interest=weddings&store=fishermans-village$/);
   await expect(page.locator('#inq-interest')).toHaveValue('weddings');
   await expect(page.locator('#inq-store')).toHaveValue('fishermans-village');
@@ -117,6 +126,35 @@ test.describe('mobile', () => {
     for (const path of ['/en/contact', '/de/returning-customers']) {
       await page.goto(path);
       await expect(page.locator('.mobile-bar')).toHaveCount(0);
+    }
+  });
+
+  test('quick bar steps aside while a form field is focused (on-screen keyboard)', async ({ page }) => {
+    await page.goto('/en');
+    await expect(page.locator('.mobile-bar')).toBeVisible();
+    await page.locator('#plan-arrival').focus();
+    await expect(page.locator('.mobile-bar')).toBeHidden();
+    await page.locator('#plan-arrival').blur();
+    await expect(page.locator('.mobile-bar')).toBeVisible();
+  });
+
+  test('landscape phone (844 × 390): no overflow, bar at the bottom, form usable', async ({ page }) => {
+    await page.setViewportSize({ width: 844, height: 390 });
+    for (const path of ['/en', '/de/contact', '/en/stores/chaweng']) {
+      await page.goto(path);
+      await noHorizontalOverflow(page);
+    }
+    await page.goto('/en/faq');
+    const bar = (await page.locator('.mobile-bar').boundingBox())!;
+    expect(Math.round(bar.y + bar.height)).toBe(390);
+    expect(bar.height).toBeLessThan(90);
+  });
+
+  test('zoom / large text: 200 % text size keeps the layout without overflow', async ({ page }) => {
+    for (const path of ['/en', '/en/contact', '/en/stores/chaweng', '/en/tailoring/men', '/en/our-work', '/th']) {
+      await page.goto(path);
+      await page.addStyleTag({ content: 'html{font-size:200%}' });
+      await noHorizontalOverflow(page);
     }
   });
 
@@ -282,14 +320,14 @@ test('WhatsApp is visibly disabled while no number is confirmed', async ({ page 
 
 test.describe('widths 360–1440: no horizontal overflow', () => {
   test.skip(({ isMobile }) => isMobile, 'runs once on the desktop project');
-  for (const width of [360, 375, 390, 430, 768, 1440]) {
+  for (const width of [320, 360, 375, 390, 430, 768, 1440]) {
     test(`${width}px`, async ({ page }) => {
       await page.setViewportSize({ width, height: 900 });
       for (const path of ['/en', '/th', '/de/contact', '/en/stores/fishermans-village', '/fr/our-work']) {
         await page.goto(path);
         await noHorizontalOverflow(page);
         const logo = (await page.locator('header .logo-img').boundingBox())!;
-        expect(logo.width).toBeGreaterThanOrEqual(185);
+        expect(logo.width).toBeGreaterThanOrEqual(220);
       }
     });
   }

@@ -1,5 +1,7 @@
 # Asset checklist
 
+Shooting list with resolutions: [docs/IMAGE_BRIEF.md](docs/IMAGE_BRIEF.md).
+
 All images are registered in `src/content/media.ts` with description, size, source and
 rights status. Alt texts are in every locale file under `media.*`.
 While `src` is `null`, preview shows a labelled placeholder with the target aspect ratio.
@@ -14,7 +16,7 @@ before launch — they are release blockers, not hidden.
 | `public/brand/NICKY_FASHION_WEB.svg` | ✅ delivered, approved | viewBox `0 0 4000 1000`; text as outlined `<path>` (no `<text>`, no font dependency); fills `#5A1530` (line 1) and `#222222` (lines 2–3); transparent; 11 KB |
 | `public/brand/NICKY_FASHION_WEB_TRIM.svg` | ⚠️ derived, **visual OK needed** | same paths byte-for-byte (content test), viewBox `381 156 3238 789` = artwork + clear space of ½ line-2 height |
 | `public/brand/NICKY_FASHION_WEB.png` | ✅ delivered | 2400 × 600, RGBA, transparent; raster fallback, not used currently |
-| Favicon / small format | ❌ missing | not invented; open asset |
+| Favicon / small format | proposals A/B in `docs/proposals/` | letter «N» from the approved artwork, unchanged; not used until approved (optional for launch) |
 | Social preview image (Open Graph) | ❌ missing | create once logo and hero photo are final |
 | Print files (TIFF 6.6 MB, JPG 5.6 MB, GIF 0.7 MB, PDF/SVG 4 m) | not in web project | sign production only |
 

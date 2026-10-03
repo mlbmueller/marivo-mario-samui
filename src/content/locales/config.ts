@@ -21,14 +21,20 @@ export type LocaleMeta = {
   intl: string;
   /** Texts reviewed and approved for publication (owner / native speaker). */
   reviewed: boolean;
+  /**
+   * Part of the public launch. EN and DE are binding for the start. Additional languages are
+   * complete (same structure, enforced by tests) but unreviewed: they stay reviewable in the
+   * preview and are neither routed nor selectable in production until `launch: true`.
+   */
+  launch: boolean;
 };
 
 export const localeMeta: Record<Locale, LocaleMeta> = {
-  en: { label: 'English', short: 'EN', hreflang: 'en', intl: 'en-GB', reviewed: false },
-  de: { label: 'Deutsch', short: 'DE', hreflang: 'de', intl: 'de-CH', reviewed: false },
-  th: { label: 'ไทย', short: 'TH', hreflang: 'th', intl: 'th-TH', reviewed: false },
-  fr: { label: 'Français', short: 'FR', hreflang: 'fr', intl: 'fr-FR', reviewed: false },
-  it: { label: 'Italiano', short: 'IT', hreflang: 'it', intl: 'it-IT', reviewed: false },
+  en: { label: 'English', short: 'EN', hreflang: 'en', intl: 'en-GB', reviewed: false, launch: true },
+  de: { label: 'Deutsch', short: 'DE', hreflang: 'de', intl: 'de-CH', reviewed: false, launch: true },
+  th: { label: 'ไทย', short: 'TH', hreflang: 'th', intl: 'th-TH', reviewed: false, launch: false },
+  fr: { label: 'Français', short: 'FR', hreflang: 'fr', intl: 'fr-FR', reviewed: false, launch: false },
+  it: { label: 'Italiano', short: 'IT', hreflang: 'it', intl: 'it-IT', reviewed: false, launch: false },
 };
 
 export const isLocale = (value: unknown): value is Locale =>

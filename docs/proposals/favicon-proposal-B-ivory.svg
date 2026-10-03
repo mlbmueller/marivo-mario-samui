@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- PROPOSAL ONLY – not used on the site. Glyph "N" taken unchanged from the approved
+       NICKY_FASHION_WEB.svg (line 1); no new symbol. Needs owner approval. -->
+  <rect width="100" height="100" rx="12" fill="#F7F0E4"/>
+  <path transform="translate(18.452 79.612) scale(0.088 -0.088)" fill="#5A1530" d="M16 0H243V25C167 33 149 52 148 124V526L595 -18H623V571C623 628 636 642 701 651V676H486V651C559 644 579 623 579 552V247L230 676H19V651C39 651 56 636 104 579V105C103 46 87 33 16 25Z"/>
+</svg>

@@ -78,3 +78,22 @@ bar at the capture position — not its real position.
 - No screen-reader session; no Lighthouse/axe scores measured — none claimed
 - TH/FR/IT texts not reviewed by native speakers
 - Native date inputs show the browser’s locale format; values are sent as `YYYY-MM-DD`
+
+## Update — review preparation (3 Oct 2026, later run)
+
+Changes since the run above: launch languages EN/DE (TH/FR/IT off in production), favicon optional,
+language choice in the menu below 1280 px (logo 234–260 px on phones), quick bar steps aside while
+a field is focused, reflow fixes for enlarged text, form group headings below the separator line,
+image focal point / mobile crop support.
+
+| Check | Result |
+| --- | --- |
+| Unit tests | 57 / 57 passed |
+| Browser tests | 56 passed, 14 skipped (project-specific) |
+| New browser tests | 320 px width; landscape phone 844 × 390; 200 % text size on 6 pages (no overflow); quick bar hidden while a field has focus; language switch via the mobile menu |
+| Production-mode build with the gate bypassed | builds EN/DE only; `/th`, `/fr/faq`, `/en/our-work`, `/en/tailoring/men` → 404; hreflang only en/de/x-default; no noindex |
+| Release gate | 19 central blockers, 43 optional items automatically deactivated |
+| Logo comparison | paths byte-identical; rendered artwork 30 of 438 739 pixels differ by edge anti-aliasing only (0.0068 %) |
+
+Not available here: Safari/WebKit, real on-screen keyboards, pinch zoom, VoiceOver → manual list
+in `docs/DEVICE_CHECKLIST.md`.

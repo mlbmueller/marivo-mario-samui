@@ -19,6 +19,10 @@ export type MediaAsset = {
   /** Photographer / origin of the file. */
   source: string | null;
   rights: MediaRights;
+  /** Focal point for cropping (CSS object-position), e.g. '50% 30%'. Default: centre. */
+  focus?: string;
+  /** Optional separate crop for phones (e.g. a 4:3 version of the full-length hero). */
+  mobileSrc?: string | null;
 };
 
 const placeholder = (id: string, description: string, width: number, height: number): MediaAsset => ({

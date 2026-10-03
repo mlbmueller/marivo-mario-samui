@@ -1,7 +1,6 @@
 import type { MetadataRoute } from 'next';
-import { locales } from '@/content/locales';
 import { localePath } from '@/lib/i18n';
-import { getSiteUrl, isPageAvailable, isPreview, sitePaths } from '@/lib/site';
+import { getSiteUrl, isPageAvailable, isPreview, routedLocales, sitePaths } from '@/lib/site';
 
 /**
  * Lists only pages available in the current mode, with all language alternates.
@@ -10,6 +9,7 @@ import { getSiteUrl, isPageAvailable, isPreview, sitePaths } from '@/lib/site';
 export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl = getSiteUrl();
   if (!siteUrl || isPreview()) return [];
+  const locales = routedLocales();
   return sitePaths
     .filter((path) => isPageAvailable(path))
     .flatMap((path) =>
