@@ -22,7 +22,7 @@ dringend empfohlen, sonst ausgeblendet · ⏳ = später möglich (Bereich bleibt
 | 8 | Kartenlink Chaweng | Google- oder Apple-Maps-Link auf den genauen Eingang | Anfahrt; keine geschätzten Pins | ⛔ |
 | 9 | Kartenlink Fisherman’s Village | dito | dito | ⛔ |
 | 10 | Fassadenfoto Chaweng | ✅ erledigt (3.10.2026, vom Betreiber geliefert) | Wiedererkennung vor Ort | – |
-| 11 | Fassadenfoto Fisherman’s Village | Foto erhalten, aber zurückgestellt: zeigt die fremde Marke «ARMANI» mit Adler-Logo. Benötigt: Foto ohne fremde Marke (z. B. nach Umbeschriftung) oder schriftliche Freigabe nach rechtlicher Prüfung | Wiedererkennung vor Ort; Markenrecht | ⛔ |
+| 11 | Fassadenfoto Fisherman’s Village | ✅ erledigt (3.10.2026): aktuelles Foto «Samui Armani» bis zur Umbenennung, Ansicht «NICKY FASHION» ab Umbenennung 2027 (Wechsel automatisch mit `brand.transition.active`). Betreiberentscheid: Armani-Schriftzug zeigen, da aktuelle Beschilderung – rechtliche Prüfung vor Veröffentlichung empfohlen | Wiedererkennung vor Ort | – |
 | 12 | Titelbild | fertiges Outfit, siehe Bildbedarf | zentrales Motiv der Startseite | ⛔ |
 | 13 | Mario | Porträt oder Beratungsszene | Vertrauen, Teamabschnitt | ⛔ |
 | 14 | Sortiment | Bestätigung der Stilwelten Suits / Linen & Holiday / Women / Weddings und der Kleidungslisten | nur Bestätigtes wird gezeigt; mindestens eine nötig | ⛔ |

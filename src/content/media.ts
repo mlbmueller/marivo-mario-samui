@@ -51,7 +51,26 @@ export const media = {
     rights: 'approved',
   } as MediaAsset,
   'store-chaweng-interior': placeholder('store-chaweng-interior', 'Chaweng store: interior with fabrics', 1600, 1200),
-  'store-fishermans-village-exterior': placeholder('store-fishermans-village-exterior', 'Fisherman’s Village store: facade with current signage', 1600, 1200),
+  /** Current signage (until the rename in 2027) still reads «Samui Armani» — owner decision, 3 Oct 2026. */
+  'store-fishermans-village-exterior': {
+    id: 'store-fishermans-village-exterior',
+    description: 'Fisherman’s Village store: facade with current signage (Samui Armani, until the rename)',
+    width: 1448,
+    height: 1086,
+    src: '/images/store-fishermans-village-exterior.webp',
+    source: 'Supplied by the owner, 3 Oct 2026 (edited by the owner)',
+    rights: 'approved',
+  } as MediaAsset,
+  /** Facade after the rename (2027). Edited visual supplied by the owner; shown only once brand.transition.active is true. */
+  'store-fishermans-village-exterior-renamed': {
+    id: 'store-fishermans-village-exterior-renamed',
+    description: 'Fisherman’s Village store: facade with NICKY FASHION signage (after the rename)',
+    width: 1448,
+    height: 1086,
+    src: '/images/store-fishermans-village-exterior-renamed.webp',
+    source: 'Edited visual supplied by the owner, 3 Oct 2026',
+    rights: 'approved',
+  } as MediaAsset,
   'store-fishermans-village-interior': placeholder('store-fishermans-village-interior', 'Fisherman’s Village store: interior with fabrics', 1600, 1200),
   'category-men': placeholder('category-men', 'Style world Suits: finished suit worn by a customer (with consent), full body', 1200, 1500),
   'category-linen-holiday': placeholder('category-linen-holiday', 'Style world Linen & Holiday: linen shirt/suit in a light island setting (with consent)', 1200, 1500),

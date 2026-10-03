@@ -464,6 +464,7 @@ const th: Dictionary = {
     'store-chaweng-exterior': 'หน้าร้านที่เฉวง',
     'store-chaweng-interior': 'ภายในร้านที่เฉวง',
     'store-fishermans-village-exterior': 'หน้าร้านที่ Fisherman’s Village',
+    'store-fishermans-village-exterior-renamed': 'หน้าร้านที่ Fisherman’s Village',
     'store-fishermans-village-interior': 'ภายในร้านที่ Fisherman’s Village',
     'category-men': 'สูทตัดตามสั่ง',
     'category-linen-holiday': 'ชุดลินินตัดตามสั่ง',

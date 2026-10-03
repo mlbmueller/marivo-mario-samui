@@ -9,7 +9,7 @@ import { looks, REQUIRED_LOOKS } from '@/content/looks';
 import { media } from '@/content/media';
 import { reviews } from '@/content/reviews';
 import { categories, categoryIds, extraServices, processSteps, policies } from '@/content/services';
-import { stores, storeIds } from '@/content/stores';
+import { exteriorImageFor, stores, storeIds } from '@/content/stores';
 import { team } from '@/content/team';
 
 export type ReleaseItem = { area: string; item: string };
@@ -79,7 +79,7 @@ export function getReleaseReport(env: Env = process.env): ReleaseReport {
   const requiredImages = [
     'hero-outfit',
     'portrait-mario',
-    ...storeIds.map((id) => stores[id].exteriorImage),
+    ...storeIds.map((id) => exteriorImageFor(stores[id])),
     ...categoryIds.filter((id) => categories[id].offered.status === 'confirmed').map((id) => categories[id].image),
   ] as const;
   for (const id of requiredImages) {

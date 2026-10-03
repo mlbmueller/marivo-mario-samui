@@ -150,3 +150,13 @@ describe('preview vs production release', () => {
     expect(items).toMatch(/rate-limit/);
   });
 });
+
+describe('store facades', () => {
+  it('shows the photo matching the current signage until the rename', async () => {
+    const { stores, exteriorImageFor } = await import('./stores');
+    const { brand } = await import('./brand');
+    const fv = stores['fishermans-village'];
+    expect(exteriorImageFor(fv)).toBe(brand.transition.active ? fv.exteriorImageAfterRename : fv.exteriorImage);
+    expect(exteriorImageFor({ ...fv, exteriorImageAfterRename: undefined })).toBe(fv.exteriorImage);
+  });
+});

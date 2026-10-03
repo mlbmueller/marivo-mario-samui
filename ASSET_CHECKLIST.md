@@ -30,7 +30,8 @@ before launch — they are release blockers, not hidden.
 | `portrait-james` | James, same style | 4:5 | team | placeholder | optional |
 | `team-group` | team together | 3:2 | team | placeholder | optional |
 | `store-chaweng-exterior` | facade with current signage | 4:3 | home, stores | ✅ supplied by owner 3 Oct 2026 (`/images/store-chaweng-exterior.webp`, 1448×1086) | **required** |
-| `store-fishermans-village-exterior` | facade with current signage | 4:3 | home, stores | placeholder – photo received 3 Oct 2026 but on hold: shows third-party trademark (ARMANI lettering + eagle logo), see CONTENT_TODO #11 | **required** |
+| `store-fishermans-village-exterior` | facade with current signage | 4:3 | home, stores | ✅ supplied and edited by owner 3 Oct 2026 – current «Samui Armani» signage (owner decision; legal check of third-party trademark recommended before launch) | **required** |
+| `store-fishermans-village-exterior-renamed` | facade after rename (NICKY FASHION) | 4:3 | home, stores – replaces the above once `brand.transition.active` | ✅ edited visual supplied by owner 3 Oct 2026 | from rename (2027) |
 | `store-*-interior` | interiors with fabrics | 4:3 | store pages | placeholder | optional |
 | `category-men` (Suits) | finished suit, full body (consent) | 4:5 | style worlds, page | placeholder | required if published |
 | `category-linen-holiday` | linen look, light island setting (consent) | 4:5 | style worlds, page | placeholder | required if published |

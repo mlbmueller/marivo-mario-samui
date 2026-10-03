@@ -461,6 +461,7 @@ const fr: Dictionary = {
     'store-chaweng-exterior': 'Devanture à Chaweng',
     'store-chaweng-interior': 'Intérieur de la boutique à Chaweng',
     'store-fishermans-village-exterior': 'Devanture à Fisherman’s Village',
+    'store-fishermans-village-exterior-renamed': 'Devanture à Fisherman’s Village',
     'store-fishermans-village-interior': 'Intérieur de la boutique à Fisherman’s Village',
     'category-men': 'Un costume sur mesure',
     'category-linen-holiday': 'Vêtements en lin sur mesure',

@@ -469,6 +469,7 @@ const en = {
     'store-chaweng-exterior': 'Store front in Chaweng',
     'store-chaweng-interior': 'Inside the store in Chaweng',
     'store-fishermans-village-exterior': 'Store front in Fisherman’s Village',
+    'store-fishermans-village-exterior-renamed': 'Store front in Fisherman’s Village',
     'store-fishermans-village-interior': 'Inside the store in Fisherman’s Village',
     'category-men': 'A tailored suit',
     'category-linen-holiday': 'Tailored linen wear',

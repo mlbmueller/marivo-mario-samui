@@ -1,3 +1,4 @@
+import { brand } from './brand';
 import type { MediaId } from './media';
 import { confirmed, missing, type Fact, type StoreId } from './types';
 
@@ -23,6 +24,8 @@ export type Store = {
   directions: Fact<Partial<Record<string, string>>>;
   /** Image ids from media.ts */
   exteriorImage: MediaId;
+  /** Facade after the rename; replaces exteriorImage once brand.transition.active is true. */
+  exteriorImageAfterRename?: MediaId;
   interiorImage: MediaId;
 };
 
@@ -50,10 +53,16 @@ export const stores: Record<StoreId, Store> = {
     name: confirmed('Fisherman’s Village'),
     area: confirmed('Koh Samui'),
     ...unknownStoreFields(),
+    previousName: confirmed('Samui Armani By Mario', 'Owner, 3 Oct 2026: current facade signage until the rename in 2027'),
     exteriorImage: 'store-fishermans-village-exterior',
+    exteriorImageAfterRename: 'store-fishermans-village-exterior-renamed',
     interiorImage: 'store-fishermans-village-interior',
   },
 };
+
+/** Facade photo matching the signage customers currently see on site. */
+export const exteriorImageFor = (s: Store): MediaId =>
+  brand.transition.active && s.exteriorImageAfterRename ? s.exteriorImageAfterRename : s.exteriorImage;
 
 export const storeIds = Object.keys(stores) as StoreId[];
 

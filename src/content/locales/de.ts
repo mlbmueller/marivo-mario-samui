@@ -463,6 +463,7 @@ const de: Dictionary = {
     'store-chaweng-exterior': 'Ladenfront in Chaweng',
     'store-chaweng-interior': 'Im Geschäft in Chaweng',
     'store-fishermans-village-exterior': 'Ladenfront in Fisherman’s Village',
+    'store-fishermans-village-exterior-renamed': 'Ladenfront in Fisherman’s Village',
     'store-fishermans-village-interior': 'Im Geschäft in Fisherman’s Village',
     'category-men': 'Ein massgeschneiderter Anzug',
     'category-linen-holiday': 'Massgeschneiderte Leinenkleidung',

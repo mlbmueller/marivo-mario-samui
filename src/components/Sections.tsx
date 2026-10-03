@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import type { Dictionary, Locale } from '@/content/locales';
 import { categories, categoryIds, processSteps } from '@/content/services';
-import { stores } from '@/content/stores';
+import { exteriorImageFor, stores } from '@/content/stores';
 import type { StoreId } from '@/content/types';
 import { fmt, localePath } from '@/lib/i18n';
 import { isPageAvailable, isPreview, isPublishable, shown } from '@/lib/site';
@@ -167,7 +167,7 @@ export function StoreCard({ store, locale, t, headingLevel = 3 }: { store: Store
   const Heading = `h${headingLevel}` as 'h2' | 'h3';
   return (
     <article className="store-card card">
-      <Media id={s.exteriorImage} dict={t} alt={fmt(t.stores.exteriorAlt, { store: t.storeNames[store] })} ratio="4 / 3" sizes="(min-width: 720px) 50vw, 100vw" />
+      <Media id={exteriorImageFor(s)} dict={t} alt={fmt(t.stores.exteriorAlt, { store: t.storeNames[store] })} ratio="4 / 3" sizes="(min-width: 720px) 50vw, 100vw" />
       <div>
         <p className="eyebrow" style={{ marginBottom: '0.5rem' }}>
           {t.common.koh}

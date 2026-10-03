@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { isStoreId, storeIds, stores } from '@/content/stores';
+import { exteriorImageFor, isStoreId, storeIds, stores } from '@/content/stores';
 import type { StoreId } from '@/content/types';
 import { Icon } from '@/components/Icon';
 import { Media } from '@/components/Media';
@@ -60,7 +60,7 @@ export default async function StorePage({ params }: { params: Params }) {
       <section className="section" style={{ paddingTop: 0 }}>
         <div className="container detail-grid">
           <div className="stack">
-            <Media id={s.exteriorImage} dict={t} alt={fmt(t.stores.exteriorAlt, { store: name })} ratio="4 / 3" sizes="(min-width: 900px) 66vw, 100vw" />
+            <Media id={exteriorImageFor(s)} dict={t} alt={fmt(t.stores.exteriorAlt, { store: name })} ratio="4 / 3" sizes="(min-width: 900px) 66vw, 100vw" />
             <Media id={s.interiorImage} dict={t} alt={fmt(t.stores.interiorAlt, { store: name })} ratio="4 / 3" sizes="(min-width: 900px) 66vw, 100vw" />
           </div>
           <aside className="sticky-aside card stack">
