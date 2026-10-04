@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import type { Dictionary, Locale } from '@/content/locales';
 import { categories, categoryIds, processSteps } from '@/content/services';
-import { closureOf, exteriorImageFor, openAlternativeTo, stores } from '@/content/stores';
+import { closureOf, exteriorImageFor, openAlternativeTo, storeIds, stores } from '@/content/stores';
 import { formatDays, formatMonth } from '@/lib/hours';
 import type { StoreId } from '@/content/types';
 import { fmt, localePath } from '@/lib/i18n';
-import { isPageAvailable, isPreview, isPublishable, shown } from '@/lib/site';
+import { isFormEnabled, isPageAvailable, isPreview, isPublishable, shown } from '@/lib/site';
 import { DraftBadge, PreviewNotice } from './Draft';
 import { Icon } from './Icon';
 import { Media } from './Media';
@@ -215,7 +215,7 @@ export function ClosingCta({ locale, t, heading, text }: { locale: Locale; t: Di
       <div className="container">
         <div className="section-head" style={{ marginBottom: '2rem' }}>
           <h2>{heading ?? t.home.closingHeading}</h2>
-          <p>{text ?? t.home.closingText}</p>
+          <p>{text ?? (isFormEnabled() ? t.home.closingText : t.contact.introNoForm)}</p>
         </div>
         <div className="btn-row">
           <TrackedLink href={localePath(locale, '/contact')} className="btn" event="contact_cta_click">
@@ -233,4 +233,38 @@ export function ClosingCta({ locale, t, heading, text }: { locale: Locale; t: Di
 export function CategoryDraftNotice({ id, t }: { id: keyof typeof categories; t: Dictionary }) {
   if (isPublishable(categories[id].offered.status, 'production')) return null;
   return <PreviewNotice>{t.categories.shared.unconfirmedNotice}</PreviewNotice>;
+}
+
+/**
+ * Contact without a form (reduced launch): per store the phone number, WhatsApp and the map.
+ * A temporarily closed store shows its notice; its WhatsApp goes to the open store.
+ */
+export function ContactOptions({ locale, t }: { locale: Locale; t: Dictionary }) {
+  return (
+    <div className="grid grid-2 contact-options">
+      {storeIds.map((id) => {
+        const s = stores[id];
+        const phone = shown(s.phone);
+        return (
+          <article key={id} className="card stack">
+            <h2 style={{ fontSize: '1.3rem', margin: 0 }}>
+              <Link href={localePath(locale, `/stores/${id}`)}>
+                {t.storeNames[id]}, {t.common.koh}
+              </Link>
+            </h2>
+            <ClosureNotice store={id} locale={locale} t={t} />
+            {!closureOf(s) && phone && (
+              <p style={{ margin: 0 }}>
+                {t.stores.phoneLabel}: <a href={`tel:${phone.replace(/\s/g, '')}`}>{phone}</a>
+              </p>
+            )}
+            <div className="btn-row">
+              <WhatsAppButton dict={t} store={openAlternativeTo(s) ?? id} label={fmt(t.contact.whatsappStore, { store: t.storeNames[openAlternativeTo(s) ?? id] })} />
+              <DirectionsButton store={id} t={t} />
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  );
 }

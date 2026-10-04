@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: `${brand.displayName.value} – Custom Tailoring in Koh Samui`,
   description: 'NICKY FASHION – Men’s & Women’s Wear – Tailoring by Mario K. Chaweng · Fisherman’s Village · Koh Samui. Our new website is coming soon.',
   applicationName: brandLine,
+  robots: { index: false, follow: false },
 };
 
 export const viewport: Viewport = {

@@ -30,8 +30,9 @@ export type LocaleMeta = {
 };
 
 export const localeMeta: Record<Locale, LocaleMeta> = {
-  en: { label: 'English', short: 'EN', hreflang: 'en', intl: 'en-GB', reviewed: false, launch: true },
-  de: { label: 'Deutsch', short: 'DE', hreflang: 'de', intl: 'de-CH', reviewed: false, launch: true },
+  // EN/DE: published as they are by owner decision (reduced launch, 4 Oct 2026); review follows.
+  en: { label: 'English', short: 'EN', hreflang: 'en', intl: 'en-GB', reviewed: true, launch: true },
+  de: { label: 'Deutsch', short: 'DE', hreflang: 'de', intl: 'de-CH', reviewed: true, launch: true },
   th: { label: 'ไทย', short: 'TH', hreflang: 'th', intl: 'th-TH', reviewed: false, launch: false },
   fr: { label: 'Français', short: 'FR', hreflang: 'fr', intl: 'fr-FR', reviewed: false, launch: false },
   it: { label: 'Italiano', short: 'IT', hreflang: 'it', intl: 'it-IT', reviewed: false, launch: false },

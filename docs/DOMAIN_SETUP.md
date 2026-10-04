@@ -9,15 +9,18 @@ für den Anfang). Die Kette: **GitHub (Code) → Vercel (Hosting) → GoDaddy (D
 > Die Domain erst auf die Seite zeigen lassen, wenn sie veröffentlicht werden darf. Bis dahin
 > nur die geschützte Vercel-Testadresse verwenden.
 
-## Stand: Coming-soon-Modus (aktiv)
+## Stand: Coming-soon-Seite → reduzierter Start
 
-Unter `www.nickyfashionsamui.com` und `nickyfashionsamui.com` erscheint nur die Coming-soon-Seite
-(`src/app/coming-soon/`): Logo, «Custom tailoring · Koh Samui», Hinweis EN/DE, beide Standorte,
-WhatsApp-Knopf erst mit bestätigter Nummer. Alle anderen Adressen auf der Domain führen dorthin,
-`/api/*` ist dort gesperrt. Die volle Vorschau bleibt unter den Vercel-Adressen.
-Steuerung: `src/lib/holding.ts` (`active`). Zum Start der vollen Seite: `active: false`, im
-`next.config.ts` die `missing`-Bedingung der Root-Weiterleitung entfernen, Produktionsvariablen
-setzen und deployen.
+Solange in Vercel für **Production** `SITE_MODE` nicht `production` ist, zeigt die Domain nur die
+Coming-soon-Seite (`src/app/coming-soon/`, Sprachen EN/DE/TH/FR/IT über `?lang=`).
+
+**Volle Seite live schalten (reduzierter Start, Entscheid 4.10.2026, `src/content/launch.ts`):**
+Vercel → Settings → Environment Variables → `SITE_MODE` → Wert für **Production** auf `production`
+setzen (Preview bleibt `preview`) → Deployments → letztes Deployment → **Redeploy**.
+Danach: kein Formular (Kontakt per WhatsApp/Telefon), Bereiche ohne freigegebenes Foto
+ausgeblendet, Impressum mit den bestätigten Kontaktdaten, Datenschutz ohne Formular
+(`src/content/privacy-no-form.ts`), nur EN/DE, Suchmaschinen erlaubt.
+Zurück zur Coming-soon-Seite: Wert wieder auf `preview` setzen und neu deployen.
 
 ## 1. Code auf den Hauptzweig bringen
 

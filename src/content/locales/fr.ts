@@ -322,12 +322,15 @@ const fr: Dictionary = {
       'Trois étapes courtes. Il s’agit d’une demande, pas d’une réservation confirmée — nous répondons personnellement et proposons un moment.',
     otherWays: 'Autres moyens de nous joindre',
     whatsappStore: 'WhatsApp {store}',
+    introNoForm:
+      'Écrivez-nous sur WhatsApp ou appelez directement la boutique. Nous vous répondons personnellement et convenons ensemble d’un rendez-vous.',
   },
   returning: {
     metaTitle: 'Clients fidèles',
     title: 'Clients fidèles',
     intro:
       'Vous avez déjà fait réaliser un vêtement chez nous et souhaitez recommander ? Envoyez-nous une demande. Nous vérifions personnellement si vos mesures et votre coupe précédentes sont toujours valables avant toute réalisation.',
+    introNoForm: 'Vous avez déjà fait réaliser une pièce chez nous et souhaitez la recommander ? Écrivez-nous sur WhatsApp ou appelez la boutique. Nous vérifions personnellement si vos mesures et la coupe sont toujours valables avant toute confection.',
     hint: 'Si possible, indiquez approximativement quand et dans quelle boutique vous avez commandé, et ce que vous souhaitez cette fois.',
   },
   newName: {
@@ -457,10 +460,10 @@ const fr: Dictionary = {
   },
   media: {
     'hero-outfit': 'Une tenue sur mesure terminée',
-    'hero-consultation': 'Conseil personnel en boutique',
+    'hero-consultation': 'Mario lors d’un essayage avec un client',
     'portrait-mario': 'Mario, propriétaire',
     'portrait-james': 'James',
-    'team-group': 'L’équipe en boutique',
+    'team-group': 'Mario et James prennent les mesures d’un client',
     'store-chaweng-exterior': 'Devanture à Chaweng',
     'store-chaweng-interior': 'Intérieur de la boutique à Chaweng',
     'store-fishermans-village-exterior': 'Devanture à Fisherman’s Village',
@@ -471,7 +474,7 @@ const fr: Dictionary = {
     'category-women': 'Une tenue femme sur mesure',
     'category-weddings': 'Tenues de mariage',
     'detail-fabrics': 'Échantillons de tissus en boutique',
-    'detail-measuring': 'Prise de mesures',
+    'detail-measuring': 'James prend les mesures d’un client',
     'detail-finish': 'Détail d’un vêtement terminé',
     'look-01': 'Look 1',
     'look-02': 'Look 2',

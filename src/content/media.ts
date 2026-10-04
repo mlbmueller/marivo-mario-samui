@@ -37,10 +37,28 @@ const placeholder = (id: string, description: string, width: number, height: num
 
 export const media = {
   'hero-outfit': placeholder('hero-outfit', 'Hero, main motif: a finished outfit worn by a real customer or model (with consent), full body, bright atelier or island setting', 1600, 2000),
-  'hero-consultation': placeholder('hero-consultation', 'Hero, supporting motif: personal consultation or fitting in the store', 1600, 1200),
+  'hero-consultation': {
+    id: 'hero-consultation',
+    description: 'Mario at a fitting with a customer (pinned waistcoat), in the store',
+    width: 791,
+    height: 861,
+    src: '/images/hero-consultation.webp',
+    source: 'Supplied by the owner, 4 Oct 2026 — customer consent confirmed by the owner',
+    rights: 'approved',
+    focus: '50% 25%',
+  } as MediaAsset,
   'portrait-mario': placeholder('portrait-mario', 'Portrait of Mario (owner) or Mario advising a customer, natural light', 1200, 1500),
   'portrait-james': placeholder('portrait-james', 'Portrait of James, same style as Mario’s portrait', 1200, 1500),
-  'team-group': placeholder('team-group', 'Group photo of the team, landscape', 1800, 1200),
+  'team-group': {
+    id: 'team-group',
+    description: 'Mario and James measuring a customer in the store',
+    width: 802,
+    height: 794,
+    src: '/images/team-group.webp',
+    source: 'Supplied by the owner, 4 Oct 2026 — customer consent confirmed by the owner',
+    rights: 'approved',
+    focus: '50% 30%',
+  } as MediaAsset,
   'store-chaweng-exterior': {
     id: 'store-chaweng-exterior',
     description: 'Chaweng store: facade with current signage (NICKY FASHION)',
@@ -77,7 +95,16 @@ export const media = {
   'category-women': placeholder('category-women', 'Style world Women: finished women’s outfit worn by a customer (with consent), full body', 1200, 1500),
   'category-weddings': placeholder('category-weddings', 'Style world Weddings: wedding outfit or groomsmen group (with consent)', 1200, 1500),
   'detail-fabrics': placeholder('detail-fabrics', 'Close-up of fabric swatches in the store', 1600, 1200),
-  'detail-measuring': placeholder('detail-measuring', 'Measuring a customer (hands, tape), no face needed', 1600, 1200),
+  'detail-measuring': {
+    id: 'detail-measuring',
+    description: 'James taking measurements of a customer in the store',
+    width: 743,
+    height: 929,
+    src: '/images/detail-measuring.webp',
+    source: 'Supplied by the owner, 4 Oct 2026 — customer consent confirmed by the owner',
+    rights: 'approved',
+    focus: '50% 35%',
+  } as MediaAsset,
   'detail-finish': placeholder('detail-finish', 'Close-up of a finished detail: lapel, buttonhole, lining', 1600, 1200),
   'look-01': placeholder('look-01', 'Look slot 1 — real finished work, complete outfit', 1200, 1600),
   'look-02': placeholder('look-02', 'Look slot 2 — real finished work, complete outfit', 1200, 1600),
@@ -99,3 +126,6 @@ export const atelierFilm: { src: string | null; poster: MediaId; captions: strin
   captions: null,
   rights: 'missing',
 };
+
+/** Whether an approved photo exists for this slot (otherwise production renders nothing there). */
+export const hasPhoto = (id: MediaId): boolean => media[id].rights === 'approved' && !!media[id].src;

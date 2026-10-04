@@ -329,12 +329,15 @@ const en = {
       'Three short steps. This is a request, not a confirmed booking — we reply personally and suggest a time.',
     otherWays: 'Other ways to reach us',
     whatsappStore: 'WhatsApp {store}',
+    introNoForm:
+      'Write to us on WhatsApp or call the store directly. We reply personally and find a time for your consultation together with you.',
   },
   returning: {
     metaTitle: 'Returning Customers',
     title: 'Returning customers',
     intro:
       'You have had something made with us before and would like to reorder? Send us a request. We check personally whether your earlier measurements and fit still apply before anything is made.',
+    introNoForm: 'You have had something made with us before and would like to reorder? Write to us on WhatsApp or call the store. We check personally whether your earlier measurements and fit still apply before anything is made.',
     hint: 'If you can, mention roughly when and in which store you ordered, and what you would like this time.',
   },
   newName: {
@@ -465,10 +468,10 @@ const en = {
   },
   media: {
     'hero-outfit': 'A finished tailored outfit',
-    'hero-consultation': 'Personal consultation in the store',
+    'hero-consultation': 'Mario at a fitting with a customer',
     'portrait-mario': 'Mario, owner',
     'portrait-james': 'James',
-    'team-group': 'The team in the store',
+    'team-group': 'Mario and James measuring a customer',
     'store-chaweng-exterior': 'Store front in Chaweng',
     'store-chaweng-interior': 'Inside the store in Chaweng',
     'store-fishermans-village-exterior': 'Store front in Fisherman’s Village',
@@ -479,7 +482,7 @@ const en = {
     'category-women': 'A tailored women’s outfit',
     'category-weddings': 'Wedding outfits',
     'detail-fabrics': 'Fabric swatches in the store',
-    'detail-measuring': 'Taking measurements',
+    'detail-measuring': 'James taking a customer’s measurements',
     'detail-finish': 'Close-up of a finished garment',
     'look-01': 'Look 1',
     'look-02': 'Look 2',

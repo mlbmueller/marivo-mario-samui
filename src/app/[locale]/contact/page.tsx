@@ -4,7 +4,8 @@ import Link from 'next/link';
 import { storeIds } from '@/content/stores';
 import { InquiryForm } from '@/components/InquiryForm';
 import { lookInfoFor } from '@/components/Looks';
-import { PageHead } from '@/components/Sections';
+import { ContactOptions, PageHead } from '@/components/Sections';
+import { isFormEnabled } from '@/lib/site';
 import { WhatsAppButton } from '@/components/WhatsAppButton';
 import { fmt, localePath } from '@/lib/i18n';
 import { pageMetadata, resolveLocale, type LocaleParams } from '@/lib/page';
@@ -13,11 +14,23 @@ const PATH = '/contact';
 
 export async function generateMetadata({ params }: { params: LocaleParams }): Promise<Metadata> {
   const { locale, t } = await resolveLocale(params);
-  return pageMetadata(locale, PATH, t.contact.metaTitle, t.contact.intro);
+  return pageMetadata(locale, PATH, t.contact.metaTitle, isFormEnabled() ? t.contact.intro : t.contact.introNoForm);
 }
 
 export default async function ContactPage({ params }: { params: LocaleParams }) {
   const { locale, t } = await resolveLocale(params);
+  if (!isFormEnabled()) {
+    return (
+      <>
+        <PageHead title={t.contact.title} lead={t.contact.introNoForm} crumbLabel={t.common.breadcrumb} crumbs={[{ href: localePath(locale, '/'), label: t.common.home }]} />
+        <section className="section" style={{ paddingTop: 0 }}>
+          <div className="container">
+            <ContactOptions locale={locale} t={t} />
+          </div>
+        </section>
+      </>
+    );
+  }
   return (
     <>
       <PageHead title={t.contact.title} lead={t.contact.intro} crumbLabel={t.common.breadcrumb} crumbs={[{ href: localePath(locale, '/'), label: t.common.home }]} />

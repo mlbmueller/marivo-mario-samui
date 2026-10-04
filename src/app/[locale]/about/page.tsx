@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { hasPhoto } from '@/content/media';
 import { team } from '@/content/team';
 import { DraftBadge } from '@/components/Draft';
 import { Media } from '@/components/Media';
@@ -27,7 +28,7 @@ export default async function AboutPage({ params }: { params: LocaleParams }) {
       <section className="section section-white" aria-labelledby="mario-heading">
         <div className="container split">
           <div className="portrait">
-            <Media id={mario.portrait} dict={t} ratio="4 / 5" sizes="(min-width: 900px) 440px, 100vw" />
+            <Media id={hasPhoto(mario.portrait) || !hasPhoto('hero-consultation') ? mario.portrait : 'hero-consultation'} dict={t} ratio="4 / 5" sizes="(min-width: 900px) 440px, 100vw" />
           </div>
           <div className="prose">
             <p className="eyebrow">{a.roles.owner}</p>

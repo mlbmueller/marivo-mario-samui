@@ -8,6 +8,11 @@ Produktionsfassung abgeschaltet und blockieren den Start nicht.
 dringend empfohlen, sonst ausgeblendet · ⏳ = später möglich (Bereich bleibt bis dahin aus).
 `npm run check:release` zeigt den aktuellen Stand automatisch.
 
+**Reduzierter Start (Entscheid Betreiber, 4.10.2026):** Die Seite darf vor Abschluss aller Punkte
+live gehen (`src/content/launch.ts`). Betreiberangaben, Datenschutz-Freigabe, Formularversand,
+Titelbild, Mario-Porträt, Stilwelten-Fotos und Looks folgen; Texte EN/DE sind so freigegeben,
+Durchsicht folgt. Die drei Kundenfotos (Einwilligung bestätigt) sind eingebaut.
+
 ## A · Angaben und Dateien vom Betreiber
 
 | # | Punkt | benötigte Angabe / Datei | warum erforderlich | Start |

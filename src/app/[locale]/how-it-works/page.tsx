@@ -3,7 +3,7 @@ import { processSteps } from '@/content/services';
 import { ClosingCta, PageHead, ProcessSteps } from '@/components/Sections';
 import { localePath } from '@/lib/i18n';
 import { pageMetadata, resolveLocale, type LocaleParams } from '@/lib/page';
-import { isPublishable } from '@/lib/site';
+import { isFormEnabled, isPublishable } from '@/lib/site';
 
 const PATH = '/how-it-works';
 
@@ -47,7 +47,7 @@ export default async function HowItWorksPage({ params }: { params: LocaleParams 
           </p>
         </div>
       </section>
-      <ClosingCta locale={locale} t={t} heading={t.home.planHeading} text={t.home.planText} />
+      <ClosingCta locale={locale} t={t} heading={t.home.planHeading} text={isFormEnabled() ? t.home.planText : undefined} />
     </>
   );
 }

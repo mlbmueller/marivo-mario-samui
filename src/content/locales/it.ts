@@ -322,12 +322,15 @@ const it: Dictionary = {
       'Tre brevi passi. È una richiesta, non una prenotazione confermata: rispondiamo personalmente e proponiamo un momento.',
     otherWays: 'Altri modi per contattarci',
     whatsappStore: 'WhatsApp {store}',
+    introNoForm:
+      'Scrivici su WhatsApp o chiama direttamente il negozio. Ti rispondiamo personalmente e fissiamo insieme un appuntamento per la consulenza.',
   },
   returning: {
     metaTitle: 'Clienti abituali',
     title: 'Clienti abituali',
     intro:
       'Hai già fatto realizzare qualcosa da noi e vorresti riordinare? Inviaci una richiesta. Verifichiamo personalmente se le tue misure e la vestibilità precedenti sono ancora valide prima di realizzare qualcosa.',
+    introNoForm: 'Hai già fatto realizzare qualcosa da noi e vorresti riordinarlo? Scrivici su WhatsApp o chiama il negozio. Verifichiamo personalmente se le tue misure e la vestibilità sono ancora valide prima di realizzare qualsiasi capo.',
     hint: 'Se possibile, indica all’incirca quando e in quale negozio hai ordinato e cosa desideri questa volta.',
   },
   newName: {
@@ -457,10 +460,10 @@ const it: Dictionary = {
   },
   media: {
     'hero-outfit': 'Un outfit su misura finito',
-    'hero-consultation': 'Consulenza personale in negozio',
+    'hero-consultation': 'Mario durante una prova con un cliente',
     'portrait-mario': 'Mario, titolare',
     'portrait-james': 'James',
-    'team-group': 'Il team in negozio',
+    'team-group': 'Mario e James prendono le misure a un cliente',
     'store-chaweng-exterior': 'Vetrina a Chaweng',
     'store-chaweng-interior': 'Interno del negozio a Chaweng',
     'store-fishermans-village-exterior': 'Vetrina a Fisherman’s Village',
@@ -471,7 +474,7 @@ const it: Dictionary = {
     'category-women': 'Un outfit da donna su misura',
     'category-weddings': 'Abiti da cerimonia',
     'detail-fabrics': 'Campioni di tessuto in negozio',
-    'detail-measuring': 'Presa delle misure',
+    'detail-measuring': 'James prende le misure a un cliente',
     'detail-finish': 'Dettaglio di un capo finito',
     'look-01': 'Look 1',
     'look-02': 'Look 2',

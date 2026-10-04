@@ -3,11 +3,11 @@
  *
  * While `HOLDING.active` is true, requests to the public domain show only the
  * coming-soon page; the full preview stays reachable on the Vercel addresses.
- * To launch the full site on the domain: set `active: false` (and remove the matching
- * `missing` condition in next.config.ts), then deploy.
+ * Launch: set SITE_MODE=production for the Production environment in Vercel and redeploy —
+ * the full site then replaces the holding page (same switch in next.config.ts).
  */
 export const HOLDING = {
-  active: true,
+  active: process.env.SITE_MODE !== 'production',
   hosts: ['www.nickyfashionsamui.com', 'nickyfashionsamui.com'],
   path: '/coming-soon',
 } as const;

@@ -324,12 +324,15 @@ const de: Dictionary = {
     intro: 'Drei kurze Schritte. Das ist eine Anfrage und keine bestätigte Buchung – wir antworten persönlich und schlagen einen Termin vor.',
     otherWays: 'Weitere Kontaktwege',
     whatsappStore: 'WhatsApp {store}',
+    introNoForm:
+      'Schreib uns auf WhatsApp oder ruf direkt im Geschäft an. Wir antworten persönlich und finden gemeinsam einen Termin für deine Beratung.',
   },
   returning: {
     metaTitle: 'Stammkunden',
     title: 'Stammkunden',
     intro:
       'Du hast schon einmal bei uns etwas anfertigen lassen und möchtest nachbestellen? Sende uns eine Anfrage. Wir prüfen persönlich, ob deine früheren Masse und die Passform noch stimmen, bevor etwas angefertigt wird.',
+    introNoForm: 'Du hast schon einmal bei uns etwas anfertigen lassen und möchtest nachbestellen? Schreib uns auf WhatsApp oder ruf im Geschäft an. Wir prüfen persönlich, ob deine früheren Masse und die Passform noch stimmen, bevor etwas angefertigt wird.',
     hint: 'Wenn möglich, nenne ungefähr, wann und in welchem Geschäft du bestellt hast und was du dir diesmal wünschst.',
   },
   newName: {
@@ -459,10 +462,10 @@ const de: Dictionary = {
   },
   media: {
     'hero-outfit': 'Ein fertiges Massoutfit',
-    'hero-consultation': 'Persönliche Beratung im Geschäft',
+    'hero-consultation': 'Mario bei der Anprobe mit einem Kunden',
     'portrait-mario': 'Mario, Inhaber',
     'portrait-james': 'James',
-    'team-group': 'Das Team im Geschäft',
+    'team-group': 'Mario und James beim Massnehmen mit einem Kunden',
     'store-chaweng-exterior': 'Ladenfront in Chaweng',
     'store-chaweng-interior': 'Im Geschäft in Chaweng',
     'store-fishermans-village-exterior': 'Ladenfront in Fisherman’s Village',
@@ -473,7 +476,7 @@ const de: Dictionary = {
     'category-women': 'Ein massgeschneidertes Damen-Outfit',
     'category-weddings': 'Hochzeits-Outfits',
     'detail-fabrics': 'Stoffmuster im Geschäft',
-    'detail-measuring': 'Beim Massnehmen',
+    'detail-measuring': 'James nimmt bei einem Kunden Mass',
     'detail-finish': 'Detailaufnahme eines fertigen Kleidungsstücks',
     'look-01': 'Look 1',
     'look-02': 'Look 2',

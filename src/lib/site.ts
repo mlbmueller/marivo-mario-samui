@@ -1,4 +1,5 @@
 import { brand } from '@/content/brand';
+import { reducedLaunch } from '@/content/launch';
 import { categories, categoryIds } from '@/content/services';
 import { looks } from '@/content/looks';
 import { media } from '@/content/media';
@@ -30,6 +31,14 @@ export function isPublishable(status: ContentStatus, mode: SiteMode = getSiteMod
  */
 export function routedLocales(mode: SiteMode = getSiteMode()): Locale[] {
   return mode === 'production' ? locales.filter((l) => localeMeta[l].launch) : [...locales];
+}
+
+/**
+ * Whether the request form is offered. Preview: always (demo delivery). Production: not
+ * during the reduced launch — visitors contact the stores via WhatsApp or phone instead.
+ */
+export function isFormEnabled(mode: SiteMode = getSiteMode()): boolean {
+  return mode === 'preview' || !reducedLaunch.active;
 }
 
 /** Value of a fact if it may be shown, otherwise null. */

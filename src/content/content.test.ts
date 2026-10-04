@@ -8,6 +8,7 @@ import { media } from './media';
 import { reviews } from './reviews';
 import { stores, storeIds } from './stores';
 import { categories } from './services';
+import { reducedLaunch } from './launch';
 import { team } from './team';
 import { getReleaseReport } from '@/lib/release';
 import { isPageAvailable, isPublishable, routedLocales } from '@/lib/site';
@@ -142,19 +143,22 @@ describe('preview vs production release', () => {
     expect(isPageAvailable('/stores/chaweng', 'production')).toBe(true);
   });
 
-  it('lists blocking items while production data is missing', () => {
+  it('lists open items: blocking for the full release, deferred during the reduced launch', () => {
     const report = getReleaseReport({});
-    const items = report.blockers.map((b) => b.item).join('\n');
-    expect(items).toMatch(/approved looks/);
-    expect(items).not.toMatch(/Favicon/); // optional: browser default until approved
-    expect(report.hidden.map((h) => h.item).join('\n')).toMatch(/Favicon/);
-    // Only the launch languages EN/DE block; TH/FR/IT are switched off instead
-    expect(items).toMatch(/English/);
-    expect(items).toMatch(/Deutsch/);
-    expect(items).not.toMatch(/Italiano|Français|ไทย/);
-    expect(items).toMatch(/delivery service/);
-    expect(items).toMatch(/delivery service/);
-    expect(items).toMatch(/rate-limit/);
+    const blockers = report.blockers.map((b) => b.item).join('\n');
+    const hidden = report.hidden.map((h) => h.item).join('\n');
+    expect(blockers).not.toMatch(/Favicon/); // optional: browser default until approved
+    expect(hidden).toMatch(/Favicon/);
+    expect(blockers).not.toMatch(/Italiano|Français|ไทย/); // TH/FR/IT are switched off instead
+    // Items that follow later during the reduced launch, otherwise block
+    const deferred = /approved looks|delivery service|rate-limit|Operator details|Approved photo: hero-outfit/;
+    if (reducedLaunch.active) {
+      expect(blockers).not.toMatch(deferred);
+      expect(hidden).toMatch(/approved looks .* — follows after the reduced launch/);
+    } else {
+      expect(blockers).toMatch(/approved looks/);
+      expect(blockers).toMatch(/delivery service/);
+    }
   });
 });
 

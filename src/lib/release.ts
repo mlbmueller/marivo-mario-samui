@@ -4,6 +4,7 @@
  * - hidden:   not blocking; the affected element is automatically hidden in production
  */
 import { brand, operator, privacyNotice } from '@/content/brand';
+import { reducedLaunch } from '@/content/launch';
 import { localeMeta, locales } from '@/content/locales';
 import { looks, REQUIRED_LOOKS } from '@/content/looks';
 import { media } from '@/content/media';
@@ -22,6 +23,8 @@ export function getReleaseReport(env: Env = process.env): ReleaseReport {
   const hidden: ReleaseItem[] = [];
   const block = (area: string, item: string) => blockers.push({ area, item });
   const hide = (area: string, item: string) => hidden.push({ area, item });
+  /** During the reduced launch (src/content/launch.ts) these items follow later instead of blocking. */
+  const later = (area: string, item: string) => (reducedLaunch.active ? hide(area, `${item} — follows after the reduced launch`) : block(area, item));
 
   // Brand
   if (brand.name.status !== 'confirmed') block('Brand', 'Brand name approved');
@@ -32,8 +35,8 @@ export function getReleaseReport(env: Env = process.env): ReleaseReport {
   if (brand.domain.status !== 'confirmed' && !env.SITE_URL) block('Brand', 'Final domain confirmed (SITE_URL)');
 
   // Legal and privacy
-  if (operator.status !== 'confirmed') block('Legal', 'Operator details for the legal notice');
-  if (privacyNotice.status !== 'confirmed') block('Legal', 'Privacy notice reviewed against the actual processing');
+  if (operator.status !== 'confirmed') later('Legal', 'Operator details for the legal notice');
+  if (privacyNotice.status !== 'confirmed') later('Legal', 'Privacy notice reviewed against the actual processing');
 
   // Contact channels
   const anyWhatsApp = brand.whatsapp.status === 'confirmed' || storeIds.some((id) => stores[id].whatsapp.status === 'confirmed');
@@ -73,7 +76,7 @@ export function getReleaseReport(env: Env = process.env): ReleaseReport {
 
   // Looks — a convincing real selection is required, not hidden away
   const approvedLooks = looks.filter((l) => l.status === 'confirmed' && media[l.image].rights === 'approved' && media[l.image].src);
-  if (approvedLooks.length < REQUIRED_LOOKS) block('Looks', `${REQUIRED_LOOKS} real, approved looks (currently ${approvedLooks.length})`);
+  if (approvedLooks.length < REQUIRED_LOOKS) later('Looks', `${REQUIRED_LOOKS} real, approved looks (currently ${approvedLooks.length})`);
 
   // Media
   const requiredImages = [
@@ -83,7 +86,11 @@ export function getReleaseReport(env: Env = process.env): ReleaseReport {
     ...categoryIds.filter((id) => categories[id].offered.status === 'confirmed').map((id) => categories[id].image),
   ] as const;
   for (const id of requiredImages) {
-    if (media[id].rights !== 'approved' || !media[id].src) block('Media', `Approved photo: ${id}`);
+    if (media[id].rights !== 'approved' || !media[id].src) {
+      // Store facades are needed in any case; the others follow after a reduced launch.
+      if (id.startsWith('store-')) block('Media', `Approved photo: ${id}`);
+      else later('Media', `Approved photo: ${id}`);
+    }
   }
   for (const asset of Object.values(media)) {
     if ((requiredImages as readonly string[]).includes(asset.id) || asset.id.startsWith('look-')) continue;
@@ -103,9 +110,9 @@ export function getReleaseReport(env: Env = process.env): ReleaseReport {
   const deliveryReady =
     (delivery === 'webhook' && !!env.INQUIRY_WEBHOOK_URL) ||
     (delivery === 'resend' && !!env.RESEND_API_KEY && !!env.INQUIRY_EMAIL_TO && !!env.INQUIRY_EMAIL_FROM);
-  if (!deliveryReady) block('Integrations', 'Inquiry delivery service configured (INQUIRY_DELIVERY=webhook|resend)');
+  if (!deliveryReady) later('Integrations', 'Inquiry delivery service configured (INQUIRY_DELIVERY=webhook|resend)');
   if (!env.UPSTASH_REDIS_REST_URL || !env.UPSTASH_REDIS_REST_TOKEN) {
-    block('Integrations', 'Shared rate-limit store configured (UPSTASH_REDIS_REST_URL/TOKEN)');
+    later('Integrations', 'Shared rate-limit store configured (UPSTASH_REDIS_REST_URL/TOKEN)');
   }
 
   return { blockers, hidden };
