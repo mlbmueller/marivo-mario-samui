@@ -58,6 +58,8 @@ export function getSiteUrl(): string | null {
  * Used by routes (404 when unavailable), navigation and the sitemap.
  */
 export function isPageAvailable(path: string, mode: SiteMode = getSiteMode()): boolean {
+  // Design draft of the new intro — never part of the production site.
+  if (path === '/intro-preview') return mode === 'preview';
   if (path === '/our-new-name') return brand.transition.active || mode === 'preview';
   if (path === '/our-work') return visibleLooks(mode).length > 0;
   if (path.startsWith('/tailoring/')) {

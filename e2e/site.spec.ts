@@ -340,3 +340,14 @@ test.describe('widths 360–1440: no horizontal overflow', () => {
     });
   }
 });
+
+test('intro preview: text visible, buttons work, background can be paused', async ({ page }) => {
+  await page.goto('/en/intro-preview');
+  await expect(page.getByRole('heading', { level: 1, name: /That holiday feeling/ })).toBeVisible();
+  await expect(page.locator('.intro-actions a').first()).toHaveAttribute('href', '/en/contact');
+  const toggle = page.locator('.intro-toggle');
+  await expect(toggle).toHaveAttribute('aria-pressed', 'false');
+  await toggle.click();
+  await expect(toggle).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('.intro-media')).toHaveClass(/is-paused/);
+});

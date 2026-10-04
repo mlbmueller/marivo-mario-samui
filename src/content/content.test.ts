@@ -141,6 +141,8 @@ describe('preview vs production release', () => {
     expect(isPageAvailable('/our-work', 'production')).toBe(false);
     expect(isPageAvailable('/our-new-name', 'production')).toBe(brand.transition.active);
     expect(isPageAvailable('/stores/chaweng', 'production')).toBe(true);
+    expect(isPageAvailable('/intro-preview', 'preview')).toBe(true);
+    expect(isPageAvailable('/intro-preview', 'production')).toBe(false);
   });
 
   it('lists open items: blocking for the full release, deferred during the reduced launch', () => {

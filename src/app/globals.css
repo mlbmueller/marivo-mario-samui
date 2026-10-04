@@ -21,6 +21,8 @@
   --error: #a3261b;
   --success: #1f5f3f;
   --notice-bg: #fbf3df;
+  /* Warm, deep shade behind light text on photos (intro hero) */
+  --hero-shade: #2a1219;
 
   --font-sans: 'Manrope Variable', 'Noto Sans Thai Variable', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --font-serif: 'Source Serif 4 Variable', 'Noto Serif Thai Variable', Georgia, 'Times New Roman', serif;
@@ -1910,4 +1912,378 @@ select {
   font-size: 0.85rem;
   color: var(--muted);
   margin-top: 3rem;
+}
+
+/* ---------- Intro hero draft (/intro-preview, preview only) ---------- */
+.draft-label {
+  position: fixed;
+  z-index: 60;
+  left: 0.75rem;
+  bottom: calc(var(--mobile-bar-h) + 0.75rem);
+  margin: 0;
+  max-width: calc(100vw - 1.5rem);
+  padding: 0.35rem 0.65rem;
+  font: 600 0.72rem/1.3 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  color: #fff;
+  background: rgb(20 20 20 / 0.82);
+  border: 1px dashed rgb(255 255 255 / 0.5);
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.intro-hero {
+  position: relative;
+  isolation: isolate;
+  background: var(--hero-shade);
+  color: var(--ivory);
+  overflow: hidden;
+}
+
+.intro-media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  max-height: 60svh;
+  width: 100%;
+  overflow: hidden;
+  background: var(--hero-shade);
+}
+
+.intro-slide,
+.intro-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.intro-video {
+  object-fit: cover;
+}
+
+.intro-slide {
+  opacity: 0;
+  transition: opacity 1.4s ease;
+}
+
+.intro-slide img {
+  object-fit: cover;
+  object-position: var(--focus-m, var(--focus, 50% 30%));
+  transform-origin: var(--focus-m, var(--focus, 50% 30%));
+}
+
+.intro-slide.is-active {
+  opacity: 1;
+}
+
+/* Slow zoom: runs on the active slide and keeps running while it fades out (no jump). */
+.intro-slide.is-active img,
+.intro-slide.is-prev img {
+  animation: intro-zoom 7s linear forwards;
+}
+
+.intro-media.is-paused .intro-slide img {
+  animation-play-state: paused;
+}
+
+@keyframes intro-zoom {
+  from {
+    transform: scale(1.02);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+
+.intro-toggle {
+  position: absolute;
+  z-index: 3;
+  right: var(--gutter);
+  bottom: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid rgb(247 240 228 / 0.6);
+  background: rgb(42 18 25 / 0.55);
+  color: var(--ivory);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.intro-toggle:hover {
+  background: rgb(42 18 25 / 0.8);
+}
+
+.intro-toggle:focus-visible {
+  outline: 3px solid var(--ivory);
+  outline-offset: 3px;
+}
+
+.intro-toggle .icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* Phone: the picture fades into the warm shade, text sits below it. */
+.intro-shade {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  top: 0;
+  aspect-ratio: 4 / 3;
+  max-height: 60svh;
+  background: linear-gradient(180deg, transparent 62%, var(--hero-shade) 100%);
+  pointer-events: none;
+}
+
+.intro-content {
+  position: relative;
+  z-index: 2;
+  padding-block: 0.5rem 3rem;
+}
+
+.intro-copy {
+  max-width: 34rem;
+}
+
+.intro-eyebrow {
+  margin: 0 0 1rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--on-burgundy-muted);
+}
+
+.intro-hero h1 {
+  margin: 0 0 1rem;
+  color: var(--ivory);
+  font-size: clamp(2.3rem, 6.4vw, 4.4rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+.intro-hero h1 span {
+  display: block;
+}
+
+.intro-text {
+  margin: 0 0 1.75rem;
+  max-width: 30rem;
+  font-size: clamp(1.05rem, 1.5vw, 1.2rem);
+  color: rgb(247 240 228 / 0.9);
+}
+
+.intro-actions .btn {
+  background: var(--ivory);
+  color: var(--burgundy);
+  border-color: var(--ivory);
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.intro-actions .btn:hover {
+  background: var(--white);
+  border-color: var(--white);
+  transform: translateY(-1px);
+}
+
+.intro-actions .btn-secondary {
+  background: transparent;
+  color: var(--ivory);
+  border-color: rgb(247 240 228 / 0.7);
+}
+
+.intro-actions .btn-secondary:hover {
+  background: rgb(247 240 228 / 0.12);
+  color: var(--ivory);
+  border-color: var(--ivory);
+}
+
+.intro-actions .btn-secondary .icon {
+  transition: transform 0.2s ease;
+}
+
+.intro-actions .btn-secondary:hover .icon {
+  transform: translateX(3px);
+}
+
+.intro-hero :focus-visible {
+  outline-color: var(--ivory);
+}
+
+/* First load: text, then button row, ~1 s in total. Content is never blocked. */
+.intro-in {
+  animation: intro-rise 0.6s ease-out both;
+  animation-delay: calc(var(--i, 0) * 110ms);
+}
+
+@keyframes intro-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 959px) {
+  .intro-hero h1 {
+    font-size: clamp(2.1rem, 9vw, 2.8rem);
+    margin-bottom: 0.75rem;
+  }
+  .intro-eyebrow {
+    margin-bottom: 0.6rem;
+  }
+  .intro-text {
+    margin-bottom: 1.25rem;
+  }
+  .intro-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  /* Review label as a strip above the hero, so it never covers content */
+  .draft-label {
+    position: static;
+    max-width: none;
+    border-radius: 0;
+    border-width: 0 0 1px;
+    text-align: center;
+  }
+}
+
+/* Desktop: the picture fills the right two thirds; a soft dark shade carries the text. */
+@media (min-width: 960px) {
+  .intro-hero {
+    height: clamp(560px, calc(88svh - var(--header-h)), 860px);
+  }
+  .intro-media {
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: 66%;
+    max-height: none;
+    aspect-ratio: auto;
+  }
+  .intro-slide img {
+    object-position: var(--focus, 50% 30%);
+    transform-origin: var(--focus, 50% 30%);
+  }
+  .intro-shade {
+    inset: 0;
+    aspect-ratio: auto;
+    max-height: none;
+    background:
+      linear-gradient(90deg, var(--hero-shade) 34%, rgb(42 18 25 / 0.82) 44%, rgb(42 18 25 / 0.35) 62%, rgb(42 18 25 / 0.05) 80%),
+      linear-gradient(0deg, rgb(42 18 25 / 0.45) 0%, transparent 28%);
+  }
+  .intro-content {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding-block: 3rem;
+  }
+  .intro-toggle {
+    bottom: 1.5rem;
+  }
+}
+
+/* Personal section: cream, photo overlaps the hero edge as a visual bridge. */
+.intro-personal {
+  background: var(--ivory);
+  padding-block: 2.5rem var(--section);
+}
+
+.intro-personal-grid {
+  display: grid;
+  gap: 2rem;
+  align-items: center;
+}
+
+.intro-personal-photo .media {
+  box-shadow: 0 14px 34px rgb(34 34 34 / 0.16);
+  border: 6px solid var(--white);
+}
+
+.intro-personal-copy h2 {
+  font-size: clamp(1.9rem, 3.6vw, 2.8rem);
+  color: var(--burgundy);
+  line-height: 1.12;
+}
+
+.intro-features {
+  list-style: none;
+  margin: 2rem 0 0;
+  padding: 1.25rem 0 0;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 0.85rem;
+}
+
+.intro-features li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.intro-features li::before {
+  content: '';
+  width: 1.75rem;
+  height: 1px;
+  background: var(--burgundy);
+  flex: none;
+}
+
+@media (min-width: 720px) {
+  .intro-features {
+    grid-template-columns: repeat(3, auto);
+    justify-content: start;
+    column-gap: 2rem;
+  }
+}
+
+@media (min-width: 960px) {
+  .intro-personal {
+    padding-top: 0;
+  }
+  .intro-personal-grid {
+    grid-template-columns: 5fr 6fr;
+    gap: clamp(2.5rem, 6vw, 6rem);
+  }
+  .intro-personal-photo {
+    margin-top: -4.5rem;
+    position: relative;
+    z-index: 2;
+  }
+  .intro-personal-copy {
+    padding-top: 2rem;
+  }
+}
+
+/* Scroll reveal (only applied by script when motion is welcome). */
+.reveal-pending {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal-pending.reveal-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-slide img {
+    animation: none !important;
+    transform: none;
+  }
+  .intro-slide {
+    transition: none;
+  }
 }
