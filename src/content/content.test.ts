@@ -11,7 +11,7 @@ import { categories } from './services';
 import { reducedLaunch } from './launch';
 import { team } from './team';
 import { getReleaseReport } from '@/lib/release';
-import { isPageAvailable, isPublishable, routedLocales } from '@/lib/site';
+import { isPageAvailable, isPublishable, routedLocales, visibleLooks } from '@/lib/site';
 import { storeJsonLd } from '@/lib/structured-data';
 
 /** Walk two dictionaries in parallel and report keys/arrays that differ in shape. */
@@ -138,7 +138,7 @@ describe('preview vs production release', () => {
     expect(isPageAvailable('/tailoring/men', 'production')).toBe(categories.men.offered.status === 'confirmed');
     expect(isPageAvailable('/tailoring/linen-holiday', 'preview')).toBe(true);
     expect(isPageAvailable('/our-work', 'preview')).toBe(true);
-    expect(isPageAvailable('/our-work', 'production')).toBe(false);
+    expect(isPageAvailable('/our-work', 'production')).toBe(visibleLooks('production').length > 0);
     expect(isPageAvailable('/our-new-name', 'production')).toBe(brand.transition.active);
     expect(isPageAvailable('/stores/chaweng', 'production')).toBe(true);
     expect(isPageAvailable('/intro-preview', 'preview')).toBe(true);
@@ -156,7 +156,6 @@ describe('preview vs production release', () => {
     const deferred = /approved looks|delivery service|rate-limit|Operator details|Approved photo: hero-outfit/;
     if (reducedLaunch.active) {
       expect(blockers).not.toMatch(deferred);
-      expect(hidden).toMatch(/approved looks .* — follows after the reduced launch/);
     } else {
       expect(blockers).toMatch(/approved looks/);
       expect(blockers).toMatch(/delivery service/);

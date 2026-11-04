@@ -29,10 +29,10 @@ Durchsicht folgt. Die drei Kundenfotos (Einwilligung bestätigt) sind eingebaut.
 | 10 | Fassadenfoto Chaweng | ✅ erledigt (3.10.2026, vom Betreiber geliefert) | Wiedererkennung vor Ort | – |
 | 11 | Fassadenfoto Fisherman’s Village | ✅ erledigt (3.10.2026): aktuelles Foto «Samui Armani» bis zur Umbenennung, Ansicht «NICKY FASHION» ab Umbenennung 2027 (Wechsel automatisch mit `brand.transition.active`). Betreiberentscheid: Armani-Schriftzug zeigen, da aktuelle Beschilderung – rechtliche Prüfung vor Veröffentlichung empfohlen | Wiedererkennung vor Ort | – |
 | 12 | Titelbild | fertiges Outfit, siehe Bildbedarf | zentrales Motiv der Startseite | ⛔ |
-| 13 | Mario | Porträt oder Beratungsszene | Vertrauen, Teamabschnitt | ⛔ |
+| 13 | Mario | ✅ Porträt geliefert (4.11.2026) | – | – |
 | 14 | Sortiment | ✅ alle vier Stilwelten mit Kleidungslisten wie vorgeschlagen bestätigt (3.10.2026) | – | – |
-| 15 | Stilwelten-Fotos | je bestätigter Stilwelt ein Foto | ohne Bild leere Karte | ⛔ (je bestätigter Welt) |
-| 16 | Sechs Looks | 6 echte Arbeiten: Foto, Titel, Kategorie, Anlass, Stoff falls bekannt | Kern des neuen Auftritts | ⛔ |
+| 15 | Stilwelten-Fotos | ✅ alle vier (4.11.2026) | – | – |
+| 16 | Sechs Looks | ✅ 6 Kundenfotos (4.11.2026); Anlass/Stoff offen | – | – |
 | 17 | Texte EN/DE | Ihre Freigabe der englischen und deutschen Texte (inkl. Hero-Aussage zum Sortiment) | keine unbestätigten Aussagen | ⛔ |
 | 18 | Öffnungszeiten | Chaweng ✅ Mo–Sa 10–22, So 10–21 (Google, 3.10.2026). Fisherman’s Village: vorübergehend geschlossen, Wiedereröffnung geplant Dezember 2026 – Öffnungszeiten und genaues Datum zur Wiedereröffnung nachliefern, dann `closure` in `src/content/stores.ts` entfernen | Besuchsplanung | ⚠️ |
 | 19 | Telefon | ✅ Chaweng +66 82 475 1633, Fisherman’s Village +66 82 403 8052 (3.10.2026) | – | – |

@@ -302,7 +302,7 @@ test('Our Work: filter by style and an accessible look dialog with focus return'
   await page.getByRole('button', { name: 'Women', exact: true }).click();
   await expect(page.locator('.look-card')).toHaveCount(2);
   await expect(page.getByRole('button', { name: 'Women', exact: true })).toHaveAttribute('aria-pressed', 'true');
-  const opener = page.getByRole('button', { name: /View look: Look slot 3/ });
+  const opener = page.getByRole('button', { name: /View look: Ivory dress with navy bands/ });
   await opener.click();
   const dialog = page.locator('dialog.look-dialog');
   await expect(dialog).toBeVisible();

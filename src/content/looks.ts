@@ -9,10 +9,9 @@ import type { CategoryId, ContentStatus } from './types';
  * Texts per language live in the locale files under `looks.<id>` (title, occasion,
  * fabric). Fabric information only if actually known.
  *
- * The six entries below are EMPTY SLOTS for the preview layout: status "draft",
- * placeholder images and neutral slot titles. They contain no invented customers,
- * fabrics or occasions. In production, only looks with status "confirmed" and an
- * approved image are shown; fewer than six blocks the release.
+ * The six looks below are customer photos supplied by the owner (4 Nov 2026). Titles only
+ * describe what is visible; occasion and fabric stay empty until the owner confirms them.
+ * In production, only looks with status "confirmed" and an approved image are shown.
  */
 export type Look = {
   id: string;
@@ -27,12 +26,12 @@ export type Look = {
 };
 
 export const looks: Look[] = [
-  { id: 'look-01', category: 'men', image: 'look-01', details: [], status: 'draft' },
-  { id: 'look-02', category: 'linen-holiday', image: 'look-02', details: [], status: 'draft' },
-  { id: 'look-03', category: 'women', image: 'look-03', details: [], status: 'draft' },
-  { id: 'look-04', category: 'weddings', image: 'look-04', details: [], status: 'draft' },
-  { id: 'look-05', category: 'men', image: 'look-05', details: [], status: 'draft' },
-  { id: 'look-06', category: 'women', image: 'look-06', details: [], status: 'draft' },
+  { id: 'look-01', category: 'men', image: 'look-01', details: [], status: 'confirmed' },
+  { id: 'look-02', category: 'linen-holiday', image: 'look-02', details: [], status: 'confirmed' },
+  { id: 'look-03', category: 'women', image: 'look-03', details: [], status: 'confirmed' },
+  { id: 'look-04', category: 'weddings', image: 'look-04', details: [], status: 'confirmed' },
+  { id: 'look-05', category: 'men', image: 'look-05', details: [], status: 'confirmed' },
+  { id: 'look-06', category: 'women', image: 'look-06', details: [], status: 'confirmed' },
 ];
 
 export type LookId = (typeof looks)[number]['id'];
