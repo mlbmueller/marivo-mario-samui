@@ -41,12 +41,14 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
   const lp = (path: string) => localePath(locale, path);
   const mario = team.find((m) => m.id === "mario")!;
   const looks = visibleLooks().slice(0, 6);
-  // Without an approved outfit photo, the consultation photo leads the hero on its own.
-  const heroMain: MediaId =
-    hasPhoto("hero-outfit") || !hasPhoto("hero-consultation")
+  // Title image: Mario and James together with a customer (owner's wish, 4 Nov 2026);
+  // the fitting photo with Mario sits beside it. Falls back to the outfit photo slot.
+  const heroMain: MediaId = hasPhoto("team-group")
+    ? "team-group"
+    : hasPhoto("hero-outfit") || !hasPhoto("hero-consultation")
       ? "hero-outfit"
       : "hero-consultation";
-  const heroSecondary = heroMain === "hero-outfit";
+  const heroSecondary = heroMain !== "hero-consultation" && hasPhoto("hero-consultation");
   const marioPhoto: MediaId =
     hasPhoto(mario.portrait) || !hasPhoto("team-group")
       ? mario.portrait
