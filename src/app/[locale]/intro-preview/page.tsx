@@ -101,6 +101,24 @@ export default async function IntroPreviewPage({ params }: { params: LocaleParam
         </div>
       </section>
 
+      {/* 2b — Example: the store film once more, played only on request (with controls) */}
+      {video && (
+        <section className="section section-white" aria-labelledby="film-heading">
+          <Reveal className="container store-film">
+            <div className="section-head">
+              <p className="eyebrow">{t.common.koh}</p>
+              <h2 id="film-heading">{x.filmHeading}</h2>
+              <p>{x.filmText}</p>
+            </div>
+            <figure className="store-film-frame">
+              <video controls preload="none" playsInline muted poster={video.poster.src} aria-label={x.filmHeading}>
+                <source src={video.mobileSrc ?? video.src} />
+              </video>
+            </figure>
+          </Reveal>
+        </section>
+      )}
+
       {/* 3 — Existing sections, gently revealed on scroll */}
       {visibleCategories().length > 0 && (
         <section className="section" aria-labelledby="worlds-heading">

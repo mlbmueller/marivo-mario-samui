@@ -2300,3 +2300,19 @@ h2 {
     overflow-wrap: anywhere;
   }
 }
+
+/* Store film (intro draft example): played only on request */
+.store-film-frame {
+  margin: 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--hero-shade);
+  box-shadow: 0 14px 34px rgb(34 34 34 / 0.16);
+}
+
+.store-film-frame video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}

@@ -48,6 +48,8 @@ type IntroTexts = {
   features: [string, string, string];
   pause: string;
   play: string;
+  filmHeading: string;
+  filmText: string;
   draftNote: { video: string; photos: string };
 };
 
@@ -60,6 +62,8 @@ const en: IntroTexts = {
   features: ['Personal advice', 'Individual fit', 'Made for you'],
   pause: 'Pause background animation',
   play: 'Play background animation',
+  filmHeading: 'A look inside our store',
+  filmText: 'Fabrics, finished suits and Mario at the cutting table — this is where your garment begins.',
   draftNote: { video: 'Design draft · background: video', photos: 'Design draft · background: animated photos (no video yet)' },
 };
 
@@ -72,6 +76,8 @@ const de: IntroTexts = {
   features: ['Persönliche Beratung', 'Individuelle Passform', 'Für dich gemacht'],
   pause: 'Hintergrundanimation anhalten',
   play: 'Hintergrundanimation abspielen',
+  filmHeading: 'Ein Blick in unser Geschäft',
+  filmText: 'Stoffe, fertige Anzüge und Mario am Zuschneidetisch – hier beginnt dein Kleidungsstück.',
   draftNote: { video: 'Designentwurf · Hintergrund: Video', photos: 'Designentwurf · Hintergrund: animierte Fotos (noch kein Video)' },
 };
 
@@ -84,6 +90,8 @@ const fr: IntroTexts = {
   features: ['Conseil personnel', 'Coupe individuelle', 'Fait pour vous'],
   pause: 'Mettre l’animation en pause',
   play: 'Lancer l’animation',
+  filmHeading: 'Un regard dans notre boutique',
+  filmText: 'Tissus, costumes terminés et Mario à la table de coupe — c’est ici que naît votre vêtement.',
   draftNote: { video: 'Projet de design · fond : vidéo', photos: 'Projet de design · fond : photos animées' },
 };
 
@@ -95,6 +103,8 @@ const it: IntroTexts = {
   features: ['Consulenza personale', 'Vestibilità individuale', 'Fatto per te'],
   pause: 'Metti in pausa l’animazione',
   play: 'Avvia l’animazione',
+  filmHeading: 'Uno sguardo nel nostro negozio',
+  filmText: 'Tessuti, abiti finiti e Mario al tavolo da taglio: qui nasce il tuo capo.',
   draftNote: { video: 'Bozza di design · sfondo: video', photos: 'Bozza di design · sfondo: foto animate' },
 };
 
@@ -106,6 +116,8 @@ const ru: IntroTexts = {
   features: ['Личная консультация', 'Индивидуальная посадка', 'Сшито для вас'],
   pause: 'Остановить анимацию',
   play: 'Запустить анимацию',
+  filmHeading: 'Загляните в наш магазин',
+  filmText: 'Ткани, готовые костюмы и Марио за раскройным столом — здесь начинается ваша вещь.',
   draftNote: { video: 'Дизайн-черновик · фон: видео', photos: 'Дизайн-черновик · фон: анимированные фото' },
 };
 
@@ -117,6 +129,8 @@ const th: IntroTexts = {
   features: ['คำแนะนำส่วนตัว', 'ทรงพอดีตัว', 'ทำเพื่อคุณ'],
   pause: 'หยุดภาพเคลื่อนไหว',
   play: 'เล่นภาพเคลื่อนไหว',
+  filmHeading: 'มาดูภายในร้านของเรา',
+  filmText: 'ผ้า สูทที่ตัดเสร็จ และมาริโอที่โต๊ะตัดผ้า — ที่นี่คือจุดเริ่มต้นของชุดของคุณ',
   draftNote: { video: 'แบบร่างดีไซน์ · พื้นหลัง: วิดีโอ', photos: 'แบบร่างดีไซน์ · พื้นหลัง: ภาพเคลื่อนไหว' },
 };
 
