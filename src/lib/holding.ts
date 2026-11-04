@@ -17,7 +17,7 @@ export const HOLDING = {
 export type HoldingDecision = { action: 'pass' } | { action: 'rewrite' } | { action: 'redirect-home' } | { action: 'not-found' };
 
 /** Files that the holding page itself needs (styles, fonts, logo, Next runtime). */
-const ASSET = /^\/(_next\/|brand\/|favicon|robots\.txt$|sitemap\.xml$|icon)/;
+const ASSET = /^\/(_next\/|brand\/|images\/|video\/|favicon|robots\.txt$|sitemap\.xml$|icon)/;
 
 export function holdingDecision(host: string | null, pathname: string, cfg: { active: boolean; hosts: readonly string[]; path: string } = HOLDING): HoldingDecision {
   const h = (host ?? '').toLowerCase().split(':')[0] ?? '';

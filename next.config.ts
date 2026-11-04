@@ -8,6 +8,9 @@ type LegacyRedirect = { from: string; to: string; permanent: boolean; status: st
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // Photos are pre-optimised WebP files in /public/images; serve them directly instead of
+  // through the image optimiser (which failed on the live domain, 4 Nov 2026).
+  images: { unoptimized: true },
   async redirects() {
     // Only redirects with status "confirmed" are active. See docs/REDIRECTS.md.
     const confirmed = (legacyRedirects as LegacyRedirect[])
