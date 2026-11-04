@@ -18,7 +18,7 @@ export type IntroSlide = {
 };
 
 export type IntroVideo = {
-  /** Landscape clip for desktop, e.g. '/video/intro-1920.mp4' (H.264, muted). */
+  /** Landscape clip for desktop, e.g. '/video/intro-1920-v2.mp4' (H.264, muted). */
   src: string;
   /** Optional portrait/square clip for phones, e.g. '/video/intro-mobile.mp4'. */
   mobileSrc?: string;
@@ -35,8 +35,8 @@ export const introSlides: IntroSlide[] = [
 
 /** Real store footage supplied by the owner (4 Nov 2026), edited to a calm 17.5 s loop without sound. */
 export const introVideo: IntroVideo | null = {
-  src: '/video/intro-1920.mp4',
-  mobileSrc: '/video/intro-1280.mp4',
+  src: '/video/intro-1920-v2.mp4',
+  mobileSrc: '/video/intro-1280-v2.mp4',
   poster: 'intro-poster',
 };
 
