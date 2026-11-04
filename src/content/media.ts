@@ -64,7 +64,7 @@ export const media = {
     src: '/images/portrait-mario.webp',
     source: 'Supplied by the owner, 4 Nov 2026',
     rights: 'approved',
-    focus: '50% 20%',
+    focus: '50% 0%',
   } as MediaAsset,
   'portrait-james': {
     id: 'portrait-james',

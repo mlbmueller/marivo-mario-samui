@@ -41,18 +41,23 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
   const lp = (path: string) => localePath(locale, path);
   const mario = team.find((m) => m.id === "mario")!;
   const looks = visibleLooks().slice(0, 6);
-  // Title image: Mario and James together with a customer (owner's wish, 4 Nov 2026);
-  // the fitting photo with Mario sits beside it. Falls back to the outfit photo slot.
-  const heroMain: MediaId = hasPhoto("team-group")
-    ? "team-group"
+  // Title image (owner, 4 Nov 2026): Mario's portrait as the main image, Mario and James
+  // with a customer beside it. Falls back to the outfit/consultation slots.
+  const heroMain: MediaId = hasPhoto(mario.portrait)
+    ? mario.portrait
     : hasPhoto("hero-outfit") || !hasPhoto("hero-consultation")
       ? "hero-outfit"
       : "hero-consultation";
-  const heroSecondary = heroMain !== "hero-consultation" && hasPhoto("hero-consultation");
+  const heroSecondaryId: MediaId | null = hasPhoto("team-group")
+    ? "team-group"
+    : hasPhoto("hero-consultation") && heroMain !== "hero-consultation"
+      ? "hero-consultation"
+      : null;
+  // Avoid showing the hero portrait twice: the Mario section then uses the fitting photo.
   const marioPhoto: MediaId =
-    hasPhoto(mario.portrait) || !hasPhoto("team-group")
-      ? mario.portrait
-      : "team-group";
+    heroMain === mario.portrait && hasPhoto("hero-consultation")
+      ? "hero-consultation"
+      : mario.portrait;
 
   return (
     <>
@@ -69,10 +74,10 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
                 sizes="(min-width: 960px) 55vw, 100vw"
               />
             </div>
-            {heroSecondary && (
+            {heroSecondaryId && (
               <div className="hero-secondary">
                 <Media
-                  id="hero-consultation"
+                  id={heroSecondaryId}
                   dict={t}
                   ratio="4 / 3"
                   sizes="25vw"
