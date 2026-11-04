@@ -1,3 +1,4 @@
+import { resolveSiteMode } from './mode';
 import { brand } from '@/content/brand';
 import { reducedLaunch } from '@/content/launch';
 import { categories, categoryIds } from '@/content/services';
@@ -14,7 +15,7 @@ import { localeMeta, locales, type Locale } from '@/content/locales/config';
 export type SiteMode = 'preview' | 'production';
 
 export function getSiteMode(): SiteMode {
-  return process.env.SITE_MODE === 'production' ? 'production' : 'preview';
+  return resolveSiteMode();
 }
 
 export const isPreview = () => getSiteMode() === 'preview';

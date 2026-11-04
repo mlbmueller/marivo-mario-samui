@@ -9,7 +9,13 @@ für den Anfang). Die Kette: **GitHub (Code) → Vercel (Hosting) → GoDaddy (D
 > Die Domain erst auf die Seite zeigen lassen, wenn sie veröffentlicht werden darf. Bis dahin
 > nur die geschützte Vercel-Testadresse verwenden.
 
-## Stand: Coming-soon-Seite → reduzierter Start
+## Stand: LIVE seit 4.11.2026 (reduzierter Start)
+
+Die Production-Deployments bei Vercel laufen als Live-Seite, gesteuert im Code über `LIVE`
+in `src/lib/mode.ts` (unabhängig vom Vercel-Wert `SITE_MODE`). Zurück zur Coming-soon-Seite:
+`LIVE = false` setzen und pushen. Vercel-Vorschauen bleiben im Vorschaumodus.
+
+## Früher: Coming-soon-Seite → reduzierter Start
 
 Solange in Vercel für **Production** `SITE_MODE` nicht `production` ist, zeigt die Domain nur die
 Coming-soon-Seite (`src/app/coming-soon/`, Sprachen EN/DE/TH/FR/IT über `?lang=`).

@@ -1,7 +1,8 @@
 import type { NextConfig } from 'next';
 import legacyRedirects from './src/content/redirects.json';
+import { resolveSiteMode } from './src/lib/mode';
 
-const isProduction = process.env.SITE_MODE === 'production';
+const isProduction = resolveSiteMode() === 'production';
 
 type LegacyRedirect = { from: string; to: string; permanent: boolean; status: string };
 

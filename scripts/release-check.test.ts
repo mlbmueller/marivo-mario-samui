@@ -4,10 +4,11 @@
  * so a production build cannot be created from unapproved content.
  */
 import { describe, expect, it } from 'vitest';
+import { resolveSiteMode } from '../src/lib/mode';
 import { getReleaseReport } from '../src/lib/release';
 
 describe('release check', () => {
-  const mode = process.env.SITE_MODE === 'production' ? 'production' : 'preview';
+  const mode = resolveSiteMode();
   const report = getReleaseReport(process.env);
 
   it(`content and configuration (${mode})`, () => {

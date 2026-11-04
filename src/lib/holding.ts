@@ -1,3 +1,5 @@
+import { resolveSiteMode } from './mode';
+
 /**
  * Holding ("coming soon") mode for the public domain.
  *
@@ -7,7 +9,7 @@
  * the full site then replaces the holding page (same switch in next.config.ts).
  */
 export const HOLDING = {
-  active: process.env.SITE_MODE !== 'production',
+  active: resolveSiteMode() !== 'production',
   hosts: ['www.nickyfashionsamui.com', 'nickyfashionsamui.com'],
   path: '/coming-soon',
 } as const;
