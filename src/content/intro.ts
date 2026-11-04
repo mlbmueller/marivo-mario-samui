@@ -33,7 +33,12 @@ export const introSlides: IntroSlide[] = [
   { media: 'hero-consultation', focus: '42% 0%', mobileFocus: '45% 0%' }, // fitting and a smile
 ];
 
-export const introVideo: IntroVideo | null = null;
+/** Real store footage supplied by the owner (4 Nov 2026), edited to a calm 17.5 s loop without sound. */
+export const introVideo: IntroVideo | null = {
+  src: '/video/intro-1920.mp4',
+  mobileSrc: '/video/intro-1280.mp4',
+  poster: 'intro-poster',
+};
 
 type IntroTexts = {
   headline: [string, string];

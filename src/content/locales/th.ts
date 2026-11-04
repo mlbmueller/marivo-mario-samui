@@ -462,6 +462,7 @@ const th: Dictionary = {
     atStore: 'อยากแวะไปที่ร้าน{store}',
   },
   media: {
+    'intro-poster': 'สูทและผ้าในร้าน',
     'hero-outfit': 'ชุดตัดตามสั่งที่เสร็จสมบูรณ์',
     'hero-consultation': 'มาริโอกำลังลองชุดให้ลูกค้า',
     'portrait-mario': 'มาริโอ เจ้าของร้าน ในชุดสูทลายทางสีกรมท่า',

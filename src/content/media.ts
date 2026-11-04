@@ -36,6 +36,15 @@ const placeholder = (id: string, description: string, width: number, height: num
 });
 
 export const media = {
+  'intro-poster': {
+    id: 'intro-poster',
+    description: 'Still from the store video: suits and fabric shelves in the store',
+    width: 1920,
+    height: 1080,
+    src: '/images/intro-poster.webp',
+    source: 'Frame from the owner’s store video, 4 Nov 2026',
+    rights: 'approved',
+  } as MediaAsset,
   'hero-outfit': placeholder('hero-outfit', 'Hero, main motif: a finished outfit worn by a real customer or model (with consent), full body, bright atelier or island setting', 1600, 2000),
   'hero-consultation': {
     id: 'hero-consultation',

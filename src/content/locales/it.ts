@@ -459,6 +459,7 @@ const it: Dictionary = {
     atStore: 'Vorrei passare nel vostro negozio a {store}.',
   },
   media: {
+    'intro-poster': 'Abiti e tessuti in negozio',
     'hero-outfit': 'Un outfit su misura finito',
     'hero-consultation': 'Mario durante una prova con un cliente',
     'portrait-mario': 'Mario, titolare, in abito blu gessato',

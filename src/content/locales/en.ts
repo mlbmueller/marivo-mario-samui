@@ -467,6 +467,7 @@ const en = {
     atStore: 'I would like to visit your store in {store}.',
   },
   media: {
+    'intro-poster': 'Suits and fabrics in the store',
     'hero-outfit': 'A finished tailored outfit',
     'hero-consultation': 'Mario at a fitting with a customer',
     'portrait-mario': 'Mario, owner, in a navy pinstripe suit',

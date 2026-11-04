@@ -43,7 +43,7 @@ export default async function IntroPreviewPage({ params }: { params: LocaleParam
 
   const slides = introSlides.filter((s) => hasPhoto(s.media)).map((s) => toSlide(s.media, t, s.focus, s.mobileFocus));
   const video = introVideo && hasPhoto(introVideo.poster)
-    ? { src: introVideo.src, mobileSrc: introVideo.mobileSrc ?? null, poster: toSlide(introVideo.poster, t, '50% 30%') }
+    ? { src: introVideo.src, mobileSrc: introVideo.mobileSrc ?? null, poster: toSlide(introVideo.poster, t, '50% 50%') }
     : null;
   const looksHref = isPageAvailable('/our-work') ? lp('/our-work') : `${lp('/')}#looks`;
 
