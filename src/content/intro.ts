@@ -27,6 +27,7 @@ export type IntroVideo = {
 };
 
 export const introSlides: IntroSlide[] = [
+  { media: 'detail-fabrics', focus: '55% 30%', mobileFocus: '55% 22%' }, // fabrics and the order sheet
   { media: 'team-group', focus: '50% 28%', mobileFocus: '50% 42%' }, // consultation: Mario and James with a customer
   { media: 'detail-measuring', focus: '58% 30%', mobileFocus: '60% 28%' }, // measuring
   { media: 'hero-consultation', focus: '42% 0%', mobileFocus: '45% 0%' }, // fitting and a smile
