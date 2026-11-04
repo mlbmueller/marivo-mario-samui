@@ -14,6 +14,7 @@ const TEXT: Record<Locale, { title: string; text: string }> = {
   th: { title: 'เว็บไซต์ใหม่ของเรากำลังจะเปิดเร็วๆ นี้', text: 'ระหว่างนี้ ยินดีต้อนรับคุณที่เกาะสมุย' },
   fr: { title: 'Notre nouveau site arrive bientôt.', text: 'D’ici là, nous nous réjouissons de vous accueillir à Koh Samui.' },
   it: { title: 'Il nostro nuovo sito arriva presto.', text: 'Nel frattempo ti aspettiamo a Koh Samui.' },
+  ru: { title: 'Наш новый сайт скоро откроется.', text: 'А пока будем рады видеть вас на Самуи.' },
 };
 
 const isLocale = (v: unknown): v is Locale => typeof v === 'string' && (locales as readonly string[]).includes(v);

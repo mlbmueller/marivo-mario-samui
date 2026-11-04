@@ -128,9 +128,9 @@ describe('preview vs production release', () => {
     expect(isPublishable('missing', 'preview')).toBe(false);
   });
 
-  it('production routes only the launch languages EN and DE; preview keeps all for review', () => {
-    expect(routedLocales('production')).toEqual(['en', 'de']);
-    expect(routedLocales('preview')).toEqual(['en', 'de', 'th', 'fr', 'it']);
+  it('production routes all launch languages (EN, DE, FR, IT, RU, TH since 4 Nov 2026)', () => {
+    expect(routedLocales('production')).toEqual(['en', 'de', 'fr', 'it', 'ru', 'th']);
+    expect(routedLocales('preview')).toEqual(['en', 'de', 'fr', 'it', 'ru', 'th']);
   });
 
   it('hides unconfirmed categories, empty work page and inactive rename page in production', () => {
@@ -151,7 +151,7 @@ describe('preview vs production release', () => {
     const hidden = report.hidden.map((h) => h.item).join('\n');
     expect(blockers).not.toMatch(/Favicon/); // optional: browser default until approved
     expect(hidden).toMatch(/Favicon/);
-    expect(blockers).not.toMatch(/Italiano|Français|ไทย/); // TH/FR/IT are switched off instead
+    expect(blockers).not.toMatch(/Texts in/); // all launch languages are approved
     // Items that follow later during the reduced launch, otherwise block
     const deferred = /approved looks|delivery service|rate-limit|Operator details|Approved photo: hero-outfit/;
     if (reducedLaunch.active) {

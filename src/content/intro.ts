@@ -75,5 +75,52 @@ const de: IntroTexts = {
   draftNote: { video: 'Designentwurf · Hintergrund: Video', photos: 'Designentwurf · Hintergrund: animierte Fotos (noch kein Video)' },
 };
 
-/** Draft copy: EN (given) and DE; other languages fall back to English until reviewed. */
-export const introTexts = (locale: Locale): IntroTexts => (locale === 'de' ? de : en);
+
+const fr: IntroTexts = {
+  headline: ['L’esprit des vacances.', 'Taillé pour vous.'],
+  text: 'Des vêtements sur mesure pour hommes et femmes, conçus avec Mario et son équipe.',
+  personalHeading: 'Un essayage. Un sourire. Un peu de Samui.',
+  personalText: 'Choisir ses vêtements doit être aussi agréable que les porter. Rencontrez Mario et l’équipe, découvrez les tissus ensemble et profitez d’un essayage personnel dès le premier instant.',
+  features: ['Conseil personnel', 'Coupe individuelle', 'Fait pour vous'],
+  pause: 'Mettre l’animation en pause',
+  play: 'Lancer l’animation',
+  draftNote: { video: 'Projet de design · fond : vidéo', photos: 'Projet de design · fond : photos animées' },
+};
+
+const it: IntroTexts = {
+  headline: ['La sensazione della vacanza.', 'Su misura per te.'],
+  text: 'Abiti su misura per uomo e donna, creati con Mario e il suo team.',
+  personalHeading: 'Una prova. Un sorriso. Un po’ di Samui.',
+  personalText: 'Scegliere i propri abiti deve essere bello quanto indossarli. Conosci Mario e il team, scoprite insieme i tessuti e goditi una prova personale fin dall’inizio.',
+  features: ['Consulenza personale', 'Vestibilità individuale', 'Fatto per te'],
+  pause: 'Metti in pausa l’animazione',
+  play: 'Avvia l’animazione',
+  draftNote: { video: 'Bozza di design · sfondo: video', photos: 'Bozza di design · sfondo: foto animate' },
+};
+
+const ru: IntroTexts = {
+  headline: ['Ощущение отпуска.', 'Сшито для вас.'],
+  text: 'Одежда на заказ для мужчин и женщин — лично от Марио и его команды.',
+  personalHeading: 'Примерка. Улыбка. Немного Самуи.',
+  personalText: 'Выбирать одежду должно быть так же приятно, как её носить. Познакомьтесь с Марио и командой, выберите ткани вместе и наслаждайтесь примеркой, которая с самого начала только ваша.',
+  features: ['Личная консультация', 'Индивидуальная посадка', 'Сшито для вас'],
+  pause: 'Остановить анимацию',
+  play: 'Запустить анимацию',
+  draftNote: { video: 'Дизайн-черновик · фон: видео', photos: 'Дизайн-черновик · фон: анимированные фото' },
+};
+
+const th: IntroTexts = {
+  headline: ['บรรยากาศแห่งวันพักผ่อน', 'ตัดเย็บเพื่อคุณ'],
+  text: 'เสื้อผ้าตัดตามสั่งสำหรับผู้ชายและผู้หญิง ดูแลโดยมาริโอและทีมงาน',
+  personalHeading: 'ลองชุด ยิ้มได้ และกลิ่นอายสมุย',
+  personalText: 'การเลือกเสื้อผ้าควรรู้สึกดีเหมือนตอนสวมใส่ มาพบมาริโอและทีมงาน เลือกผ้าด้วยกัน และสนุกกับการลองชุดที่เป็นส่วนตัวตั้งแต่เริ่มต้น',
+  features: ['คำแนะนำส่วนตัว', 'ทรงพอดีตัว', 'ทำเพื่อคุณ'],
+  pause: 'หยุดภาพเคลื่อนไหว',
+  play: 'เล่นภาพเคลื่อนไหว',
+  draftNote: { video: 'แบบร่างดีไซน์ · พื้นหลัง: วิดีโอ', photos: 'แบบร่างดีไซน์ · พื้นหลัง: ภาพเคลื่อนไหว' },
+};
+
+const byLocale: Partial<Record<Locale, IntroTexts>> = { en, de, fr, it, ru, th };
+
+/** Draft copy in all site languages (English fallback). */
+export const introTexts = (locale: Locale): IntroTexts => byLocale[locale] ?? en;
