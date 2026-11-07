@@ -38,12 +38,11 @@ jobs:
       - name: Release gate (preview) — lists open items, must pass
         run: npm run check:release
 
-      - name: Release gate (production) — must FAIL while required content is missing
-        run: |
-          if SITE_MODE=production npm run check:release > gate.log 2>&1; then
-            echo "Expected the production gate to block, but it passed"; cat gate.log; exit 1
-          fi
-          grep -E "✗" gate.log || true
+      - name: Release gate (production) — must pass (site is live since 4 Nov 2026)
+        run: SITE_MODE=production npm run check:release
+
+      - name: Build (production, as on Vercel)
+        run: SITE_MODE=production npm run build
 
       - name: Build (preview)
         run: npm run build
