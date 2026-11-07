@@ -1,3 +1,4 @@
+import type { MediaId } from '@/content/media';
 import type { Metadata } from 'next';
 import { hasPhoto } from '@/content/media';
 import { team } from '@/content/team';
@@ -6,6 +7,8 @@ import { Media } from '@/components/Media';
 import { ClosingCta, PageHead } from '@/components/Sections';
 import { localePath } from '@/lib/i18n';
 import { pageMetadata, resolveLocale, type LocaleParams } from '@/lib/page';
+
+const teamClientPhotos = Array.from({ length: 9 }, (_, i) => `team-client-${i + 1}` as MediaId);
 import { isPreview, isPublishable, shown } from '@/lib/site';
 
 const PATH = '/about';
@@ -74,6 +77,20 @@ export default async function AboutPage({ params }: { params: LocaleParams }) {
         <div className="container">
           <h2 id="group-heading">{a.groupPhotoHeading}</h2>
           <Media id="team-group" dict={t} sizes="100vw" />
+        </div>
+      </section>
+
+      <section className="section" aria-labelledby="experience-heading">
+        <div className="container">
+          <div className="section-head">
+            <h2 id="experience-heading">{a.experienceHeading}</h2>
+            <p>{a.experienceText}</p>
+          </div>
+          <div className="grid grid-3">
+            {teamClientPhotos.map((id) => (
+              <Media key={id} id={id} dict={t} ratio="3 / 4" sizes="(min-width: 720px) 33vw, 100vw" />
+            ))}
+          </div>
         </div>
       </section>
 

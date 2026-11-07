@@ -17,9 +17,9 @@ export async function generateMetadata({ params }: { params: LocaleParams }): Pr
 export default async function CraftsmanshipPage({ params }: { params: LocaleParams }) {
   const { locale, t } = await resolveLocale(params);
   const c = t.craftsmanship;
-  const blocks: { heading: string; text: string; image: MediaId }[] = [
-    { heading: c.fabricsHeading, text: c.fabricsText, image: 'detail-fabrics' },
-    { heading: c.detailsHeading, text: c.detailsText, image: 'detail-finish' },
+  const blocks: { heading: string; text: string; image: MediaId; more?: MediaId[] }[] = [
+    { heading: c.fabricsHeading, text: c.fabricsText, image: 'detail-fabrics', more: ['fabric-book', 'fabric-board'] },
+    { heading: c.detailsHeading, text: c.detailsText, image: 'detail-finish', more: ['detail-lining', 'detail-lapel', 'detail-waistcoat', 'detail-trousers', 'detail-sleeve'] },
     { heading: c.fitHeading, text: c.fitText, image: 'detail-measuring' },
   ];
   return (
@@ -42,6 +42,16 @@ export default async function CraftsmanshipPage({ params }: { params: LocalePara
               <p className="lead">{b.text}</p>
             </div>
           </div>
+          {b.more && (
+            <div className="container" style={{ marginTop: '2rem' }}>
+              <h3 className="visually-hidden">{c.galleryLabel}</h3>
+              <div className="grid grid-3">
+                {b.more.map((id) => (
+                  <Media key={id} id={id} dict={t} ratio="3 / 4" sizes="(min-width: 720px) 33vw, 100vw" />
+                ))}
+              </div>
+            </div>
+          )}
         </section>
       ))}
       {policies.fabrics.status !== 'confirmed' && (
