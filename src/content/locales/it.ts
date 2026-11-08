@@ -59,6 +59,7 @@ const it: Dictionary = {
     moreHeading: 'Altro',
     contactText: 'Inviaci una richiesta o passa in uno dei nostri negozi.',
     rights: 'Tutti i diritti riservati.',
+    linkedin: 'NICKY FASHION su LinkedIn',
   },
   mobileBar: {
     label: 'Contatto rapido',

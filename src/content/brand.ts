@@ -39,6 +39,10 @@ export const brand = {
   whatsapp: confirmed('+66824751633', 'Owner, 3 Oct 2026: Chaweng WhatsApp used as central contact') as Fact<string>,
   email: missing('No confirmed e-mail address') as Fact<string>,
   /** Previous public names, shown only on the transition page once it is active. */
+  /** Public social profiles (owner, 8 Nov 2026). */
+  social: {
+    linkedin: 'https://www.linkedin.com/company/146675502/',
+  },
   previousNames: ['Nicky Fashion by Mario', 'Samui Armani By Mario'],
   /**
    * The "our new name" page stays inactive until the rename has actually happened

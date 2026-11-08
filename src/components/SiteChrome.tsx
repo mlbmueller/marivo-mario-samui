@@ -68,6 +68,12 @@ export function SiteFooter({ locale, t }: { locale: Locale; t: Dictionary }) {
             </div>
             <p style={{ marginTop: '1.25rem', maxWidth: '32ch', color: 'var(--on-burgundy-muted)' }}>{t.footer.tagline}</p>
             <p style={{ color: 'var(--on-burgundy-muted)' }}>{t.common.locationsLine}</p>
+            <p>
+              <a href={brand.social.linkedin} target="_blank" rel="noopener noreferrer" className="social-link">
+                <Icon name="linkedin" />
+                {t.footer.linkedin}
+              </a>
+            </p>
           </div>
           <div>
             <h2>{t.footer.storesHeading}</h2>

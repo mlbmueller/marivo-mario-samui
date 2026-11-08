@@ -63,6 +63,7 @@ const en = {
     moreHeading: 'More',
     contactText: 'Send a request or visit one of our stores.',
     rights: 'All rights reserved.',
+    linkedin: 'NICKY FASHION on LinkedIn',
   },
   mobileBar: {
     label: 'Quick contact',

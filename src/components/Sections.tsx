@@ -1,16 +1,29 @@
-import Link from 'next/link';
-import type { Dictionary, Locale } from '@/content/locales';
-import { categories, categoryIds, processSteps } from '@/content/services';
-import { closureOf, exteriorImageFor, openAlternativeTo, storeIds, stores } from '@/content/stores';
-import { formatDays, formatMonth } from '@/lib/hours';
-import type { StoreId } from '@/content/types';
-import { fmt, localePath } from '@/lib/i18n';
-import { isFormEnabled, isPageAvailable, isPreview, isPublishable, shown } from '@/lib/site';
-import { DraftBadge, PreviewNotice } from './Draft';
-import { Icon } from './Icon';
-import { Media } from './Media';
-import { TrackedLink } from './TrackedLink';
-import { WhatsAppButton } from './WhatsAppButton';
+import { brand } from "@/content/brand";
+import Link from "next/link";
+import type { Dictionary, Locale } from "@/content/locales";
+import { categories, categoryIds, processSteps } from "@/content/services";
+import {
+  closureOf,
+  exteriorImageFor,
+  openAlternativeTo,
+  storeIds,
+  stores,
+} from "@/content/stores";
+import { formatDays, formatMonth } from "@/lib/hours";
+import type { StoreId } from "@/content/types";
+import { fmt, localePath } from "@/lib/i18n";
+import {
+  isFormEnabled,
+  isPageAvailable,
+  isPreview,
+  isPublishable,
+  shown,
+} from "@/lib/site";
+import { DraftBadge, PreviewNotice } from "./Draft";
+import { Icon } from "./Icon";
+import { Media } from "./Media";
+import { TrackedLink } from "./TrackedLink";
+import { WhatsAppButton } from "./WhatsAppButton";
 
 export function PageHead({
   title,
@@ -18,7 +31,7 @@ export function PageHead({
   eyebrow,
   crumbs,
   badge,
-  crumbLabel = 'Breadcrumb',
+  crumbLabel = "Breadcrumb",
 }: {
   title: string;
   lead?: string;
@@ -53,21 +66,40 @@ export function PageHead({
 }
 
 /** Categories that may be shown in the current mode. */
-export const visibleCategories = () => categoryIds.filter((id) => isPageAvailable(`/tailoring/${id}`));
+export const visibleCategories = () =>
+  categoryIds.filter((id) => isPageAvailable(`/tailoring/${id}`));
 
 /** The four style worlds (Suits · Linen & Holiday · Women · Weddings), each with its own page. */
-export function CategoryCards({ locale, t }: { locale: Locale; t: Dictionary }) {
+export function CategoryCards({
+  locale,
+  t,
+}: {
+  locale: Locale;
+  t: Dictionary;
+}) {
   const ids = visibleCategories();
   if (ids.length === 0) return null;
   return (
     <div className="worlds">
       {ids.map((id) => (
-        <Link key={id} href={localePath(locale, `/tailoring/${id}`)} className="world">
-          <Media id={categories[id].image} dict={t} ratio="4 / 5" sizes="(min-width: 960px) 25vw, (min-width: 480px) 50vw, 100vw" />
+        <Link
+          key={id}
+          href={localePath(locale, `/tailoring/${id}`)}
+          className="world"
+        >
+          <Media
+            id={categories[id].image}
+            dict={t}
+            ratio="4 / 5"
+            sizes="(min-width: 960px) 25vw, (min-width: 480px) 50vw, 100vw"
+          />
           <h3>
             <span>
               {t.categories[id].worldName}
-              <DraftBadge status={categories[id].offered.status} label={t.common.draft} />
+              <DraftBadge
+                status={categories[id].offered.status}
+                label={t.common.draft}
+              />
             </span>
             <Icon name="arrow" className="icon arrow" />
           </h3>
@@ -92,9 +124,12 @@ export function ProcessSteps({ t }: { t: Dictionary }) {
           </li>
         ))}
       </ol>
-      {processSteps.status !== 'confirmed' && isPreview() && (
-        <p className="small" style={{ marginTop: '1.5rem', opacity: 0.85 }}>
-          <span className="draft-badge" style={{ marginInlineStart: 0, marginInlineEnd: '0.5rem' }}>
+      {processSteps.status !== "confirmed" && isPreview() && (
+        <p className="small" style={{ marginTop: "1.5rem", opacity: 0.85 }}>
+          <span
+            className="draft-badge"
+            style={{ marginInlineStart: 0, marginInlineEnd: "0.5rem" }}
+          >
             {t.common.draft}
           </span>
           {t.process.proposedNotice}
@@ -104,21 +139,46 @@ export function ProcessSteps({ t }: { t: Dictionary }) {
   );
 }
 
-function Fact({ label, value, t }: { label: string; value: React.ReactNode | null; t: Dictionary }) {
+function Fact({
+  label,
+  value,
+  t,
+}: {
+  label: string;
+  value: React.ReactNode | null;
+  t: Dictionary;
+}) {
   if (value === null && !isPreview()) return null;
   return (
     <>
       <dt>{label}</dt>
-      <dd>{value ?? <span className="pending">{t.common.toBeConfirmed}</span>}</dd>
+      <dd>
+        {value ?? <span className="pending">{t.common.toBeConfirmed}</span>}
+      </dd>
     </>
   );
 }
 
-export function DirectionsButton({ store, t }: { store: StoreId; t: Dictionary }) {
-  const mapUrl = stores[store].mapUrl.status === 'confirmed' ? stores[store].mapUrl.value : null;
+export function DirectionsButton({
+  store,
+  t,
+}: {
+  store: StoreId;
+  t: Dictionary;
+}) {
+  const mapUrl =
+    stores[store].mapUrl.status === "confirmed"
+      ? stores[store].mapUrl.value
+      : null;
   if (mapUrl) {
     return (
-      <TrackedLink href={mapUrl} className="btn btn-secondary" external event="directions_click" params={{ store }}>
+      <TrackedLink
+        href={mapUrl}
+        className="btn btn-secondary"
+        external
+        event="directions_click"
+        params={{ store }}
+      >
         <Icon name="pin" />
         {t.common.getDirections}
       </TrackedLink>
@@ -136,7 +196,15 @@ export function DirectionsButton({ store, t }: { store: StoreId; t: Dictionary }
   );
 }
 
-export function StoreFacts({ store, locale, t }: { store: StoreId; locale: Locale; t: Dictionary }) {
+export function StoreFacts({
+  store,
+  locale,
+  t,
+}: {
+  store: StoreId;
+  locale: Locale;
+  t: Dictionary;
+}) {
   const s = stores[store];
   const hours = shown(s.hours);
   const phone = shown(s.phone);
@@ -158,40 +226,75 @@ export function StoreFacts({ store, locale, t }: { store: StoreId; locale: Local
         }
         t={t}
       />
-      <Fact label={t.stores.phoneLabel} value={phone ? <a href={`tel:${phone.replace(/\s/g, '')}`}>{phone}</a> : null} t={t} />
+      <Fact
+        label={t.stores.phoneLabel}
+        value={
+          phone ? <a href={`tel:${phone.replace(/\s/g, "")}`}>{phone}</a> : null
+        }
+        t={t}
+      />
     </dl>
   );
 }
 
 /** Store names for the form's store choice, marking temporarily closed stores. */
-export function storeNamesWithStatus(t: Dictionary): Dictionary['storeNames'] {
+export function storeNamesWithStatus(t: Dictionary): Dictionary["storeNames"] {
   const out = { ...t.storeNames };
-  for (const id of Object.keys(out) as StoreId[]) if (closureOf(stores[id])) out[id] = `${out[id]} (${t.stores.temporarilyClosed})`;
+  for (const id of Object.keys(out) as StoreId[])
+    if (closureOf(stores[id]))
+      out[id] = `${out[id]} (${t.stores.temporarilyClosed})`;
   return out;
 }
 
 /** Visible notice while a store is temporarily closed, with the planned reopening. */
-export function ClosureNotice({ store, locale, t }: { store: StoreId; locale: Locale; t: Dictionary }) {
+export function ClosureNotice({
+  store,
+  locale,
+  t,
+}: {
+  store: StoreId;
+  locale: Locale;
+  t: Dictionary;
+}) {
   const s = stores[store];
   const month = closureOf(s);
   if (!month) return null;
   const other = openAlternativeTo(s);
   return (
     <p className="notice notice-closed">
-      <strong>{t.stores.temporarilyClosed}.</strong> {fmt(t.stores.reopening, { month: formatMonth(month, locale) })}
-      {other && <> {fmt(t.stores.visitOther, { store: t.storeNames[other] })}</>}
+      <strong>{t.stores.temporarilyClosed}.</strong>{" "}
+      {fmt(t.stores.reopening, { month: formatMonth(month, locale) })}
+      {other && (
+        <> {fmt(t.stores.visitOther, { store: t.storeNames[other] })}</>
+      )}
     </p>
   );
 }
 
-export function StoreCard({ store, locale, t, headingLevel = 3 }: { store: StoreId; locale: Locale; t: Dictionary; headingLevel?: 2 | 3 }) {
+export function StoreCard({
+  store,
+  locale,
+  t,
+  headingLevel = 3,
+}: {
+  store: StoreId;
+  locale: Locale;
+  t: Dictionary;
+  headingLevel?: 2 | 3;
+}) {
   const s = stores[store];
-  const Heading = `h${headingLevel}` as 'h2' | 'h3';
+  const Heading = `h${headingLevel}` as "h2" | "h3";
   return (
     <article className="store-card card">
-      <Media id={exteriorImageFor(s)} dict={t} alt={fmt(t.stores.exteriorAlt, { store: t.storeNames[store] })} ratio="4 / 3" sizes="(min-width: 720px) 50vw, 100vw" />
+      <Media
+        id={exteriorImageFor(s)}
+        dict={t}
+        alt={fmt(t.stores.exteriorAlt, { store: t.storeNames[store] })}
+        ratio="4 / 3"
+        sizes="(min-width: 720px) 50vw, 100vw"
+      />
       <div>
-        <p className="eyebrow" style={{ marginBottom: '0.5rem' }}>
+        <p className="eyebrow" style={{ marginBottom: "0.5rem" }}>
           {t.common.koh}
         </p>
         <Heading>{t.storeNames[store]}</Heading>
@@ -204,21 +307,42 @@ export function StoreCard({ store, locale, t, headingLevel = 3 }: { store: Store
         </Link>
         <DirectionsButton store={store} t={t} />
       </div>
-      <WhatsAppButton dict={t} store={store} className="btn btn-secondary btn-sm" />
+      <WhatsAppButton
+        dict={t}
+        store={store}
+        className="btn btn-secondary btn-sm"
+      />
     </article>
   );
 }
 
-export function ClosingCta({ locale, t, heading, text }: { locale: Locale; t: Dictionary; heading?: string; text?: string }) {
+export function ClosingCta({
+  locale,
+  t,
+  heading,
+  text,
+}: {
+  locale: Locale;
+  t: Dictionary;
+  heading?: string;
+  text?: string;
+}) {
   return (
     <section className="section section-dark on-dark">
       <div className="container">
-        <div className="section-head" style={{ marginBottom: '2rem' }}>
+        <div className="section-head" style={{ marginBottom: "2rem" }}>
           <h2>{heading ?? t.home.closingHeading}</h2>
-          <p>{text ?? (isFormEnabled() ? t.home.closingText : t.contact.introNoForm)}</p>
+          <p>
+            {text ??
+              (isFormEnabled() ? t.home.closingText : t.contact.introNoForm)}
+          </p>
         </div>
         <div className="btn-row">
-          <TrackedLink href={localePath(locale, '/contact')} className="btn" event="contact_cta_click">
+          <TrackedLink
+            href={localePath(locale, "/contact")}
+            className="btn"
+            event="contact_cta_click"
+          >
             <Icon name="calendar" />
             {t.common.planFitting}
           </TrackedLink>
@@ -230,8 +354,14 @@ export function ClosingCta({ locale, t, heading, text }: { locale: Locale; t: Di
 }
 
 /** Draft marker + notice for a not yet confirmed category. */
-export function CategoryDraftNotice({ id, t }: { id: keyof typeof categories; t: Dictionary }) {
-  if (isPublishable(categories[id].offered.status, 'production')) return null;
+export function CategoryDraftNotice({
+  id,
+  t,
+}: {
+  id: keyof typeof categories;
+  t: Dictionary;
+}) {
+  if (isPublishable(categories[id].offered.status, "production")) return null;
   return <PreviewNotice>{t.categories.shared.unconfirmedNotice}</PreviewNotice>;
 }
 
@@ -239,32 +369,58 @@ export function CategoryDraftNotice({ id, t }: { id: keyof typeof categories; t:
  * Contact without a form (reduced launch): per store the phone number, WhatsApp and the map.
  * A temporarily closed store shows its notice; its WhatsApp goes to the open store.
  */
-export function ContactOptions({ locale, t }: { locale: Locale; t: Dictionary }) {
+export function ContactOptions({
+  locale,
+  t,
+}: {
+  locale: Locale;
+  t: Dictionary;
+}) {
   return (
-    <div className="grid grid-2 contact-options">
-      {storeIds.map((id) => {
-        const s = stores[id];
-        const phone = shown(s.phone);
-        return (
-          <article key={id} className="card stack">
-            <h2 style={{ fontSize: '1.3rem', margin: 0 }}>
-              <Link href={localePath(locale, `/stores/${id}`)}>
-                {t.storeNames[id]}, {t.common.koh}
-              </Link>
-            </h2>
-            <ClosureNotice store={id} locale={locale} t={t} />
-            {!closureOf(s) && phone && (
-              <p style={{ margin: 0 }}>
-                {t.stores.phoneLabel}: <a href={`tel:${phone.replace(/\s/g, '')}`}>{phone}</a>
-              </p>
-            )}
-            <div className="btn-row">
-              <WhatsAppButton dict={t} store={openAlternativeTo(s) ?? id} label={fmt(t.contact.whatsappStore, { store: t.storeNames[openAlternativeTo(s) ?? id] })} />
-              <DirectionsButton store={id} t={t} />
-            </div>
-          </article>
-        );
-      })}
-    </div>
+    <>
+      <div className="grid grid-2 contact-options">
+        {storeIds.map((id) => {
+          const s = stores[id];
+          const phone = shown(s.phone);
+          return (
+            <article key={id} className="card stack">
+              <h2 style={{ fontSize: "1.3rem", margin: 0 }}>
+                <Link href={localePath(locale, `/stores/${id}`)}>
+                  {t.storeNames[id]}, {t.common.koh}
+                </Link>
+              </h2>
+              <ClosureNotice store={id} locale={locale} t={t} />
+              {!closureOf(s) && phone && (
+                <p style={{ margin: 0 }}>
+                  {t.stores.phoneLabel}:{" "}
+                  <a href={`tel:${phone.replace(/\s/g, "")}`}>{phone}</a>
+                </p>
+              )}
+              <div className="btn-row">
+                <WhatsAppButton
+                  dict={t}
+                  store={openAlternativeTo(s) ?? id}
+                  label={fmt(t.contact.whatsappStore, {
+                    store: t.storeNames[openAlternativeTo(s) ?? id],
+                  })}
+                />
+                <DirectionsButton store={id} t={t} />
+              </div>
+            </article>
+          );
+        })}
+      </div>
+      <p style={{ marginTop: "1.5rem" }}>
+        <a
+          href={brand.social.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="social-link"
+        >
+          <Icon name="linkedin" />
+          {t.footer.linkedin}
+        </a>
+      </p>
+    </>
   );
 }

@@ -63,6 +63,7 @@ const th: Dictionary = {
     moreHeading: 'เพิ่มเติม',
     contactText: 'ส่งคำขอถึงเรา หรือแวะมาที่ร้านใดร้านหนึ่งของเรา',
     rights: 'สงวนลิขสิทธิ์',
+    linkedin: 'NICKY FASHION บน LinkedIn',
   },
   mobileBar: {
     label: 'ติดต่อด่วน',

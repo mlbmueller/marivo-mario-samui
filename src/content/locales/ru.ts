@@ -63,6 +63,7 @@ const ru: Dictionary = {
     moreHeading: 'Ещё',
     contactText: 'Отправьте запрос или загляните в один из наших магазинов.',
     rights: 'Все права защищены.',
+    linkedin: 'NICKY FASHION в LinkedIn',
   },
   mobileBar: {
     label: 'Быстрая связь',
