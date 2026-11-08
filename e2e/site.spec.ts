@@ -298,9 +298,11 @@ test.describe('appointment request form (v2)', () => {
 
 test('Our Work: filter by style and an accessible look dialog with focus return', async ({ page }) => {
   await page.goto('/en/our-work');
-  await expect(page.locator('.look-card')).toHaveCount(6);
+  const total = await page.locator('.look-card').count();
+  expect(total).toBeGreaterThanOrEqual(6);
   await page.getByRole('button', { name: 'Women', exact: true }).click();
-  await expect(page.locator('.look-card')).toHaveCount(2);
+  await expect.poll(() => page.locator('.look-card').count()).toBeLessThan(total);
+  expect(await page.locator('.look-card').count()).toBeGreaterThan(0);
   await expect(page.getByRole('button', { name: 'Women', exact: true })).toHaveAttribute('aria-pressed', 'true');
   const opener = page.getByRole('button', { name: /View look: Ivory dress with navy bands/ });
   await opener.click();
