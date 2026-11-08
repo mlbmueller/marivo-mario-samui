@@ -64,6 +64,7 @@ const th: Dictionary = {
     contactText: 'ส่งคำขอถึงเรา หรือแวะมาที่ร้านใดร้านหนึ่งของเรา',
     rights: 'สงวนลิขสิทธิ์',
     linkedin: 'NICKY FASHION บน LinkedIn',
+    googleReviews: 'อ่านรีวิวของเราบน Google',
   },
   mobileBar: {
     label: 'ติดต่อด่วน',

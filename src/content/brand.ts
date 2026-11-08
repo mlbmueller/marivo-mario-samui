@@ -42,6 +42,8 @@ export const brand = {
   /** Public social profiles (owner, 8 Nov 2026). */
   social: {
     linkedin: 'https://www.linkedin.com/company/146675502/',
+    /** Google Maps reviews of the Chaweng store. Linked only — no star ratings or counts on the site. */
+    googleReviews: 'https://maps.app.goo.gl/tadP6o9D1UMLq4a88',
   },
   previousNames: ['Nicky Fashion by Mario', 'Samui Armani By Mario'],
   /**

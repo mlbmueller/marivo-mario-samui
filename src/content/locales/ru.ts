@@ -64,6 +64,7 @@ const ru: Dictionary = {
     contactText: 'Отправьте запрос или загляните в один из наших магазинов.',
     rights: 'Все права защищены.',
     linkedin: 'NICKY FASHION в LinkedIn',
+    googleReviews: 'Читать наши отзывы в Google',
   },
   mobileBar: {
     label: 'Быстрая связь',

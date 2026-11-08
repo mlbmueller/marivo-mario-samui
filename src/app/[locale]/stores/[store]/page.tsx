@@ -1,3 +1,4 @@
+import { brand } from '@/content/brand';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -81,6 +82,12 @@ export default async function StorePage({ params }: { params: Params }) {
               </TrackedLink>
               <WhatsAppButton dict={t} store={requestStore} />
               <DirectionsButton store={id} t={t} />
+              {id === 'chaweng' && (
+                <a href={brand.social.googleReviews} target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
+                  <Icon name="star" />
+                  {t.footer.googleReviews}
+                </a>
+              )}
             </div>
           </aside>
         </div>

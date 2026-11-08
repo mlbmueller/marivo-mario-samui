@@ -1,4 +1,4 @@
-type IconName = 'pin' | 'chat' | 'arrow' | 'calendar' | 'globe' | 'menu' | 'close' | 'image' | 'chevron' | 'play' | 'pause' | 'linkedin';
+type IconName = 'pin' | 'chat' | 'arrow' | 'calendar' | 'globe' | 'menu' | 'close' | 'image' | 'chevron' | 'play' | 'pause' | 'linkedin' | 'star';
 
 const paths: Record<IconName, React.ReactNode> = {
   pin: (
@@ -33,6 +33,7 @@ const paths: Record<IconName, React.ReactNode> = {
   chevron: <path d="m7 10 5 5 5-5" />,
   play: <path d="M8 5.5v13l10.5-6.5Z" />,
   pause: <path d="M8.5 5.5v13M15.5 5.5v13" />,
+  star: <path d="m12 4 2.4 5 5.4.6-4 3.7 1.1 5.4L12 16l-4.9 2.7 1.1-5.4-4-3.7 5.4-.6Z" />,
   linkedin: (
     <>
       <rect x="3.5" y="3.5" width="17" height="17" rx="2" />

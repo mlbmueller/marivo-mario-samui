@@ -421,6 +421,12 @@ export function ContactOptions({
           {t.footer.linkedin}
         </a>
       </p>
+      <p>
+        <a href={brand.social.googleReviews} target="_blank" rel="noopener noreferrer" className="social-link">
+          <Icon name="star" />
+          {t.footer.googleReviews}
+        </a>
+      </p>
     </>
   );
 }
