@@ -427,6 +427,12 @@ export function ContactOptions({
           {t.footer.googleReviews}
         </a>
       </p>
+      <p>
+        <a href={brand.social.tripadvisor} target="_blank" rel="noopener noreferrer" className="social-link">
+          <Icon name="star" />
+          {t.footer.tripadvisor}
+        </a>
+      </p>
     </>
   );
 }

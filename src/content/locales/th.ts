@@ -65,6 +65,7 @@ const th: Dictionary = {
     rights: 'สงวนลิขสิทธิ์',
     linkedin: 'NICKY FASHION บน LinkedIn',
     googleReviews: 'อ่านรีวิวของเราบน Google',
+    tripadvisor: 'NICKY FASHION บน Tripadvisor',
   },
   mobileBar: {
     label: 'ติดต่อด่วน',

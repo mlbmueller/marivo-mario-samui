@@ -80,6 +80,12 @@ export function SiteFooter({ locale, t }: { locale: Locale; t: Dictionary }) {
                 {t.footer.googleReviews}
               </a>
             </p>
+            <p>
+              <a href={brand.social.tripadvisor} target="_blank" rel="noopener noreferrer" className="social-link">
+                <Icon name="star" />
+                {t.footer.tripadvisor}
+              </a>
+            </p>
           </div>
           <div>
             <h2>{t.footer.storesHeading}</h2>

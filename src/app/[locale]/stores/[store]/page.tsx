@@ -88,6 +88,12 @@ export default async function StorePage({ params }: { params: Params }) {
                   {t.footer.googleReviews}
                 </a>
               )}
+              {id === 'chaweng' && (
+                <a href={brand.social.tripadvisor} target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
+                  <Icon name="star" />
+                  {t.footer.tripadvisor}
+                </a>
+              )}
             </div>
           </aside>
         </div>

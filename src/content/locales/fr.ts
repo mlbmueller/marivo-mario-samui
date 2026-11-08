@@ -61,6 +61,7 @@ const fr: Dictionary = {
     rights: 'Tous droits réservés.',
     linkedin: 'NICKY FASHION sur LinkedIn',
     googleReviews: 'Lire nos avis Google',
+    tripadvisor: 'NICKY FASHION sur Tripadvisor',
   },
   mobileBar: {
     label: 'Contact rapide',

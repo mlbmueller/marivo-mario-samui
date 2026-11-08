@@ -65,6 +65,7 @@ const en = {
     rights: 'All rights reserved.',
     linkedin: 'NICKY FASHION on LinkedIn',
     googleReviews: 'Read our Google reviews',
+    tripadvisor: 'NICKY FASHION on Tripadvisor',
   },
   mobileBar: {
     label: 'Quick contact',

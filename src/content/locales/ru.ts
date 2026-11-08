@@ -65,6 +65,7 @@ const ru: Dictionary = {
     rights: 'Все права защищены.',
     linkedin: 'NICKY FASHION в LinkedIn',
     googleReviews: 'Читать наши отзывы в Google',
+    tripadvisor: 'NICKY FASHION на Tripadvisor',
   },
   mobileBar: {
     label: 'Быстрая связь',

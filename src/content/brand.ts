@@ -44,6 +44,8 @@ export const brand = {
     linkedin: 'https://www.linkedin.com/company/146675502/',
     /** Google Maps reviews of the Chaweng store. Linked only — no star ratings or counts on the site. */
     googleReviews: 'https://maps.app.goo.gl/tadP6o9D1UMLq4a88',
+    /** Tripadvisor page of the Chaweng store (owner, 8 Nov 2026). Linked only, no ratings shown. */
+    tripadvisor: 'https://www.tripadvisor.com/Attraction_Review-g676072-d7092597-Reviews-Nicky_Fashion-Chaweng_Bophut_Ko_Samui_Surat_Thani_Province.html',
   },
   previousNames: ['Nicky Fashion by Mario', 'Samui Armani By Mario'],
   /**
