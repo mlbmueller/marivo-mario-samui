@@ -2320,7 +2320,7 @@ h2 {
 /* Home hero: the store film in the secondary frame (desktop), a little larger than the photo */
 @media (min-width: 960px) {
   .hero-media .hero-secondary.hero-secondary-video {
-    width: 56%;
+    width: 68%;
   }
 }
 
