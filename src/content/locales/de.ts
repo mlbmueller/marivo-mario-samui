@@ -551,6 +551,7 @@ const de: Dictionary = {
     'detail-waistcoat': 'Revers, Weste und Krawatte',
     'fabric-book': 'Stoffmusterbuch',
     'fabric-board': 'Stoffmustertafel',
+    'fabric-board-2': 'Stoffmuster in Nahaufnahme',
     'team-client-1': 'Unser Team mit einem Kunden',
     'team-client-2': 'Unser Team mit einem Kunden',
     'team-client-3': 'Unser Team mit einem Kunden',

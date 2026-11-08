@@ -552,6 +552,7 @@ const th: Dictionary = {
     'detail-waistcoat': 'ปกเสื้อ เสื้อกั๊ก และเนกไท',
     'fabric-book': 'สมุดตัวอย่างผ้า',
     'fabric-board': 'แผงตัวอย่างผ้า',
+    'fabric-board-2': 'ตัวอย่างผ้าระยะใกล้',
     'team-client-1': 'ทีมงานของเรากับลูกค้า',
     'team-client-2': 'ทีมงานของเรากับลูกค้า',
     'team-client-3': 'ทีมงานของเรากับลูกค้า',

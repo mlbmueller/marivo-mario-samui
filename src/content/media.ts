@@ -687,6 +687,16 @@ export const media = {
     rights: 'approved',
     focus: '50% 20%',
   } as MediaAsset,
+  'fabric-board-2': {
+    id: 'fabric-board-2',
+    description: 'Detail: second fabric swatch board (Rocco 91–111)',
+    width: 498,
+    height: 505,
+    src: '/images/fabric-board-2-v2.webp',
+    source: 'Supplied by the owner, 7 Nov 2026 (Farbmuster board 4)',
+    rights: 'approved',
+    focus: '50% 50%',
+  } as MediaAsset,
 } satisfies Record<string, MediaAsset>;
 
 export type MediaId = keyof typeof media;

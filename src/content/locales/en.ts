@@ -557,6 +557,7 @@ const en = {
     'detail-waistcoat': 'Lapel, waistcoat and tie',
     'fabric-book': 'Fabric swatch book',
     'fabric-board': 'Fabric swatch board',
+    'fabric-board-2': 'Fabric swatches up close',
     'team-client-1': 'Our team with a customer',
     'team-client-2': 'Our team with a customer',
     'team-client-3': 'Our team with a customer',

@@ -2316,3 +2316,28 @@ h2 {
   aspect-ratio: 16 / 9;
   object-fit: cover;
 }
+
+/* Home hero: the store film in the secondary frame (desktop), a little larger than the photo */
+@media (min-width: 960px) {
+  .hero-media .hero-secondary.hero-secondary-video {
+    width: 56%;
+  }
+}
+
+.hero-clip {
+  position: relative;
+}
+
+.hero-clip video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-clip .intro-toggle {
+  right: 0.6rem;
+  bottom: 0.6rem;
+  width: 36px;
+  height: 36px;
+}

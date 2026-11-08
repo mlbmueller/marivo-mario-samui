@@ -18,6 +18,8 @@ import {
   visibleCategories,
 } from "@/components/Sections";
 import { TrackedLink } from "@/components/TrackedLink";
+import { HeroClip } from "@/components/HeroClip";
+import { introTexts, introVideo } from "@/content/intro";
 import { localePath } from "@/lib/i18n";
 import { pageMetadata, resolveLocale, type LocaleParams } from "@/lib/page";
 import {
@@ -39,6 +41,7 @@ export async function generateMetadata({
 export default async function HomePage({ params }: { params: LocaleParams }) {
   const { locale, t } = await resolveLocale(params);
   const lp = (path: string) => localePath(locale, path);
+  const intro = introTexts(locale);
   const mario = team.find((m) => m.id === "mario")!;
   const looks = visibleLooks().slice(0, 6);
   // Title image (owner, 4 Nov 2026): Mario's portrait as the main image, Mario and James
@@ -74,15 +77,22 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
                 sizes="(min-width: 960px) 55vw, 100vw"
               />
             </div>
-            {heroSecondaryId && (
-              <div className="hero-secondary">
-                <Media
-                  id={heroSecondaryId}
-                  dict={t}
-                  ratio="4 / 3"
-                  sizes="25vw"
+            {introVideo && hasPhoto(introVideo.poster) ? (
+              // Owner request 8 Nov 2026: the store film in the small hero frame, a bit larger.
+              <div className="hero-secondary hero-secondary-video">
+                <HeroClip
+                  src={introVideo.mobileSrc ?? introVideo.src}
+                  poster={media[introVideo.poster].src!}
+                  label={intro.filmHeading}
+                  labels={{ pause: intro.pause, play: intro.play }}
                 />
               </div>
+            ) : (
+              heroSecondaryId && (
+                <div className="hero-secondary">
+                  <Media id={heroSecondaryId} dict={t} ratio="4 / 3" sizes="25vw" />
+                </div>
+              )
             )}
           </div>
           <div>

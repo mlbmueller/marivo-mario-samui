@@ -549,6 +549,7 @@ const fr: Dictionary = {
     'detail-waistcoat': 'Revers, gilet et cravate',
     'fabric-book': 'Livre d’échantillons de tissus',
     'fabric-board': 'Planche d’échantillons de tissus',
+    'fabric-board-2': 'Échantillons de tissus en gros plan',
     'team-client-1': 'Notre équipe avec un client',
     'team-client-2': 'Notre équipe avec un client',
     'team-client-3': 'Notre équipe avec un client',

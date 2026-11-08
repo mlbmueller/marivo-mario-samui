@@ -18,7 +18,7 @@ export default async function CraftsmanshipPage({ params }: { params: LocalePara
   const { locale, t } = await resolveLocale(params);
   const c = t.craftsmanship;
   const blocks: { heading: string; text: string; image: MediaId; more?: MediaId[] }[] = [
-    { heading: c.fabricsHeading, text: c.fabricsText, image: 'detail-fabrics', more: ['fabric-book', 'fabric-board'] },
+    { heading: c.fabricsHeading, text: c.fabricsText, image: 'detail-fabrics', more: ['fabric-book', 'fabric-board', 'fabric-board-2'] },
     { heading: c.detailsHeading, text: c.detailsText, image: 'detail-finish', more: ['detail-lining', 'detail-lapel', 'detail-waistcoat', 'detail-trousers', 'detail-sleeve'] },
     { heading: c.fitHeading, text: c.fitText, image: 'detail-measuring' },
   ];
